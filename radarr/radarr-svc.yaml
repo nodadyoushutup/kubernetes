@@ -1,45 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: radarr-deployment
+  name: radarr-service
 spec:
-  replicas: 1
   selector:
-    matchLabels:
-      app: radarr
-  template:
-    metadata:
-      labels:
-        app: radarr
-    spec:
-      containers:
-      - name: radarr
-        image: linuxserver/radarr:5.6.0
-        ports:
-        - containerPort: 7878
-        env:
-        - name: UMASK_SET
-          value: "022"
-        - name: TZ
-          value: "America/New_york"
-        - name: PUID
-          value: "1000"
-        - name: PGID
-          value: "1000"
-      #   volumeMounts:
-      #   - name: movies
-      #     mountPath: /movies
-      #   - name: downloads
-      #     mountPath: /downloads
-      #   - name: config
-      #     mountPath: /config
-      # volumes:
-      # - name: movies
-      #   hostPath:
-      #     path: /host/path/to/movies
-      # - name: downloads
-      #   hostPath:
-      #     path: /host/path/to/downloads
-      # - name: config
-      #   hostPath:
-      #     path: /host/path/to/config
+    app: radarr
+  ports:
+  - protocol: TCP
+    port: 7878
+    targetPort: 7878
+  type: LoadBalancer
