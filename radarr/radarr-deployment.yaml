@@ -21,25 +21,15 @@ spec:
         - name: UMASK_SET
           value: "022"
         - name: TZ
-          value: "Europe/London"
+          value: "America/New_York"
         - name: PUID
           value: "1000"
         - name: PGID
           value: "1000"
-      #   volumeMounts:
-      #   - name: movies
-      #     mountPath: /movies
-      #   - name: downloads
-      #     mountPath: /downloads
-      #   - name: config
-      #     mountPath: /config
-      # volumes:
-      # - name: movies
-      #   hostPath:
-      #     path: /host/path/to/movies
-      # - name: downloads
-      #   hostPath:
-      #     path: /host/path/to/downloads
-      # - name: config
-      #   hostPath:
-      #     path: /host/path/to/config
+        volumeMounts:
+        - name: config
+          mountPath: /config
+      volumes:
+      - name: config
+        hostPath:
+          path: /host/path/to/config
