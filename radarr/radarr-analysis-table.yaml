@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: successful-ping
+  namespace: radarr
+spec:
+  args:
+    - name: service-url
+      value: http://192.168.0.200:7878/ping
+  metrics:
+    - name: successful-ping
+      interval: 10s
+      successCondition: result == "pong"
+      provider:
+        web:
+          url: "{{ args.service-url }}"
+          jsonPath: "{$.result}"
