@@ -30,8 +30,14 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
+        - name: media
+          mountPath: /media
       volumes:
       - name: config
         nfs: 
           server: 192.168.0.100
           path: /mnt/epool/config/radarr
+      - name: media
+        nfs: 
+          server: 192.168.0.100
+          path: /mnt/epool/media
