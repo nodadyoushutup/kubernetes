@@ -32,5 +32,6 @@ spec:
           mountPath: /config
       volumes:
       - name: config
-        persistentVolumeClaim:
-          claimName: radarr-config-pvc
+        nfs: 
+          server: 192.168.0.100
+          path: /config/radarr
