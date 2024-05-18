@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hello-world-nginx
+  name: radarr
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   source:
     repoURL: https://github.com/nodadyoushutup/kubernetes
     targetRevision: HEAD
-    path: nginx-hello-world
+    path: radarr
   destination: 
     server: https://kubernetes.default.svc
-    namespace: hello-world
+    namespace: radarr
 
   syncPolicy:
     syncOptions:

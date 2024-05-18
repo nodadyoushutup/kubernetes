@@ -1,0 +1,6 @@
+data:
+  repositories: |
+    - url: https://github.com/nodadyoushutup/kubernetes.git
+      type: git
+      repoServerTimeoutSeconds: 30
+  statusRefreshTimeoutSeconds: "30"
