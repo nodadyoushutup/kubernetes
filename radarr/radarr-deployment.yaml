@@ -34,4 +34,4 @@ spec:
       - name: config
         nfs: 
           server: 192.168.0.100
-          path: /config/radarr
+          path: /mnt/epool/config/radarr
