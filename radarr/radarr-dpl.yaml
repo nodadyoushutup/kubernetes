@@ -47,9 +47,13 @@ spec:
       - name: init
         image: busybox
         command: ["chown", "-v", "568:568", "/config"]
+        command: ["chown", "-v", "568:568", "/backup"]
         volumeMounts:
         - name: config
           mountPath: /config
+        volumeMounts:
+        - name: backup
+          mountPath: /backup
       volumes:
       - name: config
         persistentVolumeClaim:
