@@ -1,7 +1,22 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: radarr-pv
+  name: radarr-config-pv
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  hostPath:
+    path: /mnt/config/radarr
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: radarr-backup-pv
 spec:
   capacity:
     storage: 50Gi
