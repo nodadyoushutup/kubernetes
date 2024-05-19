@@ -1,0 +1,22 @@
+# helmreleases/rancher-helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rancher
+  namespace: cattle-system
+spec:
+  releaseName: rancher
+  chart:
+    spec:
+      chart: rancher
+      sourceRef:
+        kind: HelmRepository
+        name: rancher-stable
+        namespace: cattle-system
+      version: "v2.7.0"
+  interval: 5m0s
+  install:
+    crds: CreateReplace
+  values:
+    hostname: rancher.yourdomain.com
+    replicas: 3
