@@ -45,7 +45,7 @@ spec:
       - name: config
         nfs: 
           server: 192.168.0.100
-          path: /mnt/epool/config/k8s-radarr
+          path: /mnt/epool/config/radarr
       - name: media
         nfs: 
           server: 192.168.0.100
