@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: radarr-deployment
+  name: radarr-dpl
   namespace: radarr
 spec:
   replicas: 1
