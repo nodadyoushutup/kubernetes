@@ -25,5 +25,5 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: standard
   hostPath:
-    path: /mnt/config/radarr
+    path: /mnt/backup/radarr
     type: DirectoryOrCreate
