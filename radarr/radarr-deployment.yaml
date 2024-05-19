@@ -36,8 +36,11 @@ spec:
           httpGet:
             path: /ping
             port: 7878
-          initialDelaySeconds: 10
-          periodSeconds: 5
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 6
+          successThreshold: 1 
       volumes:
       - name: config
         nfs: 
