@@ -32,6 +32,12 @@ spec:
           mountPath: /config
         - name: media
           mountPath: /media
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 7878
+          initialDelaySeconds: 10
+          periodSeconds: 5
       volumes:
       - name: config
         nfs: 

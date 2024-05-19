@@ -1,52 +1,52 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
-metadata:
-  name: radarr-rollout
-  namespace: radarr
-spec:
-  replicas: 1
-  strategy:
-    blueGreen:
-      activeService: radarr-service
-      previewService: radarr-preview
-      autoPromotionEnabled: true
-      scaleDownDelaySeconds: 30
-      postPromotionAnalysis:
-        templates:
-          - templateName: successful-ping
-  selector:
-    matchLabels:
-      app: radarr
-  template:
-    metadata:
-      labels:
-        app: radarr
-    spec:
-      containers:
-      - name: radarr
-        image: linuxserver/radarr:5.6.0
-        ports:
-        - containerPort: 7878
-        env:
-        - name: UMASK_SET
-          value: "022"
-        - name: TZ
-          value: "America/New_York"
-        - name: PUID
-          value: "568"
-        - name: PGID
-          value: "568"
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        - name: media
-          mountPath: /media
-      volumes:
-      - name: config
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/config/radarr
-      - name: media
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/media
+# apiVersion: argoproj.io/v1alpha1
+# kind: Rollout
+# metadata:
+#   name: radarr-rollout
+#   namespace: radarr
+# spec:
+#   replicas: 1
+#   strategy:
+#     blueGreen:
+#       activeService: radarr-service
+#       previewService: radarr-preview
+#       autoPromotionEnabled: true
+#       scaleDownDelaySeconds: 30
+#       postPromotionAnalysis:
+#         templates:
+#           - templateName: successful-ping
+#   selector:
+#     matchLabels:
+#       app: radarr
+#   template:
+#     metadata:
+#       labels:
+#         app: radarr
+#     spec:
+#       containers:
+#       - name: radarr
+#         image: linuxserver/radarr:5.6.0
+#         ports:
+#         - containerPort: 7878
+#         env:
+#         - name: UMASK_SET
+#           value: "022"
+#         - name: TZ
+#           value: "America/New_York"
+#         - name: PUID
+#           value: "568"
+#         - name: PGID
+#           value: "568"
+#         volumeMounts:
+#         - name: config
+#           mountPath: /config
+#         - name: media
+#           mountPath: /media
+#       volumes:
+#       - name: config
+#         nfs:
+#           server: 192.168.0.100
+#           path: /mnt/epool/config/radarr
+#       - name: media
+#         nfs:
+#           server: 192.168.0.100
+#           path: /mnt/epool/media
