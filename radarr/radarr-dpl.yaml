@@ -48,8 +48,8 @@ spec:
         image: busybox
         command: ["chown", "-R", "568:568", "/mnt/config/radarr"]
         volumeMounts:
-        - name: myvolume
-          mountPath: /mnt/config/radarr
+        - name: config
+          mountPath: /config
       volumes:
       - name: config
         persistentVolumeClaim:
