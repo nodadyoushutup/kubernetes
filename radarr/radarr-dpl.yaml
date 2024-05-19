@@ -43,6 +43,13 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 6
           successThreshold: 1 
+      initContainers:
+      - name: init
+        image: busybox
+        command: ["chown", "-R", "568:568", "/mnt/config/radarr"]
+        volumeMounts:
+        - name: myvolume
+          mountPath: /mnt/config/radarr
       volumes:
       - name: config
         persistentVolumeClaim:

@@ -7,7 +7,6 @@ spec:
     storage: 50Gi
   accessModes:
     - ReadWriteOnce
-  # claimRef: null
   persistentVolumeReclaimPolicy: Retain
   storageClassName: standard
   hostPath:
