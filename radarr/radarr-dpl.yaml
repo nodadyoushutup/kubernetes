@@ -46,7 +46,7 @@ spec:
       initContainers:
       - name: init
         image: busybox
-        command: ["chown", "-R", "568:568", "/mnt/config/radarr"]
+        command: ["chown", "-R", "568:568", "/config"]
         volumeMounts:
         - name: config
           mountPath: /config
