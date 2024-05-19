@@ -1,8 +1,0 @@
-# helmrepositories/rancher-helmrepository.yaml
-apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: HelmRepository
-metadata:
-  name: rancher-stable
-  namespace: cattle-system
-spec:
-  url: https://releases.rancher.com/server-charts/stable
