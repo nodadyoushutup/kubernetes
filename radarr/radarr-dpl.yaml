@@ -50,8 +50,7 @@ spec:
           - sh
           - -c
           - |
-            chown -v 568:568 /config
-            chown -v 568:568 /backup
+            chown -R 568:568 /config /backup
         volumeMounts:
         - name: config
           mountPath: /config
