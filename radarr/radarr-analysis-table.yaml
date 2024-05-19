@@ -11,6 +11,7 @@ spec:
     - name: successful-ping
       interval: 10s
       successCondition: result == "pong"
+      count: 3
       provider:
         web:
           url: "{{ args.service-url }}"
