@@ -4,7 +4,7 @@
 NODES=("192.168.0.204" "192.168.0.205" "192.168.0.206" "192.168.0.207")
 
 # Path to be created
-DIR_PATH="/mnt/config/radarr"
+DIR_PATH="/mnt/backup/radarr"
 
 # User and group to own the directory
 USER_ID=568

@@ -30,6 +30,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
+        - name: backup
+          mountPath: /backup
         - name: media
           mountPath: /media
         readinessProbe:
@@ -44,7 +46,10 @@ spec:
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: radarr-pvc
+          claimName: radarr-config-pvc
+      - name: backup
+        persistentVolumeClaim:
+          claimName: radarr-backup-pvc
       - name: media
         nfs: 
           server: 192.168.0.100
