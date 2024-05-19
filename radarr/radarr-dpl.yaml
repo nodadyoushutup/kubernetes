@@ -55,7 +55,6 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
-        volumeMounts:
         - name: backup
           mountPath: /backup
       volumes:
