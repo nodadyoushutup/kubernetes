@@ -1,25 +1,25 @@
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: radarr-config-pvc
-#   namespace: radarr
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: standard
-#   resources:
-#     requests:
-#       storage: 50Gi
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: radarr-backup-pvc
-#   namespace: radarr
-# spec:
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: standard
-#   resources:
-#     requests:
-#       storage: 50Gi
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-config-pvc
+  namespace: radarr
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 50Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-backup-pvc
+  namespace: radarr
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 50Gi
