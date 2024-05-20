@@ -30,8 +30,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
-        # - name: backup
-        #   mountPath: /backup
+        - name: backup
+          mountPath: /backup
         - name: media
           mountPath: /media
         readinessProbe:
@@ -43,36 +43,15 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 6
           successThreshold: 1 
-      # initContainers:
-      # - name: init
-      #   image: busybox
-      #   command:
-      #     - sh
-      #     - -c
-      #     - |
-      #       chown -v 568:568 /config
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        # - name: backup
-        #   mountPath: /backup
       volumes:
       - name: config
         persistentVolumeClaim:
           claimName: radarr-config-pvc
-      # - name: backup
-      #   persistentVolumeClaim:
-      #     claimName: radarr-backup-pvc
+      - name: backup
+        persistentVolumeClaim:
+          claimName: radarr-backup-pvc
       - name: media
         nfs: 
           server: 192.168.0.100
           path: /mnt/epool/media
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #       - matchExpressions:
-      #         - key: node-type
-      #           operator: In
-      #           values:
-      #           - arr
+      
