@@ -61,9 +61,9 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: radarr-config-pvc
-      - name: backup
-        persistentVolumeClaim:
-          claimName: radarr-backup-pvc
+      # - name: backup
+      #   persistentVolumeClaim:
+      #     claimName: radarr-backup-pvc
       - name: media
         nfs: 
           server: 192.168.0.100
