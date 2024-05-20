@@ -43,15 +43,14 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 6
           successThreshold: 1 
-      initContainers:
-      - name: init
-        image: busybox
-        command:
-          - sh
-          - -c
-          - |
-            chown -v 568:568 /config
-            chown -v 568:568 /backup
+      # initContainers:
+      # - name: init
+      #   image: busybox
+      #   command:
+      #     - sh
+      #     - -c
+      #     - |
+      #       chown -v 568:568 /config
         volumeMounts:
         - name: config
           mountPath: /config
