@@ -55,8 +55,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
-        - name: backup
-          mountPath: /backup
+        # - name: backup
+        #   mountPath: /backup
       volumes:
       - name: config
         persistentVolumeClaim:
