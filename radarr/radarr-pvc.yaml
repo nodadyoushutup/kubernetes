@@ -28,7 +28,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: radarr-config-pvc
-  namespace: default
+  namespace: radarr
 spec:
   accessModes:
     - ReadWriteOnce
