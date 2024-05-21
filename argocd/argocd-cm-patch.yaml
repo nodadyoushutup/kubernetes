@@ -1,8 +1,8 @@
 # Refresh interval patch. Run with the following command
 # kubectl patch configmap argocd-cm -n argocd --patch "$(cat argocd-cm-patch.yaml)"
-data:
-  repositories: |
-    - url: https://github.com/nodadyoushutup/kubernetes.git
-      type: git
-      repoServerTimeoutSeconds: 30
-  statusRefreshTimeoutSeconds: "30"
+# data:
+#   repositories: |
+#     - url: https://github.com/nodadyoushutup/kubernetes.git
+#       type: git
+#       repoServerTimeoutSeconds: 30
+#   statusRefreshTimeoutSeconds: "30"

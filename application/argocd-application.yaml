@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: longhorn
+  name: argocd
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   source:
     repoURL: https://github.com/nodadyoushutup/kubernetes
     targetRevision: HEAD
-    path: longhorn
+    path: argocd
   destination: 
     server: https://kubernetes.default.svc
-    namespace: longhorn-system
+    namespace: argocd
 
   syncPolicy:
     syncOptions:
