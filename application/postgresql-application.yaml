@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgresql
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/nodadyoushutup/kubernetes
+    targetRevision: HEAD
+    path: postgresql
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: postgresql
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
