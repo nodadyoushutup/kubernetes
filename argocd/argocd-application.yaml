@@ -21249,6 +21249,12 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
   name: argocd-cm
+data:
+  repositories: |
+    - url: https://github.com/nodadyoushutup/kubernetes.git
+      type: git
+      repoServerTimeoutSeconds: 30
+  statusRefreshTimeoutSeconds: "30"
 ---
 apiVersion: v1
 kind: ConfigMap
