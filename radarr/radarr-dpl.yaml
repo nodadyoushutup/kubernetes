@@ -18,13 +18,13 @@ spec:
         image: busybox
         command: ['sh', '-c', 'echo "Creating /mnt/config/radarr" && mkdir -p /mnt/config/radarr && echo "Changing ownership of /mnt/config/radarr to 568:568" && chown -R 568:568 /mnt/config/radarr']
         volumeMounts:
-        - name: config-volume
+        - name: config
           mountPath: /mnt/config/radarr
       - name: init-backup-dir
         image: busybox
         command: ['sh', '-c', 'echo "Creating /mnt/backup/radarr" && mkdir -p /mnt/backup/radarr && echo "Changing ownership of /mnt/backup/radarr to 568:568" && chown -R 568:568 /mnt/backup/radarr']
         volumeMounts:
-        - name: backup-volume
+        - name: backup
           mountPath: /mnt/backup/radarr
       containers:
       - name: radarr
@@ -67,4 +67,3 @@ spec:
         nfs: 
           server: 192.168.0.100
           path: /mnt/epool/media
-      
