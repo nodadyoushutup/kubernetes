@@ -14,18 +14,19 @@ spec:
         app: radarr
     spec:
       initContainers:
-      - name: init-config-dir
+      - name: init-dirs
         image: busybox
-        command: ['sh', '-c', 'echo "Creating /mnt/config/radarr" && mkdir -p /mnt/config/radarr && echo "Changing ownership of /mnt/config/radarr to 568:568" && chown -R 568:568 /mnt/config/radarr']
-        volumeMounts:
-        - name: config
-          mountPath: /mnt/config/radarr
-      - name: init-backup-dir
-        image: busybox
-        command: ['sh', '-c', 'echo "Creating /mnt/backup/radarr" && mkdir -p /mnt/backup/radarr && echo "Changing ownership of /mnt/backup/radarr to 568:568" && chown -R 568:568 /mnt/backup/radarr']
-        volumeMounts:
-        - name: backup
-          mountPath: /mnt/backup/radarr
+        command:
+        - sh
+        - -c
+        - echo "Creating /mnt/config/radarr"
+        - mkdir -p /mnt/config/radarr
+        - echo "Changing ownership of /mnt/config/radarr to 568:568"
+        - chown -R 568:568 /mnt/config/radarr
+        - echo "Creating /mnt/backup/radarr"
+        - mkdir -p /mnt/backup/radarr
+        - echo "Changing ownership of /mnt/backup/radarr to 568:568"
+        - chown -R 568:568 /mnt/backup/radarr
       containers:
       - name: radarr
         image: linuxserver/radarr:5.6.0
