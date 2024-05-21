@@ -5,8 +5,8 @@ metadata:
   namespace: radarr
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: longhorn
+    - ReadWriteMany
+  storageClassName: standard
   resources:
     requests:
       storage: 50Gi
@@ -18,8 +18,8 @@ metadata:
   namespace: radarr
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: longhorn
+    - ReadWriteMany
+  storageClassName: standard
   resources:
     requests:
       storage: 50Gi
