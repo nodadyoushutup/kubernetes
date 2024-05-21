@@ -9,6 +9,7 @@ spec:
     - ReadWriteMany
   hostPath:
     path: /mnt/config/radarr
+  persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -21,3 +22,4 @@ spec:
     - ReadWriteMany
   hostPath:
     path: /mnt/backup/radarr
+  persistentVolumeReclaimPolicy: Retain
