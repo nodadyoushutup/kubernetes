@@ -10,6 +10,7 @@ spec:
   hostPath:
     path: /mnt/config/radarr
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -23,3 +24,4 @@ spec:
   hostPath:
     path: /mnt/backup/radarr
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard

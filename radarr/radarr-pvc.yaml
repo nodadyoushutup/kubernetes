@@ -10,6 +10,7 @@ spec:
     requests:
       storage: 50Gi
   volumeName: radarr-config-pv
+  storageClassName: standard
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -23,3 +24,4 @@ spec:
     requests:
       storage: 50Gi
   volumeName: radarr-backup-pv
+  storageClassName: standard
