@@ -7,10 +7,16 @@ spec:
     storage: 50Gi
   accessModes:
     - ReadWriteMany
-  hostPath:
-    path: /mnt/config/radarr
+  csi:
+    driver: rook-ceph.cephfs.csi.ceph.com
+    volumeHandle: radarr-config-pv
+    fsType: ceph
+    volumeAttributes:
+      clusterID: rook-ceph
+      fsName: myfs
+      pool: myfs-replicated
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard
+  storageClassName: rook-cephfs
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -21,7 +27,13 @@ spec:
     storage: 50Gi
   accessModes:
     - ReadWriteMany
-  hostPath:
-    path: /mnt/backup/radarr
+  csi:
+    driver: rook-ceph.cephfs.csi.ceph.com
+    volumeHandle: radarr-backup-pv
+    fsType: ceph
+    volumeAttributes:
+      clusterID: rook-ceph
+      fsName: myfs
+      pool: myfs-replicated
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard
+  storageClassName: rook-cephfs
