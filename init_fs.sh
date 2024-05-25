@@ -12,6 +12,7 @@ install_fs_pkgs() {
     echo "Installing nfs-common on node $NODE_IP"
     ssh ${SSH_USER}@${NODE_IP} "sudo apt-get update && sudo apt-get install -y nfs-common"
     ssh ${SSH_USER}@${NODE_IP} "sudo apt-get update && sudo apt-get install -y ceph-common"
+    ssh ${SSH_USER}@${NODE_IP} "sudo apt-get update && sudo apt-get install -y ceph-fuse"
     if [ $? -eq 0 ]; then
         echo "Successfully installed nfs-common on $NODE_IP"
     else
