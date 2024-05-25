@@ -35,9 +35,9 @@ spec:
           mountPath: /config
         resources:
           requests:
-            ephemeral-storage: "1Gi"
-          limits:
             ephemeral-storage: "2Gi"
+          limits:
+            ephemeral-storage: "5Gi"
       volumes:
       - name: config
         persistentVolumeClaim:
