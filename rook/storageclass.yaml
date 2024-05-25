@@ -19,4 +19,3 @@ reclaimPolicy: Delete
 allowVolumeExpansion: true
 mountOptions:
   - debug
-  - _netdev
