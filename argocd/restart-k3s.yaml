@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: restart-k3s
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: restart-k3s
+  template:
+    metadata:
+      labels:
+        name: restart-k3s
+    spec:
+      hostPID: true
+      containers:
+      - name: restart-k3s
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          echo "Restarting k3s service"
+          nsenter --mount=/proc/1/ns/mnt -- /bin/systemctl restart k3s || nsenter --mount=/proc/1/ns/mnt -- /bin/systemctl restart k3s-agent
+        securityContext:
+          privileged: true
+      restartPolicy: Always
