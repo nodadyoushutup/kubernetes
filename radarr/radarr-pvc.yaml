@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: radarr-config-pvc
-  namespace: kube-system
+  namespace: radarr
 spec:
   accessModes:
   - ReadWriteMany
