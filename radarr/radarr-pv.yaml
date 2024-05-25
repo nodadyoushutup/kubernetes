@@ -15,6 +15,12 @@ spec:
       clusterID: rook-ceph
       fsName: myfs
       pool: myfs-replicated
+    nodeStageSecretRef:
+      name: rook-csi-cephfs-node
+      namespace: rook-ceph
+    controllerExpandSecretRef:
+      name: rook-csi-cephfs-provisioner
+      namespace: rook-ceph
   persistentVolumeReclaimPolicy: Retain
   storageClassName: rook-cephfs
 ---
@@ -35,5 +41,11 @@ spec:
       clusterID: rook-ceph
       fsName: myfs
       pool: myfs-replicated
+    nodeStageSecretRef:
+      name: rook-csi-cephfs-node
+      namespace: rook-ceph
+    controllerExpandSecretRef:
+      name: rook-csi-cephfs-provisioner
+      namespace: rook-ceph
   persistentVolumeReclaimPolicy: Retain
   storageClassName: rook-cephfs
