@@ -12,7 +12,6 @@ spec:
   resources:
     requests:
       storage: 50Gi
-  volumeName: radarr-config-pv
   storageClassName: rook-cephfs
 ---
 apiVersion: v1
@@ -28,5 +27,4 @@ spec:
   resources:
     requests:
       storage: 50Gi
-  volumeName: radarr-backup-pv
   storageClassName: rook-cephfs
