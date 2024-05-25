@@ -1,52 +1,52 @@
-# radarr-pv.yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: radarr-config-pv
-spec:
-  capacity:
-    storage: 50Gi
-  accessModes:
-    - ReadWriteMany
-  csi:
-    driver: rook-ceph.cephfs.csi.ceph.com
-    volumeHandle: radarr-config-pv
-    fsType: ceph
-    volumeAttributes:
-      clusterID: rook-ceph
-      fsName: myfs
-      pool: myfs-replicated
-    nodeStageSecretRef:
-      name: rook-csi-cephfs-node
-      namespace: rook-ceph
-    controllerExpandSecretRef:
-      name: rook-csi-cephfs-provisioner
-      namespace: rook-ceph
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: rook-cephfs
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: radarr-backup-pv
-spec:
-  capacity:
-    storage: 50Gi
-  accessModes:
-    - ReadWriteMany
-  csi:
-    driver: rook-ceph.cephfs.csi.ceph.com
-    volumeHandle: radarr-backup-pv
-    fsType: ceph
-    volumeAttributes:
-      clusterID: rook-ceph
-      fsName: myfs
-      pool: myfs-replicated
-    nodeStageSecretRef:
-      name: rook-csi-cephfs-node
-      namespace: rook-ceph
-    controllerExpandSecretRef:
-      name: rook-csi-cephfs-provisioner
-      namespace: rook-ceph
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: rook-cephfs
+# # radarr-pv.yaml
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: radarr-config-pv
+# spec:
+#   capacity:
+#     storage: 50Gi
+#   accessModes:
+#     - ReadWriteMany
+#   csi:
+#     driver: rook-ceph.cephfs.csi.ceph.com
+#     volumeHandle: radarr-config-pv
+#     fsType: ceph
+#     volumeAttributes:
+#       clusterID: rook-ceph
+#       fsName: myfs
+#       pool: myfs-replicated
+#     nodeStageSecretRef:
+#       name: rook-csi-cephfs-node
+#       namespace: rook-ceph
+#     controllerExpandSecretRef:
+#       name: rook-csi-cephfs-provisioner
+#       namespace: rook-ceph
+#   persistentVolumeReclaimPolicy: Retain
+#   storageClassName: rook-cephfs
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: radarr-backup-pv
+# spec:
+#   capacity:
+#     storage: 50Gi
+#   accessModes:
+#     - ReadWriteMany
+#   csi:
+#     driver: rook-ceph.cephfs.csi.ceph.com
+#     volumeHandle: radarr-backup-pv
+#     fsType: ceph
+#     volumeAttributes:
+#       clusterID: rook-ceph
+#       fsName: myfs
+#       pool: myfs-replicated
+#     nodeStageSecretRef:
+#       name: rook-csi-cephfs-node
+#       namespace: rook-ceph
+#     controllerExpandSecretRef:
+#       name: rook-csi-cephfs-provisioner
+#       namespace: rook-ceph
+#   persistentVolumeReclaimPolicy: Retain
+#   storageClassName: rook-cephfs
