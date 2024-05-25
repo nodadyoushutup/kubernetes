@@ -47,10 +47,41 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: radarr-config-pvc
+        csi:
+          driver: rook-ceph.cephfs.csi.ceph.com
+          volumeHandle: radarr-config-pv
+          fsType: ceph
+          volumeAttributes:
+            clusterID: rook-ceph
+            fsName: myfs
+            pool: myfs-replicated
+          nodeStageSecretRef:
+            name: rook-csi-cephfs-node
+            namespace: rook-ceph
+          controllerExpandSecretRef:
+            name: rook-csi-cephfs-provisioner
+            namespace: rook-ceph
       - name: backup
         persistentVolumeClaim:
           claimName: radarr-backup-pvc
+        csi:
+          driver: rook-ceph.cephfs.csi.ceph.com
+          volumeHandle: radarr-backup-pv
+          fsType: ceph
+          volumeAttributes:
+            clusterID: rook-ceph
+            fsName: myfs
+            pool: myfs-replicated
+          nodeStageSecretRef:
+            name: rook-csi-cephfs-node
+            namespace: rook-ceph
+          controllerExpandSecretRef:
+            name: rook-csi-cephfs-provisioner
+            namespace: rook-ceph
       - name: media
-        nfs: 
+        nfs:
           server: 192.168.0.100
           path: /mnt/epool/media
+          readOnly: false
+          mountOptions:
+            - vers=4.1
