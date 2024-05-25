@@ -7,14 +7,16 @@ provisioner: rook-ceph.cephfs.csi.ceph.com
 parameters:
   clusterID: rook-ceph
   fsName: myfs
-  pool: myfs-data0  # Correct data pool name
+  pool: myfs-data0
   csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
   csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
   csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
   csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
   csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
   csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+  mounter: fuse  # Optional: Use fuse if kernel client has issues
 reclaimPolicy: Delete
 allowVolumeExpansion: true
 mountOptions:
   - debug
+  - _netdev

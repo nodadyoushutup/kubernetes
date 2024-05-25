@@ -7,10 +7,11 @@ NODES=("192.168.0.201" "192.168.0.202" "192.168.0.203" "192.168.0.204" "192.168.
 SSH_USER="ubuntu"
 
 # Function to install nfs-common on a node
-install_nfs_common() {
+install_fs_pkgs() {
     NODE_IP=$1
     echo "Installing nfs-common on node $NODE_IP"
     ssh ${SSH_USER}@${NODE_IP} "sudo apt-get update && sudo apt-get install -y nfs-common"
+    ssh ${SSH_USER}@${NODE_IP} "sudo apt-get update && sudo apt-get install -y ceph-common"
     if [ $? -eq 0 ]; then
         echo "Successfully installed nfs-common on $NODE_IP"
     else
@@ -18,7 +19,8 @@ install_nfs_common() {
     fi
 }
 
+
 # Loop through each node and install nfs-common
 for NODE in "${NODES[@]}"; do
-    install_nfs_common ${NODE}
+    install_fs_pkgs ${NODE}
 done
