@@ -1,58 +1,58 @@
-# radarr-dpl.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: radarr-dpl
-  namespace: radarr
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: radarr
-  template:
-    metadata:
-      labels:
-        app: radarr
-    spec:
-      containers:
-      - name: radarr
-        image: linuxserver/radarr:5.6.0
-        ports:
-        - containerPort: 7878
-        env:
-        - name: UMASK_SET
-          value: "022"
-        - name: TZ
-          value: "America/New_York"
-        - name: PUID
-          value: "568"
-        - name: PGID
-          value: "568"
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        - name: backup
-          mountPath: /backup
-        - name: media
-          mountPath: /media
-        readinessProbe:
-          httpGet:
-            path: /ping
-            port: 7878
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 6
-          successThreshold: 1 
-      volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: radarr-config-pvc
-      - name: backup
-        persistentVolumeClaim:
-          claimName: radarr-backup-pvc
-      - name: media
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/media
-          readOnly: false
+# # radarr-dpl.yaml
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: radarr-dpl
+#   namespace: radarr
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: radarr
+#   template:
+#     metadata:
+#       labels:
+#         app: radarr
+#     spec:
+#       containers:
+#       - name: radarr
+#         image: linuxserver/radarr:5.6.0
+#         ports:
+#         - containerPort: 7878
+#         env:
+#         - name: UMASK_SET
+#           value: "022"
+#         - name: TZ
+#           value: "America/New_York"
+#         - name: PUID
+#           value: "568"
+#         - name: PGID
+#           value: "568"
+#         volumeMounts:
+#         - name: config
+#           mountPath: /config
+#         - name: backup
+#           mountPath: /backup
+#         - name: media
+#           mountPath: /media
+#         readinessProbe:
+#           httpGet:
+#             path: /ping
+#             port: 7878
+#           initialDelaySeconds: 10
+#           periodSeconds: 10
+#           timeoutSeconds: 10
+#           failureThreshold: 6
+#           successThreshold: 1 
+#       volumes:
+#       - name: config
+#         persistentVolumeClaim:
+#           claimName: radarr-config-pvc
+#       - name: backup
+#         persistentVolumeClaim:
+#           claimName: radarr-backup-pvc
+#       - name: media
+#         nfs:
+#           server: 192.168.0.100
+#           path: /mnt/epool/media
+#           readOnly: false
