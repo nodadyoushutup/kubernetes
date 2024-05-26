@@ -6,7 +6,7 @@ metadata:
 data:
   tarcopy.sh: |
     #!/bin/sh
-    echo "Setting timezone to America/New)York"
+    echo "Setting timezone to America/New_York"
     export TZ="America/New_York"
     echo "Starting job at $(date)"
     cd /pvc
