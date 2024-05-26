@@ -4,7 +4,6 @@ metadata:
   name: radarr-tarcopy-job
   namespace: radarr
 spec:
-  backoffLimit: 0
   template:
     spec:
       initContainers:
