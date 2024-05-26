@@ -5,7 +5,7 @@ metadata:
   namespace: radarr
 subjects:
 - kind: ServiceAccount
-  name: default
+  name: snapshot-sa
   namespace: radarr
 roleRef:
   kind: Role

@@ -49,7 +49,7 @@ spec:
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
-      serviceAccountName: default
+      serviceAccountName: snapshot-sa
       template:
         spec:
           containers:
