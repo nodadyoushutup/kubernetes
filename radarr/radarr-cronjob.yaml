@@ -76,7 +76,7 @@ spec:
               EOF
 
               # Step 3: Wait for the new VolumeSnapshot to be ready
-              while [[ $(kubectl get volumesnapshot radarr-config-snapshot -n radarr -o jsonpath='{.status.readyToUse}') != "true" ]]; do
+              while [ "$(kubectl get volumesnapshot radarr-config-snapshot -n radarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
                 echo "Waiting for the VolumeSnapshot to be ready..."
                 sleep 10
               done
