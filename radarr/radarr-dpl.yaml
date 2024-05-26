@@ -37,6 +37,9 @@ spec:
         volumeMounts:
         - name: backup
           mountPath: /backup
+        volumeMounts:
+        - name: media
+          mountPath: /media
       volumes:
       - name: config
         persistentVolumeClaim:
