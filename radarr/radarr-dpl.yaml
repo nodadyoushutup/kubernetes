@@ -29,14 +29,20 @@ spec:
         - name: TZ
           value: "America/New_York"
         - name: PUID
-          value: "0"
+          value: "568"
         - name: PGID
-          value: "0"
+          value: "568"
         volumeMounts:
         - name: config
           mountPath: /config
         - name: media
           mountPath: /media
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 7878
+          initialDelaySeconds: 10
+          periodSeconds: 10
       volumes:
       - name: config
         persistentVolumeClaim:
