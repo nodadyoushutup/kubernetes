@@ -5,6 +5,8 @@ metadata:
   namespace: radarr
 spec:
   schedule: "*/5 * * * *" # This schedule runs the job every 5 minutes
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
