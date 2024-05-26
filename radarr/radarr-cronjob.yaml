@@ -45,7 +45,7 @@ metadata:
   name: radarr-cronjob-snapshot
   namespace: radarr
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "*/10 * * * *"
   successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 1
   jobTemplate:
