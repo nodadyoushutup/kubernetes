@@ -82,6 +82,7 @@ spec:
                       command: ["sh", "/scripts/tarcopy.sh"]
                       securityContext:
                         runAsUser: 568
+                        runAsGroup: 568
                       volumeMounts:
                       - name: pvc
                         mountPath: /pvc
