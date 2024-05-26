@@ -20,13 +20,13 @@ spec:
       initContainers:
       - name: init-chown-config
         image: busybox
-        command: ["sh", "-c", "chown 568:568 /config"]
+        command: ["sh", "-c", "sudo chown 568:568 /config"]
         volumeMounts:
         - name: config
           mountPath: /config
       - name: init-chown-backup
         image: busybox
-        command: ["sh", "-c", "chown 568:568 /backup"]
+        command: ["sh", "-c", "sudo chown 568:568 /backup"]
         volumeMounts:
         - name: backup
           mountPath: /backup
