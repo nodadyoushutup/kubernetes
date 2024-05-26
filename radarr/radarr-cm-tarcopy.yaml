@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tarcopy-script
+  namespace: radarr
+data:
+  tarcopy.sh: |
+    #!/bin/sh
+    echo "Starting job at $(date)"
+    cd /pvc
+    tar -czf /nfs/radarr-backup-$(date +%Y_%m_%d_%H_%M_%S).tar.gz .
+    echo "Job completed at $(date)"
