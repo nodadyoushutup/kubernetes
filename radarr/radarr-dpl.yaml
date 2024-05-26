@@ -35,19 +35,12 @@ spec:
         - name: config
           mountPath: /config
         volumeMounts:
-        - name: backup
-          mountPath: /backup
-        volumeMounts:
         - name: media
           mountPath: /media
       volumes:
       - name: config
         persistentVolumeClaim:
           claimName: radarr-config-pvc
-          readOnly: false
-      - name: backup
-        persistentVolumeClaim:
-          claimName: radarr-backup-pvc
           readOnly: false
       - name: media
         nfs:
