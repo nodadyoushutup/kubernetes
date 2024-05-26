@@ -6,20 +6,6 @@ metadata:
 spec:
   template:
     spec:
-      initContainers:
-      - name: check-radarr-dpl
-        image: bitnami/kubectl:latest
-        command: ["sh", "-c", "kubectl rollout status deployment/radarr-dpl -n radarr"]
-        volumeMounts:
-        - name: pvc
-          mountPath: /pvc
-        env:
-        - name: KUBERNETES_SERVICE_HOST
-          valueFrom:
-            fieldRef:
-              fieldPath: status.hostIP
-        - name: KUBERNETES_SERVICE_PORT
-          value: "6443"
       containers:
       - name: tarcopy
         image: busybox
