@@ -17,6 +17,13 @@ spec:
       labels:
         k8s-app: radarr
     spec:
+      initContainers:
+      - name: init-chown
+        image: busybox
+        command: ["sh", "-c", "chown -R 568:568 /config"]
+        volumeMounts:
+        - name: config
+          mountPath: /config
       containers:
       - name: radarr
         image: linuxserver/radarr:5.6.0
