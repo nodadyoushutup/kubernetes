@@ -9,7 +9,9 @@ spec:
       initContainers:
       - name: chown-nfs
         image: busybox
-        command: ["sh", "-c", "sudo chown -R 568:568 /nfs"]
+        command: ["sh", "-c", "chown -R 568:568 /nfs"]
+        securityContext:
+          runAsUser: 0  # Running as root to change ownership
         volumeMounts:
         - name: nfs
           mountPath: /nfs
@@ -17,6 +19,8 @@ spec:
       - name: tarcopy
         image: busybox
         command: ["sh", "-c", "cd /pvc && tar -czf /nfs/radarr-backup-$(date +%Y%m%d%H%M%S).tar.gz ."]
+        securityContext:
+          runAsUser: 568
         volumeMounts:
         - name: pvc
           mountPath: /pvc
