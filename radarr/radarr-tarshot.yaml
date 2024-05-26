@@ -23,4 +23,4 @@ spec:
       - name: nfs
         nfs:
           server: 192.168.0.100
-          path: /mnt/backup/radarr
+          path: /mnt/epool/tarshots/radarr
