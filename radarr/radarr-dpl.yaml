@@ -1,50 +1,50 @@
-# radarr-dply.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: radarr
-  namespace: radarr
-  labels:
-    k8s-app: radarr
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      k8s-app: radarr
-  template:
-    metadata:
-      labels:
-        k8s-app: radarr
-    spec:
-      containers:
-      - name: radarr
-        image: linuxserver/radarr:5.6.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 7878
-        env:
-        - name: UMASK_SET
-          value: "022"
-        - name: TZ
-          value: "America/New_York"
-        - name: PUID
-          value: "568"
-        - name: PGID
-          value: "568"
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        volumeMounts:
-        - name: media
-          mountPath: /media
-      volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: radarr-config-pvc
-          readOnly: false
-      - name: media
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/media
-          readOnly: false
+# # radarr-dply.yaml
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: radarr
+#   namespace: radarr
+#   labels:
+#     k8s-app: radarr
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       k8s-app: radarr
+#   template:
+#     metadata:
+#       labels:
+#         k8s-app: radarr
+#     spec:
+#       containers:
+#       - name: radarr
+#         image: linuxserver/radarr:5.6.0
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 7878
+#         env:
+#         - name: UMASK_SET
+#           value: "022"
+#         - name: TZ
+#           value: "America/New_York"
+#         - name: PUID
+#           value: "568"
+#         - name: PGID
+#           value: "568"
+#         volumeMounts:
+#         - name: config
+#           mountPath: /config
+#         volumeMounts:
+#         - name: media
+#           mountPath: /media
+#       volumes:
+#       - name: config
+#         persistentVolumeClaim:
+#           claimName: radarr-config-pvc
+#           readOnly: false
+#       - name: media
+#         nfs:
+#           server: 192.168.0.100
+#           path: /mnt/epool/media
+#           readOnly: false
           
