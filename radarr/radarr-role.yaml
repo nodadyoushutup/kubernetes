@@ -6,10 +6,10 @@ metadata:
 rules:
 - apiGroups: ["snapshot.storage.k8s.io"]
   resources: ["volumesnapshots"]
-  verbs: ["get", "list", "create", "delete", "watch"]
+  verbs: ["get", "list", "create", "delete", "watch", "patch"]
 - apiGroups: [""]
   resources: ["persistentvolumeclaims"]
-  verbs: ["get", "list", "create", "delete", "watch"]
+  verbs: ["get", "list", "create", "delete", "watch", "patch"]
 - apiGroups: ["batch"]
   resources: ["jobs"]
-  verbs: ["get", "list", "create", "delete", "watch"]
+  verbs: ["get", "list", "create", "delete", "watch", "patch"]
