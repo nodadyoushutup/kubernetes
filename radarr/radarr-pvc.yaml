@@ -1,13 +1,13 @@
-# radarr-pvc.yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: radarr-config-pvc
-  namespace: radarr
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 50Gi
-  storageClassName: rook-cephfs
+# # radarr-pvc.yaml
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: radarr-config-pvc
+#   namespace: radarr
+# spec:
+#   accessModes:
+#   - ReadWriteMany
+#   resources:
+#     requests:
+#       storage: 50Gi
+#   storageClassName: rook-cephfs
