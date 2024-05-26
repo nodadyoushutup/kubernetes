@@ -1,0 +1,1 @@
+These are required for VolumeSnapShot functionality. Rook needs these CRDs to be installed to use them
