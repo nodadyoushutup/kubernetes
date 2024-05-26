@@ -20,8 +20,9 @@ spec:
             - "-c"
             - |
               # Step 1: Delete the current VolumeSnapshot
-              kubectl delete volumesnapshot radarr-config-snapshot -n radarr --ignore-not-found --force
               kubectl patch volumesnapshot radarr-config-snapshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
+              kubectl delete volumesnapshot radarr-config-snapshot -n radarr --ignore-not-found --force
+              
 
               # Argo CD auto reploys asset
 
@@ -32,8 +33,9 @@ spec:
               done
 
               # Step 3: Delete the current PVC created from the snapshot
-              kubectl delete pvc radarr-config-snapshot-pvc -n radarr --ignore-not-found --force
               kubectl patch pvc radarr-config-snapshot-pvc -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
+              kubectl delete pvc radarr-config-snapshot-pvc -n radarr --ignore-not-found --force
+              
 
               # Argo CD auto reploys asset
 
@@ -44,9 +46,9 @@ spec:
               done
 
               # Step 5: Delete the current PVC created from the snapshot
-              kubectl delete job radarr-tarcopy-job -n radarr --ignore-not-found --force
               kubectl patch job radarr-tarcopy-job -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
-
+              kubectl delete job radarr-tarcopy-job -n radarr --ignore-not-found --force
+              
               # Argo CD auto reploys asset
 
           restartPolicy: OnFailure
