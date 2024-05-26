@@ -7,7 +7,7 @@ metadata:
     metallb.universe.tf/address: 192.168.0.200
 spec:
   selector:
-    app: radarr
+    k8s-app: radarr
   ports:
   - protocol: TCP
     port: 7878
