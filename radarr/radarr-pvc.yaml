@@ -11,20 +11,20 @@ spec:
     requests:
       storage: 50Gi
   storageClassName: rook-cephfs
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: radarr-config-snapshot-pvc
-#   namespace: radarr
-# spec:
-#   accessModes:
-#   - ReadWriteMany
-#   resources:
-#     requests:
-#       storage: 50Gi
-#   storageClassName: rook-cephfs
-#   dataSource:
-#     name: radarr-config-snapshot
-#     kind: VolumeSnapshot
-#     apiGroup: snapshot.storage.k8s.io
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-config-snapshot-pvc
+  namespace: radarr
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: rook-cephfs
+  dataSource:
+    name: radarr-config-snapshot
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
