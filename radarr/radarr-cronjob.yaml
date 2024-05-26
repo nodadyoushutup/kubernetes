@@ -4,7 +4,8 @@ metadata:
   name: radarr-cronjob-tarcopy
   namespace: radarr
 spec:
-  schedule: "0 * * * *" # This schedule runs the job every 5 minutes
+  # schedule: "0 * * * *"
+  schedule: "*/5 * * * *"
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:
