@@ -34,7 +34,6 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
-        volumeMounts:
         - name: media
           mountPath: /media
       volumes:
@@ -47,4 +46,3 @@ spec:
           server: 192.168.0.100
           path: /mnt/epool/media
           readOnly: false
-          
