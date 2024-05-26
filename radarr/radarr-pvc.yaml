@@ -11,3 +11,16 @@ spec:
     requests:
       storage: 50Gi
   storageClassName: rook-cephfs
+  ---
+  apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: radarr-backup-pvc
+  namespace: radarr
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: rook-cephfs

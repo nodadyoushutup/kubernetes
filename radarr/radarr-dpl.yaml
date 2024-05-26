@@ -34,8 +34,21 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
+        volumeMounts:
+        - name: backup
+          mountPath: /backup
       volumes:
       - name: config
         persistentVolumeClaim:
           claimName: radarr-config-pvc
           readOnly: false
+      - name: backup
+        persistentVolumeClaim:
+          claimName: radarr-backup-pvc
+          readOnly: false
+      - name: media
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/media
+          readOnly: false
+          
