@@ -8,6 +8,7 @@ metadata:
     k8s-app: radarr
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       k8s-app: radarr
