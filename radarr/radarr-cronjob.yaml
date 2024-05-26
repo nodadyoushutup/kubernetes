@@ -45,7 +45,7 @@ metadata:
   namespace: radarr
 spec:
   schedule: "*/2 * * * *"  # This schedule runs the job every 2 minutes
-  successfulJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
