@@ -1,32 +1,17 @@
+---
+# radarr-svc.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: radarr-svc
   namespace: radarr
-  # annotations:
-  #   metallb.universe.tf/address: 192.168.0.200
 spec:
   selector:
     k8s-app: radarr
   type: NodePort
   ports:
-    - port: 7878
+    - name: radarr
+      port: 7878
       targetPort: 7878
       nodePort: 32078
       protocol: TCP
-
-
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: argocd-server-nodeport
-#   namespace: argocd
-# spec:
-#   type: NodePort
-#   ports:
-#     - port: 443
-#       targetPort: 8080
-#       nodePort: 32000
-#       protocol: TCP
-#   selector:
-#     app.kubernetes.io/name: argocd-server
