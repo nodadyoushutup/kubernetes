@@ -44,8 +44,8 @@ metadata:
   name: radarr-cronjob-snapshot
   namespace: radarr
 spec:
-  schedule: "*/2 * * * *"  # This schedule runs the job every 2 minutes
-  successfulJobsHistoryLimit: 0
+  schedule: "*/2 * * * *"
+  successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
