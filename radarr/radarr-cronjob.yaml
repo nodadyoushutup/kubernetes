@@ -59,8 +59,9 @@ spec:
             - "/bin/sh"
             - "-c"
             - |
-              # Step 1: Delete the current VolumeSnapshot
+              # Step 1: Delete the current VolumeSnapshot and PVC
               kubectl delete volumesnapshot radarr-config-snapshot -n radarr --ignore-not-found
+              kubectl delete pvc radarr-config-snapshot-pvc -n radarr --ignore-not-found
 
               # Step 2: Create a new VolumeSnapshot
               kubectl apply -f - <<EOF
@@ -81,10 +82,7 @@ spec:
                 sleep 10
               done
 
-              # Step 4: Delete the current PVC created from the snapshot
-              kubectl delete pvc radarr-config-snapshot-pvc -n radarr --ignore-not-found
-
-              # Step 5: Create a new PVC from the new VolumeSnapshot
+              # Step 4: Create a new PVC from the new VolumeSnapshot
               kubectl apply -f - <<EOF
               apiVersion: v1
               kind: PersistentVolumeClaim
