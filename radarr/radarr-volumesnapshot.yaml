@@ -1,9 +1,9 @@
-apiVersion: snapshot.storage.k8s.io/v1
-kind: VolumeSnapshot
-metadata:
-  name: radarr-config-snapshot
-  namespace: radarr
-spec:
-  volumeSnapshotClassName: rook-cephfs-snapshot-class
-  source:
-    persistentVolumeClaimName: radarr-config-pvc
+# apiVersion: snapshot.storage.k8s.io/v1
+# kind: VolumeSnapshot
+# metadata:
+#   name: radarr-config-snapshot
+#   namespace: radarr
+# spec:
+#   volumeSnapshotClassName: rook-cephfs-snapshot-class
+#   source:
+#     persistentVolumeClaimName: radarr-config-pvc
