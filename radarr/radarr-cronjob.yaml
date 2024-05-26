@@ -45,7 +45,7 @@ metadata:
   name: radarr-cronjob-snapshot
   namespace: radarr
 spec:
-  schedule: "55 * * * *" # This schedule runs the job at 5 minutes before the hour
+  schedule: "*/1 * * * *" # This schedule runs the job at 5 minutes before the hour
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:
