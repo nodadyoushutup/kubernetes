@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: radarr-tarcopy-job
+  namespace: radarr
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: check-radarr-db
+        image: busybox
+        command: ["sh", "-c", "test -f /pvc/radarr.db"]
+        volumeMounts:
+        - name: pvc
+          mountPath: /pvc
+      containers:
+      - name: tarcopy
+        image: busybox
+        command: ["sh", "/scripts/tarcopy.sh"]
+        securityContext:
+          runAsUser: 568
+        volumeMounts:
+        - name: pvc
+          mountPath: /pvc
+        - name: nfs
+          mountPath: /nfs
+        - name: script
+          mountPath: /scripts
+      restartPolicy: OnFailure
+      volumes:
+      - name: pvc
+        persistentVolumeClaim:
+          claimName: radarr-config-snapshot-pvc
+      - name: nfs
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/tarshots/radarr
+      - name: script
+        configMap:
+          name: radarr-cm-tarcopy
+          defaultMode: 0755
