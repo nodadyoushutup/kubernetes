@@ -6,6 +6,8 @@ metadata:
 data:
   tarcopy.sh: |
     #!/bin/sh
+    echo "Setting timezone to America/New)York"
+    export TZ="America/New_York"
     echo "Starting job at $(date)"
     cd /pvc
     tar -czf /nfs/radarr-backup-$(date +%Y_%m_%d_%H_%M_%S).tar.gz .
