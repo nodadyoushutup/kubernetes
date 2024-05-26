@@ -63,17 +63,17 @@ spec:
               kubectl delete volumesnapshot radarr-config-snapshot -n radarr --ignore-not-found --force
 
               # Step 2: Create a new VolumeSnapshot
-              kubectl apply -f - <<EOF
-              apiVersion: snapshot.storage.k8s.io/v1
-              kind: VolumeSnapshot
-              metadata:
-                name: radarr-config-snapshot
-                namespace: radarr
-              spec:
-                volumeSnapshotClassName: rook-cephfs-snapshot-class
-                source:
-                  persistentVolumeClaimName: radarr-config-pvc
-              EOF
+              # kubectl apply -f - <<EOF
+              # apiVersion: snapshot.storage.k8s.io/v1
+              # kind: VolumeSnapshot
+              # metadata:
+              #   name: radarr-config-snapshot
+              #   namespace: radarr
+              # spec:
+              #   volumeSnapshotClassName: rook-cephfs-snapshot-class
+              #   source:
+              #     persistentVolumeClaimName: radarr-config-pvc
+              # EOF
 
               # Step 3: Wait for the new VolumeSnapshot to be ready
               while [ "$(kubectl get volumesnapshot radarr-config-snapshot -n radarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
@@ -85,22 +85,22 @@ spec:
               kubectl delete pvc radarr-config-snapshot-pvc -n radarr --ignore-not-found --force
 
               # Step 5: Create a new PVC from the new VolumeSnapshot
-              kubectl apply -f - <<EOF
-              apiVersion: v1
-              kind: PersistentVolumeClaim
-              metadata:
-                name: radarr-config-snapshot-pvc
-                namespace: radarr
-              spec:
-                accessModes:
-                - ReadWriteMany
-                resources:
-                  requests:
-                    storage: 50Gi
-                storageClassName: rook-cephfs
-                dataSource:
-                  name: radarr-config-snapshot
-                  kind: VolumeSnapshot
-                  apiGroup: snapshot.storage.k8s.io
-              EOF
+              # kubectl apply -f - <<EOF
+              # apiVersion: v1
+              # kind: PersistentVolumeClaim
+              # metadata:
+              #   name: radarr-config-snapshot-pvc
+              #   namespace: radarr
+              # spec:
+              #   accessModes:
+              #   - ReadWriteMany
+              #   resources:
+              #     requests:
+              #       storage: 50Gi
+              #   storageClassName: rook-cephfs
+              #   dataSource:
+              #     name: radarr-config-snapshot
+              #     kind: VolumeSnapshot
+              #     apiGroup: snapshot.storage.k8s.io
+              # EOF
           restartPolicy: OnFailure
