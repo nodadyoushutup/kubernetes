@@ -28,9 +28,9 @@ spec:
         - name: TZ
           value: "America/New_York"
         - name: PUID
-          value: "568"
+          value: "0"
         - name: PGID
-          value: "568"
+          value: "0"
         volumeMounts:
         - name: config
           mountPath: /config
