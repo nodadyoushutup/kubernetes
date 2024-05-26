@@ -13,5 +13,5 @@ spec:
     - name: radarr
       port: 7878
       targetPort: 7878
-      nodePort: 32078
+      nodePort: 30078
       protocol: TCP
