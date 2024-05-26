@@ -9,7 +9,7 @@ spec:
       initContainers:
       - name: chown-nfs
         image: busybox
-        command: ["sh", "-c", "chown -R 568:568 /nfs"]
+        command: ["sh", "-c", "sudo chown -R 568:568 /nfs"]
         volumeMounts:
         - name: nfs
           mountPath: /nfs
