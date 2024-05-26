@@ -1,0 +1,1 @@
+kubectl patch volumesnapshot radarr-config-snapshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
