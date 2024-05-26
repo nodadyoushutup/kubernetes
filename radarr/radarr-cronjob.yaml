@@ -41,4 +41,9 @@ spec:
                 sleep 10
               done
 
+              # Step 5: Delete the current PVC created from the snapshot
+              kubectl delete job radarr-tarcopy-job -n radarr --ignore-not-found --force
+
+              # Argo CD auto reploys asset
+
           restartPolicy: OnFailure
