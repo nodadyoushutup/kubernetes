@@ -49,9 +49,9 @@ spec:
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
-      serviceAccountName: snapshot-sa
       template:
         spec:
+          serviceAccountName: snapshot-sa
           containers:
           - name: snapshot
             image: bitnami/kubectl:latest
