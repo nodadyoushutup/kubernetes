@@ -8,7 +8,7 @@ data:
     #!/bin/sh
     echo "Starting job at $(date)"
     cd /pvc
-    tar -czf /nfs/radarr-backup-$(date +%Y_%m_%d_%H_%M_%S).tar.gz .
+    tar -czf /nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz .
     echo "Job completed at $(date)"
 ---
 apiVersion: v1
