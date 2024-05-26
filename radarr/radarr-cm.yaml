@@ -14,6 +14,19 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: radarr-cm-tarcopy
+  namespace: radarr
+data:
+  tarcopy.sh: |
+    #!/bin/sh
+    echo "Starting job at $(date)"
+    cd /pvc
+    tar -czf /nfs/radarr-backup-$(date +%Y_%m_%d_%H_%M_%S).tar.gz .
+    echo "Job completed at $(date)"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: radarr-snapshot-script
   namespace: radarr
 data:
@@ -101,19 +114,19 @@ data:
             configMap:
               name: radarr-cm-tarcopy
               defaultMode: 0755
-      EOF
-      while [ "$(kubectl get job radarr-tarcopy-job -n radarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
-        echo "Waiting for the Job to complete..."
-        sleep 10
-      done
+    EOF
+    while [ "$(kubectl get job radarr-tarcopy-job -n radarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
+      echo "Waiting for the Job to complete..."
+      sleep 10
+    done
 
-      echo "Backup job completed"
+    echo "Backup job completed"
 
-      # Step 2: Delete existing assets
-      kubectl patch volumesnapshot radarr-config-snapshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
-      kubectl patch pvc radarr-config-snapshot-pvc -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
-      kubectl delete job radarr-tarcopy-job -n radarr --ignore-not-found
-      kubectl delete volumesnapshot radarr-config-snapshot -n radarr --ignore-not-found
-      kubectl delete pvc radarr-config-snapshot-pvc -n radarr --ignore-not-found
+    # Step 2: Delete existing assets
+    kubectl patch volumesnapshot radarr-config-snapshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
+    kubectl patch pvc radarr-config-snapshot-pvc -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
+    kubectl delete job radarr-tarcopy-job -n radarr --ignore-not-found
+    kubectl delete volumesnapshot radarr-config-snapshot -n radarr --ignore-not-found
+    kubectl delete pvc radarr-config-snapshot-pvc -n radarr --ignore-not-found
 
-      echo "Assets cleaned up"
+    echo "Assets cleaned up"
