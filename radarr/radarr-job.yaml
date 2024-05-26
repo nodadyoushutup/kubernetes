@@ -4,6 +4,7 @@ metadata:
   name: radarr-tarcopy-job
   namespace: radarr
 spec:
+  backoffLimit: 0
   template:
     spec:
       initContainers:
@@ -26,7 +27,7 @@ spec:
           mountPath: /nfs
         - name: script
           mountPath: /scripts
-      restartPolicy: OnFailure
+      restartPolicy: Never
       volumes:
       - name: pvc
         persistentVolumeClaim:

@@ -51,4 +51,4 @@ spec:
               
               # Argo CD auto reploys asset
 
-          # restartPolicy: OnFailure
+          restartPolicy: Never
