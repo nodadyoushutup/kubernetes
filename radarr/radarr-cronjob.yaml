@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: tarcopy-cron
+  name: radarr-cronjob-tarcopy
   namespace: radarr
 spec:
   schedule: "*/5 * * * *" # This schedule runs the job every 5 minutes
@@ -35,5 +35,5 @@ spec:
               path: /mnt/epool/tarshots/radarr
           - name: script
             configMap:
-              name: tarcopy-script
+              name: radarr-cm-tarcopy
               defaultMode: 0755
