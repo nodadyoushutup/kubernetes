@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: radarr
+  name: radarr-dpl
   namespace: radarr
   labels:
     k8s-app: radarr
