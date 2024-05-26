@@ -55,8 +55,14 @@ spec:
         persistentVolumeClaim:
           claimName: radarr-config-pvc
           readOnly: false
+      - name: backup
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/backup/radarr
+          readOnly: false
       - name: media
         nfs:
           server: 192.168.0.100
           path: /mnt/epool/media
           readOnly: false
+      
