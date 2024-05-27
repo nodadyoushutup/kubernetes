@@ -53,6 +53,7 @@ data:
             image: busybox
             command: ["sh", "/scripts/tarshot-copy.sh"]
             securityContext:
+              privileged: true
               runAsUser: 0
               runAsGroup: 0
             volumeMounts:
