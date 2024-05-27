@@ -1,3 +1,3 @@
 kubectl patch volumesnapshot radarr-config-snapshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
 kubectl patch pvc radarr-config-snapshot-pvc -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
-kubectl patch cronjob radarr-cronjob -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
+kubectl patch cronjob radarr-cronjob-snapshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]'
