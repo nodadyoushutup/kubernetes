@@ -127,14 +127,12 @@ data:
 
     delete_job() {
       local job_name=$1
-      local namespace=$2
-
-      if kubectl get job "$job_name" -n "$namespace" &> /dev/null; then
+      if kubectl get job "$job_name" -n ${NAMESPACE} &> /dev/null; then
         log "Removing finalizers from Job"
         kubectl patch job ${NAMESPACE}-job-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from Job"
         sleep 1
         log "Deleting Job $job_name"
-        kubectl delete job "$job_name" -n "$namespace" --ignore-not-found && log "Job $job_name deleted"
+        kubectl delete job "$job_name" -n ${NAMESPACE} --ignore-not-found && log "Job $job_name deleted"
       else
         log "Job $job_name not found"
       fi
@@ -143,7 +141,7 @@ data:
     delete_assets() {
       local msg=${1:-"Deleting ephemeral assets"}
       log "$msg"
-      delete_job "${NAMESPACE}-job-tarshot" "$NAMESPACE"
+      delete_job "${NAMESPACE}-job-tarshot"
       delete_pvc "${NAMESPACE}-pvc-tarshot" "$NAMESPACE"
       delete_volumesnapshot "${NAMESPACE}-volumesnapshot-tarshot" "$NAMESPACE"
       log "Ephemeral assets have been deleted"
