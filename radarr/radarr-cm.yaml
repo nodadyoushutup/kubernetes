@@ -143,7 +143,7 @@ data:
       log "Ephemeral assets have been deleted"
     }
 
-    apply_and_wait() {
+    apply() {
       local resource_type=$1
       local resource_name=$2
       local namespace=$3
@@ -163,33 +163,9 @@ data:
     delete_assets
 
     log "Starting backup job"
-
-    apply_and_wait "volumesnapshot" "radarr-volumesnapshot-tarshot" "$NAMESPACE" "readyToUse" "true" "/scripts/radarr-volumesnapshot-tarshot.yaml"
-    apply_and_wait "pvc" "radarr-pvc-tarshot" "$NAMESPACE" "phase" "Bound" "/scripts/radarr-pvc-tarshot.yaml"
-    apply_and_wait "job" "radarr-job-tarshot" "$NAMESPACE" "succeeded" "1" "/scripts/radarr-job-tarshot.yaml"
-
-    # # Step 1: Create new assets
-    # ### VolumeSnapshot ###
-    # log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/radarr-volumesnapshot-tarshot.yaml
-    # while [ "$(kubectl get volumesnapshot radarr-volumesnapshot-tarshot -n radarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
-    #   log "Waiting for the VolumeSnapshot to be ready..."
-    #   sleep 10
-    # done
-
-    # ### PVC ###
-    # log "Applying PVC configuration" && kubectl apply -f /scripts/radarr-pvc-tarshot.yaml
-    # while [ "$(kubectl get pvc radarr-pvc-tarshot -n radarr -o jsonpath='{.status.phase}')" != "Bound" ]; do
-    #   log "Waiting for the PVC to be bound..."
-    #   sleep 10
-    # done
-
-    # ### JOB ###
-    # log "Applying Job configuration" && kubectl apply -f /scripts/radarr-job-tarshot.yaml
-    # while [ "$(kubectl get job radarr-job-tarshot -n radarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
-    #   log "Waiting for the Job to complete..."
-    #   sleep 10
-    # done
-
+    apply "volumesnapshot" "radarr-volumesnapshot-tarshot" "$NAMESPACE" "readyToUse" "true" "/scripts/radarr-volumesnapshot-tarshot.yaml"
+    apply "pvc" "radarr-pvc-tarshot" "$NAMESPACE" "phase" "Bound" "/scripts/radarr-pvc-tarshot.yaml"
+    apply "job" "radarr-job-tarshot" "$NAMESPACE" "succeeded" "1" "/scripts/radarr-job-tarshot.yaml"
     log "Backup job completed"
 
     delete_assets
