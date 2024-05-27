@@ -136,19 +136,18 @@ data:
     }
 
     delete_assets() {
+      log "Deleteing ephemeral assets"
       delete_job "radarr-job-tarshot" "$NAMESPACE"
       delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
       delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
+      log "Ephemeral assets have been deleted"
     }
 
-    log "Starting backup job..."
-
     log "Purging orphan assets (if they exist)"
-    # delete_job "radarr-job-tarshot" "$NAMESPACE"
-    # delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
-    # delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
     delete_assets
 
+    log "Starting backup job"
+    
     # Step 1: Create new assets
     ### VolumeSnapshot ###
     log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/radarr-volumesnapshot-tarshot.yaml
@@ -173,9 +172,4 @@ data:
 
     log "Backup job completed"
 
-    # delete_job "radarr-job-tarshot" "$NAMESPACE"
-    # delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
-    # delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
     delete_assets
-
-    log "Ephemeral assets cleaned up"
