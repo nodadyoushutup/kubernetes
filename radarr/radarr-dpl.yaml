@@ -48,7 +48,7 @@ spec:
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: radarr-pvc-config
+          claimName: radarr-pvc
           readOnly: false
       - name: backup
         nfs:
