@@ -14,7 +14,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: radarr-snapshot-script
+  name: radarr-cm-snapshot
   namespace: radarr
 data:
   radarr-volumesnapshot.yaml: |
