@@ -56,10 +56,9 @@ delete_assets() {
 apply_asset() {
     local resource_type=$1
     local resource_name=$2
-    local namespace=$3
-    local condition_field=$4
-    local condition_value=$5
-    local yaml_file=$6
+    local condition_field=$3
+    local condition_value=$4
+    local yaml_file=$5
 
     log "Applying $resource_type configuration" && kubectl apply -f "$yaml_file"
     
@@ -71,9 +70,9 @@ apply_asset() {
 
 apply_assets() {
     log "Starting backup job"
-    apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "$NAMESPACE" "readyToUse" "true" "/scripts/${NAMESPACE}-volumesnapshot-tarshot.yaml"
-    apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "$NAMESPACE" "phase" "Bound" "/scripts/${NAMESPACE}-pvc-tarshot.yaml"
-    apply_asset "job" "${NAMESPACE}-job-tarshot" "$NAMESPACE" "succeeded" "1" "/scripts/${NAMESPACE}-job-tarshot.yaml"
+    apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "readyToUse" "true" "/scripts/${NAMESPACE}-volumesnapshot-tarshot.yaml"
+    apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "phase" "Bound" "/scripts/${NAMESPACE}-pvc-tarshot.yaml"
+    apply_asset "job" "${NAMESPACE}-job-tarshot" "succeeded" "1" "/scripts/${NAMESPACE}-job-tarshot.yaml"
     log "Backup job completed"
 }
 
