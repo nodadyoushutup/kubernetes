@@ -94,12 +94,14 @@ data:
     #!/bin/sh
     set -e
 
-    log() {
-      echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
-    }
     
-    whoami
     git clone https://github.com/nodadyoushutup/kubernetes.git
+    ./kubernetes/tarshot.sh
+
+
+    # log() {
+    #   echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
+    # }
 
     # delete_pvc() {
     #   local pvc_name=$1
