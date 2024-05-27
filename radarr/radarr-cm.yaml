@@ -88,7 +88,45 @@ data:
       echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
     }
 
+    cleanup_assets() {
+      force_flag=$1
+      log "Starting cleanup of assets..."
+
+      # Check and delete VolumeSnapshot
+      if kubectl get volumesnapshot radarr-volumesnapshot-tarshot -n radarr > /dev/null 2>&1; then
+        log "Removing finalizers from VolumeSnapshot"
+        kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
+        log "Deleting VolumeSnapshot"
+        kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr $force_flag && log "VolumeSnapshot deleted"
+      else
+        log "VolumeSnapshot does not exist"
+      fi
+
+      # Check and delete PVC
+      if kubectl get pvc radarr-pvc-tarshot -n radarr > /dev/null 2>&1; then
+        log "Removing finalizers from PVC"
+        kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
+        log "Deleting PVC"
+        kubectl delete pvc radarr-pvc-tarshot -n radarr $force_flag && log "PVC deleted"
+      else
+        log "PVC does not exist"
+      fi
+
+      # Check and delete Job
+      if kubectl get job radarr-job-tarshot -n radarr > /dev/null 2>&1; then
+        log "Deleting Job"
+        kubectl delete job radarr-job-tarshot -n radarr $force_flag && log "Job deleted"
+      else
+        log "Job does not exist"
+      fi
+
+      log "Assets cleanup completed"
+    }
+
     log "Starting backup job..."
+
+    # Pre-cleanup with force flag
+    cleanup_assets "--force"
 
     # Step 1: Create new assets
     ### VolumeSnapshot ###
@@ -114,16 +152,7 @@ data:
 
     log "Backup job completed"
 
-    # Step 2: Delete existing assets
-    log "Removing finalizers from VolumeSnapshot"
-    kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
-    log "Removing finalizers from PVC"
-    kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
-    log "Deleting Job"
-    kubectl delete job radarr-job-tarshot -n radarr --ignore-not-found && log "Job deleted"
-    log "Deleting VolumeSnapshot"
-    kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr --ignore-not-found && log "VolumeSnapshot deleted"
-    log "Deleting PVC"
-    kubectl delete pvc radarr-pvc-tarshot -n radarr --ignore-not-found && log "PVC deleted"
+    # Post-cleanup without force flag
+    cleanup_assets
 
-    log "Assets cleaned up"
+    log "Script execution completed"
