@@ -70,5 +70,5 @@ spec:
           readOnly: false
       - name: script
         configMap:
-          name: tautulli-cm
+          name: sonarr-cm
           defaultMode: 0755
