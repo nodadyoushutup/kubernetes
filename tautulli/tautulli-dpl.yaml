@@ -20,7 +20,7 @@ spec:
       initContainers:
       - name: wait-for-pvc
         image: bitnami/kubectl:latest
-        command: ["sh", "/scripts/wait-for-pvc.sh"]
+        command: ["sh", "/scripts/check-pvc-bound.sh"]
         volumeMounts:
           - name: script
             mountPath: /scripts
