@@ -1,5 +1,4 @@
-service:
-  type: NodePort
-  nodePort: 32001  # Custom NodePort (should be in the range 30000-32767)
-  port: 443        # The port that the dashboard will listen on
-  targetPort: 8443 # The port on the container where the dashboard is running
+ingress:
+  enabled: true
+  hosts:
+    - https://192.168.0.200:8443
