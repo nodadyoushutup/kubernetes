@@ -95,6 +95,7 @@ data:
       local namespace=$2
 
       if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
+        kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
         log "Deleting PVC $pvc_name"
         kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted"
       else
@@ -161,7 +162,7 @@ data:
     log "Removing finalizers from VolumeSnapshot"
     kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
     log "Removing finalizers from PVC"
-    kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
+    # kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
 
 
     delete_job "radarr-job-tarshot" "$NAMESPACE"
