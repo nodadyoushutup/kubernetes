@@ -20,7 +20,10 @@ spec:
       initContainers:
       - name: wait-for-pvc
         image: bitnami/kubectl:latest
-        command: ['sh', '-c', 'until [ "$(kubectl get pvc tautulli-pvc -n tautulli -o jsonpath="{.status.phase}")" = "Bound" ]; do echo Waiting for pvc to be bound...; sleep 2; done']
+        command: ["sh", "/scripts/wait-for-pvc.sh"]
+        volumeMounts:
+          - name: script
+            mountPath: /scripts
       containers:
       - name: tautulli
         image: linuxserver/tautulli:2.14.2
@@ -57,3 +60,7 @@ spec:
           server: 192.168.0.100
           path: /mnt/epool/backup/tautulli
           readOnly: false
+      - name: script
+        configMap:
+          name: tautulli-cm
+          defaultMode: 0755
