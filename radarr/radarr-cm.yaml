@@ -12,7 +12,7 @@ data:
   init-pvc-bound.sh: |
     #!/bin/sh
     echo "Waiting for PVC to be bound..."
-    until [ "$(kubectl get pvc sonarr-pvc -n sonarr -o jsonpath='{.status.phase}')" = "Bound" ]; do
+    until [ "$(kubectl get pvc radarr-pvc -n radarr -o jsonpath='{.status.phase}')" = "Bound" ]; do
       echo "PVC not bound yet. Waiting..."
       sleep 2
     done

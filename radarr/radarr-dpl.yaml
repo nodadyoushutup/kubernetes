@@ -70,5 +70,5 @@ spec:
           readOnly: false
       - name: script
         configMap:
-          name: sonarr-cm
+          name: radarr-cm
           defaultMode: 0755
