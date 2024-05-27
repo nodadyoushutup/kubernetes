@@ -97,6 +97,7 @@ data:
       if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
         log "Removing finalizers from PVC"
         kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
+        sleep 1
         log "Deleting PVC $pvc_name"
         kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted"
       else
@@ -111,6 +112,7 @@ data:
       if kubectl get volumesnapshot "$volumesnapshot_name" -n "$namespace" &> /dev/null; then
         log "Removing finalizers from VolumeSnapshot"
         kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
+        sleep 1
         log "Deleting VolumeSnapshot $volumesnapshot_name"
         kubectl delete volumesnapshot "$volumesnapshot_name" -n "$namespace" --ignore-not-found && log "VolumeSnapshot $volumesnapshot_name deleted"
       else
@@ -125,6 +127,7 @@ data:
       if kubectl get job "$job_name" -n "$namespace" &> /dev/null; then
         log "Removing finalizers from Job"
         kubectl patch job radarr-job-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from Job"
+        sleep 1
         log "Deleting Job $job_name"
         kubectl delete job "$job_name" -n "$namespace" --ignore-not-found && log "Job $job_name deleted"
       else
