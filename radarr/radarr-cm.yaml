@@ -138,9 +138,9 @@ data:
     delete_assets() {
       local msg=${1:-"Deleting ephemeral assets"}
       log "$msg"
-      delete_job "radarr-job-tarshot" "$NAMESPACE"
-      delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
-      delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
+      delete_job "${NAMESPACE}-job-tarshot" "$NAMESPACE"
+      delete_pvc "${NAMESPACE}-pvc-tarshot" "$NAMESPACE"
+      delete_volumesnapshot "${NAMESPACE}-volumesnapshot-tarshot" "$NAMESPACE"
       log "Ephemeral assets have been deleted"
     }
 
@@ -170,4 +170,4 @@ data:
 
     delete_assets "Purging orphan assets (if they exist)"
     apply_assets
-    delete_assets
+    delete_assets "Deleting ephemeral assets"
