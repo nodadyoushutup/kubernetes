@@ -1,22 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: radarr-cm-snapshot-tar
+  name: radarr-cm
   namespace: radarr
 data:
-  snapshot.sh: |
+  tarcopy.sh: |
     #!/bin/sh
     echo "Starting job at $(date)"
     cd /pvc
     tar -czf /nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz .
     echo "Job completed at $(date)"
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: radarr-cm-snapshot
-  namespace: radarr
-data:
   radarr-volumesnapshot.yaml: |
     apiVersion: snapshot.storage.k8s.io/v1
     kind: VolumeSnapshot
@@ -56,7 +49,7 @@ data:
           containers:
           - name: tarcopy
             image: busybox
-            command: ["sh", "/scripts/snapshot.sh"]
+            command: ["sh", "/scripts/tarcopy.sh"]
             securityContext:
               runAsUser: 568
               runAsGroup: 568
@@ -78,7 +71,7 @@ data:
               path: /mnt/epool/tarshots/radarr
           - name: script
             configMap:
-              name: radarr-cm-snapshot-tar
+              name: radarr-cm
               defaultMode: 0755
   snapshot.sh: |
     #!/bin/sh
@@ -106,7 +99,7 @@ data:
     done
 
     ### JOB ###
-    log "Applying Job configuration" && kubectl apply -f /scripts/radarr-job.yaml 
+    log "Applying Job configuration" && kubectl apply -f /scripts/radarr-job.yaml
     while [ "$(kubectl get job radarr-job-snapshot -n radarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
       log "Waiting for the Job to complete..."
       sleep 10

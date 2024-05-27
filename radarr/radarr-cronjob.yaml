@@ -9,7 +9,6 @@ spec:
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
-      # backoffLimit: 0
       template:
         spec:
           serviceAccountName: radar-sa
@@ -24,5 +23,5 @@ spec:
           volumes:
           - name: script
             configMap:
-              name: radarr-cm-snapshot
+              name: radarr-cm
               defaultMode: 0755
