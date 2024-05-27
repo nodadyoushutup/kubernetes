@@ -72,6 +72,7 @@ data:
             nfs:
               server: 192.168.0.100
               path: /mnt/epool/tarshot/radarr
+              readOnly: false
           - name: script
             configMap:
               name: radarr-cm
