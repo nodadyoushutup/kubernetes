@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: radarr-cm-tarcopy
+  name: radarr-cm-snapshot-tar
   namespace: radarr
 data:
-  tarcopy.sh: |
+  snapshot.sh: |
     #!/bin/sh
     echo "Starting job at $(date)"
     cd /pvc
@@ -48,7 +48,7 @@ data:
     apiVersion: batch/v1
     kind: Job
     metadata:
-      name: radarr-tarcopy-job
+      name: radarr-job-snapshot
       namespace: radarr
     spec:
       template:
@@ -56,7 +56,7 @@ data:
           containers:
           - name: tarcopy
             image: busybox
-            command: ["sh", "/scripts/tarcopy.sh"]
+            command: ["sh", "/scripts/snapshot.sh"]
             securityContext:
               runAsUser: 568
               runAsGroup: 568
@@ -78,7 +78,7 @@ data:
               path: /mnt/epool/tarshots/radarr
           - name: script
             configMap:
-              name: radarr-cm-tarcopy
+              name: radarr-cm-snapshot-tar
               defaultMode: 0755
   snapshot.sh: |
     #!/bin/sh
@@ -107,7 +107,7 @@ data:
 
     ### JOB ###
     log "Applying Job configuration" && kubectl apply -f /scripts/radarr-job.yaml 
-    while [ "$(kubectl get job radarr-tarcopy-job -n radarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
+    while [ "$(kubectl get job radarr-job-snapshot -n radarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
       log "Waiting for the Job to complete..."
       sleep 10
     done
@@ -120,7 +120,7 @@ data:
     log "Removing finalizers from PVC"
     kubectl patch pvc radarr-config-snapshot-pvc -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
     log "Deleting Job"
-    kubectl delete job radarr-tarcopy-job -n radarr --ignore-not-found && log "Job deleted"
+    kubectl delete job radarr-job-snapshot -n radarr --ignore-not-found && log "Job deleted"
     log "Deleting VolumeSnapshot"
     kubectl delete volumesnapshot radarr-config-snapshot -n radarr --ignore-not-found && log "VolumeSnapshot deleted"
     log "Deleting PVC"
