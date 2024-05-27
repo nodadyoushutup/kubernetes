@@ -86,7 +86,7 @@ data:
 
     export NAMESPACE='radarr'
 
-    git clone https://github.com/nodadyoushutup/kubernetes.git
+    sudo git clone https://github.com/nodadyoushutup/kubernetes.git
 
     ls -la kubernetes
 
