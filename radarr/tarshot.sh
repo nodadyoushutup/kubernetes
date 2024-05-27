@@ -1,8 +1,6 @@
 #!/bin/sh
 set -e
 
-export NAMESPACE='radarr'
-
 log() {
     echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
 }

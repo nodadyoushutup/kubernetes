@@ -86,7 +86,9 @@ data:
 
     export NAMESPACE='radarr'
 
-    git
+    git clone https://github.com/nodadyoushutup/kubernetes.git
+
+    ls -la kubernetes
 
     # log() {
     #   echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
