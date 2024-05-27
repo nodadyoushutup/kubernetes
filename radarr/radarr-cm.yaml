@@ -147,4 +147,4 @@ data:
     #   log "PVC radarr-pvc-tarshot not found"
     # fi
 
-    # log "Assets cleaned up"
+    log "Assets cleaned up"
