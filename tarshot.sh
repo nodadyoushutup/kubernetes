@@ -8,7 +8,6 @@ log() {
 delete_pvc() {
     local pvc_name=$1
     local namespace=$2
-
     if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
     log "Removing finalizers from PVC"
     kubectl patch pvc ${NAMESPACE}-pvc-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
@@ -23,7 +22,6 @@ delete_pvc() {
 delete_volumesnapshot() {
     local volumesnapshot_name=$1
     local namespace=$2
-
     if kubectl get volumesnapshot "$volumesnapshot_name" -n "$namespace" &> /dev/null; then
     log "Removing finalizers from VolumeSnapshot"
     kubectl patch volumesnapshot ${NAMESPACE}-volumesnapshot-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
@@ -64,9 +62,7 @@ apply_asset() {
     local condition_field=$4
     local condition_value=$5
     local yaml_file=$6
-
     log "Applying $resource_type configuration" && kubectl apply -f "$yaml_file"
-    
     while [ "$(kubectl get "$resource_type" "$resource_name" -n "$namespace" -o jsonpath="{.status.$condition_field}")" != "$condition_value" ]; do
     log "Waiting for the $resource_type $resource_name to be $condition_value..."
     sleep 10
