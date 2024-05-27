@@ -22,7 +22,7 @@ spec:
         image: linuxserver/tautulli:2.14.2
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8989
+        - containerPort: 8181
         env:
         - name: UMASK_SET
           value: "022"
@@ -39,8 +39,8 @@ spec:
           mountPath: /backup
         readinessProbe:
           httpGet:
-            path: /ping
-            port: 8989
+            path: /status
+            port: 8181
           initialDelaySeconds: 10
           periodSeconds: 10
       volumes:
