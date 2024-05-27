@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hell-world
+  namespace: argocd
+spec:
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: hellow-world
+  project: default
+  source:
+    chart: hellow-world
+    repoURL: https://helm.github.io/examples
+    targetRevision: 0.1.0
+    helm:
+      values: |
+        replicaCount: 3
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
