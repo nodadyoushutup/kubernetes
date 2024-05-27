@@ -6,10 +6,10 @@ metadata:
 spec:
   destination: 
     server: https://kubernetes.default.svc
-    namespace: hellow-world
+    namespace: hello-world
   project: default
   source:
-    chart: hellow-world
+    chart: hello-world
     repoURL: https://helm.github.io/examples
     targetRevision: 0.1.0
     helm:
