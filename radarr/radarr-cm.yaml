@@ -85,7 +85,8 @@ data:
     #!/bin/sh
     echo "Starting job at $(date)"
     backup_file="/nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz"
-    tar --owner=568 --group=568 -czf "$backup_file" /pvc
+    tar -czf "$backup_file" /pvc
+    chown 568:568 "$backup_file"
     echo "Job completed at $(date)"
   tarshot-exec.sh: |
     #!/bin/sh
@@ -141,7 +142,7 @@ data:
     delete_assets() {
       local msg=${1:-"Deleting ephemeral assets"}
       log "$msg"
-      delete_job "${NAMESPACE}-job-tarshot"
+      # delete_job "${NAMESPACE}-job-tarshot"
       delete_pvc "${NAMESPACE}-pvc-tarshot" "$NAMESPACE"
       delete_volumesnapshot "${NAMESPACE}-volumesnapshot-tarshot" "$NAMESPACE"
       log "Ephemeral assets have been deleted"
