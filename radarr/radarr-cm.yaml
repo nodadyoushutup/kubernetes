@@ -136,14 +136,15 @@ data:
     }
 
     delete_assets() {
-      log "Deleteing ephemeral assets"
+      local msg=${1:-"Deleting ephemeral assets"}
+      log "$msg"
       delete_job "radarr-job-tarshot" "$NAMESPACE"
       delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
       delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
       log "Ephemeral assets have been deleted"
     }
 
-    apply() {
+    apply_asset() {
       local resource_type=$1
       local resource_name=$2
       local namespace=$3
@@ -159,13 +160,14 @@ data:
       done
     }
 
-    log "Purging orphan assets (if they exist)"
-    delete_assets
+    apply_assets() {
+      log "Starting backup job"
+      apply_asset "volumesnapshot" "radarr-volumesnapshot-tarshot" "$NAMESPACE" "readyToUse" "true" "/scripts/radarr-volumesnapshot-tarshot.yaml"
+      apply_asset "pvc" "radarr-pvc-tarshot" "$NAMESPACE" "phase" "Bound" "/scripts/radarr-pvc-tarshot.yaml"
+      apply_asset "job" "radarr-job-tarshot" "$NAMESPACE" "succeeded" "1" "/scripts/radarr-job-tarshot.yaml"
+      log "Backup job completed"
+    }
 
-    log "Starting backup job"
-    apply "volumesnapshot" "radarr-volumesnapshot-tarshot" "$NAMESPACE" "readyToUse" "true" "/scripts/radarr-volumesnapshot-tarshot.yaml"
-    apply "pvc" "radarr-pvc-tarshot" "$NAMESPACE" "phase" "Bound" "/scripts/radarr-pvc-tarshot.yaml"
-    apply "job" "radarr-job-tarshot" "$NAMESPACE" "succeeded" "1" "/scripts/radarr-job-tarshot.yaml"
-    log "Backup job completed"
-
+    delete_assets "Purging orphan assets (if they exist)"
+    apply_assets
     delete_assets
