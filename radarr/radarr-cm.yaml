@@ -96,7 +96,7 @@ data:
 
       if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
         log "Removing finalizers from PVC"
-        kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
+        kubectl patch pvc ${NAMESPACE}-pvc-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
         sleep 1
         log "Deleting PVC $pvc_name"
         kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted"
@@ -111,7 +111,7 @@ data:
 
       if kubectl get volumesnapshot "$volumesnapshot_name" -n "$namespace" &> /dev/null; then
         log "Removing finalizers from VolumeSnapshot"
-        kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
+        kubectl patch volumesnapshot ${NAMESPACE}-volumesnapshot-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
         sleep 1
         log "Deleting VolumeSnapshot $volumesnapshot_name"
         kubectl delete volumesnapshot "$volumesnapshot_name" -n "$namespace" --ignore-not-found && log "VolumeSnapshot $volumesnapshot_name deleted"
@@ -126,7 +126,7 @@ data:
 
       if kubectl get job "$job_name" -n "$namespace" &> /dev/null; then
         log "Removing finalizers from Job"
-        kubectl patch job radarr-job-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from Job"
+        kubectl patch job ${NAMESPACE}-job-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from Job"
         sleep 1
         log "Deleting Job $job_name"
         kubectl delete job "$job_name" -n "$namespace" --ignore-not-found && log "Job $job_name deleted"
@@ -162,9 +162,9 @@ data:
 
     apply_assets() {
       log "Starting backup job"
-      apply_asset "volumesnapshot" "radarr-volumesnapshot-tarshot" "$NAMESPACE" "readyToUse" "true" "/scripts/radarr-volumesnapshot-tarshot.yaml"
-      apply_asset "pvc" "radarr-pvc-tarshot" "$NAMESPACE" "phase" "Bound" "/scripts/radarr-pvc-tarshot.yaml"
-      apply_asset "job" "radarr-job-tarshot" "$NAMESPACE" "succeeded" "1" "/scripts/radarr-job-tarshot.yaml"
+      apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "$NAMESPACE" "readyToUse" "true" "/scripts/${NAMESPACE}-volumesnapshot-tarshot.yaml"
+      apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "$NAMESPACE" "phase" "Bound" "/scripts/${NAMESPACE}-pvc-tarshot.yaml"
+      apply_asset "job" "${NAMESPACE}-job-tarshot" "$NAMESPACE" "succeeded" "1" "/scripts/${NAMESPACE}-job-tarshot.yaml"
       log "Backup job completed"
     }
 
