@@ -20,14 +20,12 @@ delete_pvc() {
 
 delete_volumesnapshot() {
     local volumesnapshot_name=$1
-    local namespace=$2
-
-    if kubectl get volumesnapshot "$volumesnapshot_name" -n "$namespace" &> /dev/null; then
+    if kubectl get volumesnapshot "$volumesnapshot_name" -n ${NAMESPACE} &> /dev/null; then
     log "Removing finalizers from VolumeSnapshot"
     kubectl patch volumesnapshot ${NAMESPACE}-volumesnapshot-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
     sleep 1
     log "Deleting VolumeSnapshot $volumesnapshot_name"
-    kubectl delete volumesnapshot "$volumesnapshot_name" -n "$namespace" --ignore-not-found && log "VolumeSnapshot $volumesnapshot_name deleted"
+    kubectl delete volumesnapshot "$volumesnapshot_name" -n ${NAMESPACE} --ignore-not-found && log "VolumeSnapshot $volumesnapshot_name deleted"
     else
     log "VolumeSnapshot $volumesnapshot_name not found"
     fi
@@ -51,7 +49,7 @@ delete_assets() {
     log "$msg"
     delete_job "${NAMESPACE}-job-tarshot"
     delete_pvc "${NAMESPACE}-pvc-tarshot"
-    delete_volumesnapshot "${NAMESPACE}-volumesnapshot-tarshot" "$NAMESPACE"
+    delete_volumesnapshot "${NAMESPACE}-volumesnapshot-tarshot"
     log "Ephemeral assets have been deleted"
 }
 
