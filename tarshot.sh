@@ -7,14 +7,13 @@ log() {
 
 delete_pvc() {
     local pvc_name=$1
-    local namespace=$2
 
-    if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
+    if kubectl get pvc "$pvc_name" -n ${NAMESPACE} &> /dev/null; then
     log "Removing finalizers from PVC"
     kubectl patch pvc ${NAMESPACE}-pvc-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
     sleep 1
     log "Deleting PVC $pvc_name"
-    kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted"
+    kubectl delete pvc "$pvc_name" -n ${NAMESPACE} --ignore-not-found && log "PVC $pvc_name deleted"
     else
     log "PVC $pvc_name not found" &> /dev/null
     fi
