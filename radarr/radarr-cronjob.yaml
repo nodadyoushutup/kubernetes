@@ -15,7 +15,7 @@ spec:
           containers:
           - name: tarshot
             image: bitnami/kubectl:latest
-            command: ["/bin/sh", "/scripts/tarshot_run.sh"]
+            command: ["/bin/sh", "/scripts/tarshot-run.sh"]
             volumeMounts:
             - name: script
               mountPath: /scripts

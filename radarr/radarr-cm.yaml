@@ -4,11 +4,6 @@ metadata:
   name: radarr-cm
   namespace: radarr
 data:
-  tarcopy.sh: |
-    #!/bin/sh
-    echo "Starting job at $(date)"
-    tar -czf /nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
-    echo "Job completed at $(date)"
   init-pvc-bound.sh: |
     #!/bin/sh
     echo "Waiting for PVC to be bound..."
@@ -56,7 +51,7 @@ data:
           containers:
           - name: tarcopy
             image: busybox
-            command: ["sh", "/scripts/tarcopy.sh"]
+            command: ["sh", "/scripts/tarshot-copy.sh"]
             securityContext:
               runAsUser: 568
               runAsGroup: 568
@@ -80,16 +75,21 @@ data:
             configMap:
               name: radarr-cm
               defaultMode: 0755
-  tarshot_run.sh: |
+  tarshot-run.sh: |
     #!/bin/sh
     set -e
 
     export NAMESPACE='radarr'
-    ./scripts/tarshot.sh
-  tarshot.sh: |
+    ./scripts/tarshot-exec.sh
+  tarshot-copy.sh: |
+    #!/bin/sh
+    echo "Starting job at $(date)"
+    tar -czf /nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
+    echo "Job completed at $(date)"
+  tarshot-exec.sh: |
     #!/bin/sh
     set -e
-    
+
     log() {
       echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
     }
