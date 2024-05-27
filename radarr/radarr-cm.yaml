@@ -143,7 +143,7 @@ data:
     delete_assets() {
       local msg=${1:-"Deleting ephemeral assets"}
       log "$msg"
-      # delete_job "${NAMESPACE}-job-tarshot"
+      delete_job "${NAMESPACE}-job-tarshot"
       delete_pvc "${NAMESPACE}-pvc-tarshot" "$NAMESPACE"
       delete_volumesnapshot "${NAMESPACE}-volumesnapshot-tarshot" "$NAMESPACE"
       log "Ephemeral assets have been deleted"
