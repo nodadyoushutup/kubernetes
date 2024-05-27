@@ -135,12 +135,19 @@ data:
       fi
     }
 
+    delete_assets() {
+      delete_job "radarr-job-tarshot" "$NAMESPACE"
+      delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
+      delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
+    }
+
     log "Starting backup job..."
 
     log "Purging orphan assets (if they exist)"
-    delete_job "radarr-job-tarshot" "$NAMESPACE"
-    delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
-    delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
+    # delete_job "radarr-job-tarshot" "$NAMESPACE"
+    # delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
+    # delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
+    delete_assets
 
     # Step 1: Create new assets
     ### VolumeSnapshot ###
@@ -166,8 +173,9 @@ data:
 
     log "Backup job completed"
 
-    delete_job "radarr-job-tarshot" "$NAMESPACE"
-    delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
-    delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
+    # delete_job "radarr-job-tarshot" "$NAMESPACE"
+    # delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
+    # delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
+    delete_assets
 
     log "Ephemeral assets cleaned up"
