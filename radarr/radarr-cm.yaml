@@ -90,6 +90,18 @@ data:
       echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
     }
 
+    delete_pvc() {
+      local pvc_name=$1
+      local namespace=$2
+
+      if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
+        log "Deleting PVC $pvc_name"
+        kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted"
+      else
+        log "PVC $pvc_name not found"
+      fi
+    }
+
     log "Starting backup job..."
 
     # Step 1: Create new assets
@@ -126,25 +138,7 @@ data:
     log "Deleting VolumeSnapshot"
     kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr --ignore-not-found && log "VolumeSnapshot deleted"
 
-    delete_pvc() {
-      local pvc_name=$1
-      local namespace=$2
-
-      if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
-        log "Deleting PVC $pvc_name"
-        kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted"
-      else
-        log "PVC $pvc_name not found"
-      fi
-    }
-
+    
     delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
-
-    # if kubectl get pvc radarr-pvc-tarshot -n $NAMESPACE &> /dev/null; then
-    #   log "Deleting PVC"
-    #   kubectl delete pvc radarr-pvc-tarshot -n $NAMESPACE --ignore-not-found && log "PVC deleted"
-    # else
-    #   log "PVC radarr-pvc-tarshot not found"
-    # fi
 
     log "Assets cleaned up"
