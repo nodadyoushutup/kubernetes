@@ -51,7 +51,7 @@ data:
           containers:
           - name: tarcopy
             image: busybox
-            command: ["sh", "/scripts/tarshot-copy.sh"]
+            command: ["sh", "/script/tarshot-copy.sh"]
             securityContext:
               privileged: true
               runAsUser: 568
@@ -62,7 +62,7 @@ data:
             - name: nfs
               mountPath: /nfs
             - name: script
-              mountPath: /scripts
+              mountPath: /script
           restartPolicy: OnFailure
           volumes:
           - name: pvc

@@ -21,10 +21,10 @@ spec:
       initContainers:
       - name: init-pvc-bound
         image: bitnami/kubectl:latest
-        command: ["sh", "/scripts/init-pvc-bound.sh"]
+        command: ["sh", "/script/init-pvc-bound.sh"]
         volumeMounts:
           - name: script
-            mountPath: /scripts
+            mountPath: /script
       containers:
       - name: radarr
         image: linuxserver/radarr:5.6.0

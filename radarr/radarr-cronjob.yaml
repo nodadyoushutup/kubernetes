@@ -15,14 +15,14 @@ spec:
           containers:
           - name: tarshot
             image: bitnami/kubectl:latest
-            command: ["/bin/sh", "/scripts/tarshot-run.sh"]
+            command: ["/bin/sh", "/script/tarshot-run.sh"]
             securityContext:
               privileged: true
               runAsUser: 0
               runAsGroup: 0
             volumeMounts:
             - name: script
-              mountPath: /scripts
+              mountPath: /script
           restartPolicy: OnFailure
           volumes:
           - name: script
