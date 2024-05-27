@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sonarr-cronjob-snapshot
+  namespace: sonarr
+spec:
+  schedule: "0 0 * * *"  # This schedule runs the job once a day at midnight
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: radar-sa
+          containers:
+          - name: snapshot
+            image: bitnami/kubectl:latest
+            command: ["/bin/sh", "/scripts/snapshot.sh"]
+            volumeMounts:
+            - name: script
+              mountPath: /scripts
+          restartPolicy: OnFailure
+          volumes:
+          - name: script
+            configMap:
+              name: sonarr-cm
+              defaultMode: 0755

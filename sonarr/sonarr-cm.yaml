@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sonarr-cm
+  namespace: sonarr
+data:
+  tarcopy.sh: |
+    #!/bin/sh
+    echo "Starting job at $(date)"
+    tar -czf /nfs/sonarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
+    echo "Job completed at $(date)"
+  sonarr-volumesnapshot.yaml: |
+    apiVersion: snapshot.storage.k8s.io/v1
+    kind: VolumeSnapshot
+    metadata:
+      name: sonarr-volumesnapshot
+      namespace: sonarr
+    spec:
+      volumeSnapshotClassName: rook-cephfs-snapshot-class
+      source:
+        persistentVolumeClaimName: sonarr-pvc
+  sonarr-pvc-snapshot.yaml: |
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: sonarr-pvc-snapshot
+      namespace: sonarr
+    spec:
+      accessModes:
+      - ReadWriteMany
+      resources:
+        requests:
+          storage: 50Gi
+      storageClassName: rook-cephfs
+      dataSource:
+        name: sonarr-volumesnapshot
+        kind: VolumeSnapshot
+        apiGroup: snapshot.storage.k8s.io
+  sonarr-job-snapshot.yaml: |
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: sonarr-job-snapshot
+      namespace: sonarr
+    spec:
+      template:
+        spec:
+          containers:
+          - name: tarcopy
+            image: busybox
+            command: ["sh", "/scripts/tarcopy.sh"]
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+            volumeMounts:
+            - name: pvc
+              mountPath: /pvc
+            - name: nfs
+              mountPath: /nfs
+            - name: script
+              mountPath: /scripts
+          restartPolicy: OnFailure
+          volumes:
+          - name: pvc
+            persistentVolumeClaim:
+              claimName: sonarr-pvc-snapshot
+          - name: nfs
+            nfs:
+              server: 192.168.0.100
+              path: /mnt/epool/tarshots/sonarr
+          - name: script
+            configMap:
+              name: sonarr-cm
+              defaultMode: 0755
+  snapshot.sh: |
+    #!/bin/sh
+    set -e
+
+    log() {
+      echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
+    }
+
+    log "Starting backup job..."
+
+    # Step 1: Create new assets
+    ### VolumeSnapshot ###
+    log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/sonarr-volumesnapshot.yaml
+    while [ "$(kubectl get volumesnapshot sonarr-volumesnapshot -n sonarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
+      log "Waiting for the VolumeSnapshot to be ready..."
+      sleep 10
+    done
+
+    ### PVC ###
+    log "Applying PVC configuration" && kubectl apply -f /scripts/sonarr-pvc-snapshot.yaml
+    while [ "$(kubectl get pvc sonarr-pvc-snapshot -n sonarr -o jsonpath='{.status.phase}')" != "Bound" ]; do
+      log "Waiting for the PVC to be bound..."
+      sleep 10
+    done
+
+    ### JOB ###
+    log "Applying Job configuration" && kubectl apply -f /scripts/sonarr-job-snapshot.yaml
+    while [ "$(kubectl get job sonarr-job-snapshot -n sonarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
+      log "Waiting for the Job to complete..."
+      sleep 10
+    done
+
+    log "Backup job completed"
+
+    # Step 2: Delete existing assets
+    log "Removing finalizers from VolumeSnapshot"
+    kubectl patch volumesnapshot sonarr-volumesnapshot -n sonarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
+    log "Removing finalizers from PVC"
+    kubectl patch pvc sonarr-pvc-snapshot -n sonarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
+    log "Deleting Job"
+    kubectl delete job sonarr-job-snapshot -n sonarr --ignore-not-found && log "Job deleted"
+    log "Deleting VolumeSnapshot"
+    kubectl delete volumesnapshot sonarr-volumesnapshot -n sonarr --ignore-not-found && log "VolumeSnapshot deleted"
+    log "Deleting PVC"
+    kubectl delete pvc sonarr-pvc-snapshot -n sonarr --ignore-not-found && log "PVC deleted"
+
+    log "Assets cleaned up"
