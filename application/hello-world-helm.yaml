@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hell-world
+  name: hello-world
   namespace: argocd
 spec:
   destination: 
@@ -9,15 +9,15 @@ spec:
     namespace: hello-world
   project: default
   source:
-    chart: hello-world
     repoURL: https://helm.github.io/examples
     targetRevision: 0.1.0
+    chart: hello-world
     helm:
-      values: |
-        replicaCount: 3
+      valuesFiles:
+        - ../hello-world/values.yaml
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true
