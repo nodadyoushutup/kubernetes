@@ -67,7 +67,7 @@ data:
           - name: nfs
             nfs:
               server: 192.168.0.100
-              path: /mnt/epool/tarshots/sonarr
+              path: /mnt/epool/tarshot/sonarr
           - name: script
             configMap:
               name: sonarr-cm
