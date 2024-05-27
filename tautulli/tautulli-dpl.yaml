@@ -1,4 +1,3 @@
-# tautulli-dply.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,7 +19,7 @@ spec:
       serviceAccountName: tautulli-sa
       initContainers:
       - name: wait-for-pvc
-        image: busybox
+        image: bitnami/kubectl:latest
         command: ['sh', '-c', 'until [ "$(kubectl get pvc tautulli-pvc -n tautulli -o jsonpath="{.status.phase}")" == "Bound" ]; do echo Waiting for pvc to be bound...; sleep 2; done']
       containers:
       - name: tautulli
