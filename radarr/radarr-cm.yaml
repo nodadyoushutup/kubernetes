@@ -7,8 +7,7 @@ data:
   tarcopy.sh: |
     #!/bin/sh
     echo "Starting job at $(date)"
-    cd /pvc
-    tar -czf /nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz .
+    tar -czf /nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
     echo "Job completed at $(date)"
   radarr-volumesnapshot.yaml: |
     apiVersion: snapshot.storage.k8s.io/v1
