@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: radarr-cronjob-snapshot
+  name: radarr-cronjob-tarshot
   namespace: radarr
 spec:
   schedule: "0 0 * * *"  # This schedule runs the job once a day at midnight
@@ -13,9 +13,9 @@ spec:
         spec:
           serviceAccountName: radar-sa
           containers:
-          - name: snapshot
+          - name: tarshot
             image: bitnami/kubectl:latest
-            command: ["/bin/sh", "/scripts/snapshot.sh"]
+            command: ["/bin/sh", "/scripts/tarshot.sh"]
             volumeMounts:
             - name: script
               mountPath: /scripts
