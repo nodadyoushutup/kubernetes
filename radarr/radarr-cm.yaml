@@ -26,7 +26,7 @@ data:
     spec:
       volumeSnapshotClassName: rook-cephfs-snapshot-class
       source:
-        persistentVolumeClaimName: radarr-config-pvc
+        persistentVolumeClaimName: radarr-pvc-config
   radarr-pvc.yaml: |
     apiVersion: v1
     kind: PersistentVolumeClaim
