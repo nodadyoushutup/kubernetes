@@ -127,9 +127,7 @@ data:
     kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr --ignore-not-found && log "VolumeSnapshot deleted"
 
 
-    log "Deleting PVC"
-    kubectl get pvc radarr-pvc-tarshot -n $NAMESPACE &> /dev/null
-    if [ $? -eq 0 ]; then
+    if $(kubectl get pvc radarr-pvc-tarshot -n $NAMESPACE &> /dev/null); then
       log "Deleting PVC"
       kubectl delete pvc radarr-pvc-tarshot -n $NAMESPACE --ignore-not-found && log "PVC deleted"
     else
