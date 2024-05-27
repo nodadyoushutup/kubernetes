@@ -162,8 +162,7 @@ data:
     kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
     log "Removing finalizers from PVC"
     kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
-    # log "Deleting Job"
-    # kubectl delete job radarr-job-tarshot -n radarr --ignore-not-found && log "Job deleted"
+
 
     delete_job "radarr-job-tarshot" "$NAMESPACE"
     delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
