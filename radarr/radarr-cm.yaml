@@ -84,7 +84,9 @@ data:
   tarshot-copy.sh: |
     #!/bin/sh
     echo "Starting job at $(date)"
-    tar -czf /nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
+    backup_file="/nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz"
+    tar -czf "$backup_file" /pvc
+    chown 568:568 "$backup_file"
     echo "Job completed at $(date)"
   tarshot-exec.sh: |
     #!/bin/sh
