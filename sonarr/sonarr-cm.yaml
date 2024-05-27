@@ -9,11 +9,11 @@ data:
     echo "Starting job at $(date)"
     tar -czf /nfs/sonarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
     echo "Job completed at $(date)"
-  sonarr-volumesnapshot.yaml: |
+  sonarr-volumesnapshot-tarshot.yaml: |
     apiVersion: snapshot.storage.k8s.io/v1
     kind: VolumeSnapshot
     metadata:
-      name: sonarr-volumesnapshot
+      name: sonarr-volumesnapshot-tarshot
       namespace: sonarr
     spec:
       volumeSnapshotClassName: rook-cephfs-snapshot-class
@@ -33,7 +33,7 @@ data:
           storage: 100Gi
       storageClassName: rook-cephfs
       dataSource:
-        name: sonarr-volumesnapshot
+        name: sonarr-volumesnapshot-tarshot
         kind: VolumeSnapshot
         apiGroup: snapshot.storage.k8s.io
   sonarr-job-tarshot.yaml: |
@@ -84,8 +84,8 @@ data:
 
     # Step 1: Create new assets
     ### VolumeSnapshot ###
-    log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/sonarr-volumesnapshot.yaml
-    while [ "$(kubectl get volumesnapshot sonarr-volumesnapshot -n sonarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
+    log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/sonarr-volumesnapshot-tarshot.yaml
+    while [ "$(kubectl get volumesnapshot sonarr-volumesnapshot-tarshot -n sonarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
       log "Waiting for the VolumeSnapshot to be ready..."
       sleep 10
     done
@@ -108,13 +108,13 @@ data:
 
     # Step 2: Delete existing assets
     log "Removing finalizers from VolumeSnapshot"
-    kubectl patch volumesnapshot sonarr-volumesnapshot -n sonarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
+    kubectl patch volumesnapshot sonarr-volumesnapshot-tarshot -n sonarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
     log "Removing finalizers from PVC"
     kubectl patch pvc sonarr-pvc-tarshot -n sonarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
     log "Deleting Job"
     kubectl delete job sonarr-job-tarshot -n sonarr --ignore-not-found && log "Job deleted"
     log "Deleting VolumeSnapshot"
-    kubectl delete volumesnapshot sonarr-volumesnapshot -n sonarr --ignore-not-found && log "VolumeSnapshot deleted"
+    kubectl delete volumesnapshot sonarr-volumesnapshot-tarshot -n sonarr --ignore-not-found && log "VolumeSnapshot deleted"
     log "Deleting PVC"
     kubectl delete pvc sonarr-pvc-tarshot -n sonarr --ignore-not-found && log "PVC deleted"
 
