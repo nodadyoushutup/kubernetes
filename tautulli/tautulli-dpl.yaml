@@ -17,6 +17,7 @@ spec:
       labels:
         k8s-app: tautulli
     spec:
+      serviceAccountName: tautulli-sa
       initContainers:
       - name: wait-for-pvc
         image: busybox
