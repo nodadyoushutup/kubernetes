@@ -4,7 +4,6 @@ metadata:
   name: radarr-cm
   namespace: radarr
 data:
-  NAMESPACE: radarr
   tarcopy.sh: |
     #!/bin/sh
     echo "Starting job at $(date)"
@@ -84,6 +83,8 @@ data:
   tarshot.sh: |
     #!/bin/sh
     set -e
+
+    export NAMESPACE='radarr'
 
     log() {
       echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
