@@ -12,7 +12,7 @@ spec:
       # backoffLimit: 0
       template:
         spec:
-          serviceAccountName: radar-sa-snapshot
+          serviceAccountName: radar-sa
           containers:
           - name: snapshot
             image: bitnami/kubectl:latest
