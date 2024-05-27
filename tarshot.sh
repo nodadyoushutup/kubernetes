@@ -7,7 +7,6 @@ log() {
 
 delete_pvc() {
     local pvc_name=$1
-
     if kubectl get pvc "$pvc_name" -n ${NAMESPACE} &> /dev/null; then
     log "Removing finalizers from PVC"
     kubectl patch pvc ${NAMESPACE}-pvc-tarshot -n ${NAMESPACE} --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
@@ -51,7 +50,7 @@ delete_assets() {
     local msg=${1:-"Deleting ephemeral assets"}
     log "$msg"
     delete_job "${NAMESPACE}-job-tarshot"
-    delete_pvc "${NAMESPACE}-pvc-tarshot" "$NAMESPACE"
+    delete_pvc "${NAMESPACE}-pvc-tarshot"
     delete_volumesnapshot "${NAMESPACE}-volumesnapshot-tarshot" "$NAMESPACE"
     log "Ephemeral assets have been deleted"
 }
