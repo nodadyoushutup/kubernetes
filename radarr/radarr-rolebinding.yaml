@@ -1,13 +1,13 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: snapshot-rolebinding
+  name: radarr-rb-snapshot
   namespace: radarr
 subjects:
 - kind: ServiceAccount
-  name: snapshot-sa
+  name: radar-sa-snapshot
   namespace: radarr
 roleRef:
   kind: Role
-  name: snapshot-role
+  name: radarr-role-snapshot
   apiGroup: rbac.authorization.k8s.io
