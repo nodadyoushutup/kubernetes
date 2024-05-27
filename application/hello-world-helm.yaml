@@ -13,11 +13,12 @@ spec:
       repoURL: https://helm.github.io/examples
       targetRevision: 0.1.0
       helm:
-        values: |
-          replicaCount: 3
+        valuesFiles:
+        - $values/values.yaml
     - repoURL: https://github.com/nodadyoushutup/kubernetes
       targetRevision: HEAD
       path: hello-world
+      ref: values
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
