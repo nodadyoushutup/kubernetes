@@ -1,0 +1,55 @@
+# tautulli-dply.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tautulli-dpl
+  namespace: tautulli
+  labels:
+    k8s-app: tautulli
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      k8s-app: tautulli
+  template:
+    metadata:
+      labels:
+        k8s-app: tautulli
+    spec:
+      containers:
+      - name: tautulli
+        image: linuxserver/tautulli:2.14.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8989
+        env:
+        - name: UMASK_SET
+          value: "022"
+        - name: TZ
+          value: "America/New_York"
+        - name: PUID
+          value: "568"
+        - name: PGID
+          value: "568"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: backup
+          mountPath: /backup
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 8989
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: tautulli-pvc
+          readOnly: false
+      - name: backup
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/backup/tautulli
+          readOnly: false

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tautulli
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nodadyoushutup/kubernetes
+    targetRevision: HEAD
+    path: tautulli
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: tautulli
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true

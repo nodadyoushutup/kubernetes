@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: tautulli-cronjob-tarshot
+  namespace: tautulli
+spec:
+  schedule: "0 0 * * *"  # This schedule runs the job once a day at midnight
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: radar-sa
+          containers:
+          - name: tarshot
+            image: bitnami/kubectl:latest
+            command: ["/bin/sh", "/scripts/tarshot.sh"]
+            volumeMounts:
+            - name: script
+              mountPath: /scripts
+          restartPolicy: OnFailure
+          volumes:
+          - name: script
+            configMap:
+              name: tautulli-cm
+              defaultMode: 0755

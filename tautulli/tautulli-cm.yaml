@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tautulli-cm
+  namespace: tautulli
+data:
+  tarcopy.sh: |
+    #!/bin/sh
+    echo "Starting job at $(date)"
+    tar -czf /nfs/tautulli_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
+    echo "Job completed at $(date)"
+  tautulli-volumesnapshot-tarshot.yaml: |
+    apiVersion: snapshot.storage.k8s.io/v1
+    kind: VolumeSnapshot
+    metadata:
+      name: tautulli-volumesnapshot-tarshot
+      namespace: tautulli
+    spec:
+      volumeSnapshotClassName: rook-cephfs-snapshot-class
+      source:
+        persistentVolumeClaimName: tautulli-pvc
+  tautulli-pvc-tarshot.yaml: |
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: tautulli-pvc-tarshot
+      namespace: tautulli
+    spec:
+      accessModes:
+      - ReadWriteMany
+      resources:
+        requests:
+          storage: 20Gi
+      storageClassName: rook-cephfs
+      dataSource:
+        name: tautulli-volumesnapshot-tarshot
+        kind: VolumeSnapshot
+        apiGroup: snapshot.storage.k8s.io
+  tautulli-job-tarshot.yaml: |
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: tautulli-job-tarshot
+      namespace: tautulli
+    spec:
+      template:
+        spec:
+          containers:
+          - name: tarcopy
+            image: busybox
+            command: ["sh", "/scripts/tarcopy.sh"]
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+            volumeMounts:
+            - name: pvc
+              mountPath: /pvc
+            - name: nfs
+              mountPath: /nfs
+            - name: script
+              mountPath: /scripts
+          restartPolicy: OnFailure
+          volumes:
+          - name: pvc
+            persistentVolumeClaim:
+              claimName: tautulli-pvc-tarshot
+          - name: nfs
+            nfs:
+              server: 192.168.0.100
+              path: /mnt/epool/tarshot/tautulli
+          - name: script
+            configMap:
+              name: tautulli-cm
+              defaultMode: 0755
+  tarshot.sh: |
+    #!/bin/sh
+    set -e
+
+    log() {
+      echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
+    }
+
+    log "Starting backup job..."
+
+    # Step 1: Create new assets
+    ### VolumeSnapshot ###
+    log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/tautulli-volumesnapshot-tarshot.yaml
+    while [ "$(kubectl get volumesnapshot tautulli-volumesnapshot-tarshot -n tautulli -o jsonpath='{.status.readyToUse}')" != "true" ]; do
+      log "Waiting for the VolumeSnapshot to be ready..."
+      sleep 10
+    done
+
+    ### PVC ###
+    log "Applying PVC configuration" && kubectl apply -f /scripts/tautulli-pvc-tarshot.yaml
+    while [ "$(kubectl get pvc tautulli-pvc-tarshot -n tautulli -o jsonpath='{.status.phase}')" != "Bound" ]; do
+      log "Waiting for the PVC to be bound..."
+      sleep 10
+    done
+
+    ### JOB ###
+    log "Applying Job configuration" && kubectl apply -f /scripts/tautulli-job-tarshot.yaml
+    while [ "$(kubectl get job tautulli-job-tarshot -n tautulli -o jsonpath='{.status.succeeded}')" != "1" ]; do
+      log "Waiting for the Job to complete..."
+      sleep 10
+    done
+
+    log "Backup job completed"
+
+    # Step 2: Delete existing assets
+    log "Removing finalizers from VolumeSnapshot"
+    kubectl patch volumesnapshot tautulli-volumesnapshot-tarshot -n tautulli --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
+    log "Removing finalizers from PVC"
+    kubectl patch pvc tautulli-pvc-tarshot -n tautulli --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
+    log "Deleting Job"
+    kubectl delete job tautulli-job-tarshot -n tautulli --ignore-not-found && log "Job deleted"
+    log "Deleting VolumeSnapshot"
+    kubectl delete volumesnapshot tautulli-volumesnapshot-tarshot -n tautulli --ignore-not-found && log "VolumeSnapshot deleted"
+    log "Deleting PVC"
+    kubectl delete pvc tautulli-pvc-tarshot -n tautulli --ignore-not-found && log "PVC deleted"
+
+    log "Assets cleaned up"
