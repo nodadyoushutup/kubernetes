@@ -9,6 +9,14 @@ data:
     echo "Starting job at $(date)"
     tar -czf /nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
     echo "Job completed at $(date)"
+  init-pvc-bound.sh: |
+    #!/bin/sh
+    echo "Waiting for PVC to be bound..."
+    until [ "$(kubectl get pvc tautulli-pvc -n tautulli -o jsonpath='{.status.phase}')" = "Bound" ]; do
+      echo "PVC not bound yet. Waiting..."
+      sleep 2
+    done
+    echo "PVC is bound."
   radarr-volumesnapshot-tarshot.yaml: |
     apiVersion: snapshot.storage.k8s.io/v1
     kind: VolumeSnapshot
