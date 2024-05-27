@@ -59,9 +59,7 @@ apply_asset() {
     local condition_field=$3
     local condition_value=$4
     local yaml_file=$5
-
     log "Applying $resource_type configuration" && kubectl apply -f "$yaml_file"
-    
     while [ "$(kubectl get "$resource_type" "$resource_name" -n ${NAMESPACE} -o jsonpath="{.status.$condition_field}")" != "$condition_value" ]; do
     log "Waiting for the $resource_type $resource_name to be $condition_value..."
     sleep 10
