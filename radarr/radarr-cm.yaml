@@ -80,7 +80,7 @@ data:
             configMap:
               name: radarr-cm-tarcopy
               defaultMode: 0755
-  snapshot-script.sh: |
+  snapshot.sh: |
     #!/bin/sh
     set -e
 
