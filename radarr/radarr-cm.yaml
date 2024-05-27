@@ -96,9 +96,9 @@ data:
 
       if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
         log "Deleting PVC $pvc_name"
-        kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted" &> /dev/null
+        kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted"
       else
-        log "PVC $pvc_name not found"
+        log "PVC $pvc_name not found" &> /dev/null
       fi
     }
 
