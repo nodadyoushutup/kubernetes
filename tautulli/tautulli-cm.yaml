@@ -9,7 +9,7 @@ data:
     echo "Starting job at $(date)"
     tar -czf /nfs/tautulli_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
     echo "Job completed at $(date)"
-  check-pvc-bound.sh: |
+  init-pvc-bound.sh: |
     #!/bin/sh
     echo "Waiting for PVC to be bound..."
     until [ "$(kubectl get pvc tautulli-pvc -n tautulli -o jsonpath='{.status.phase}')" = "Bound" ]; do

@@ -18,9 +18,9 @@ spec:
     spec:
       serviceAccountName: tautulli-sa
       initContainers:
-      - name: wait-for-pvc
+      - name: init-pvc-bound
         image: bitnami/kubectl:latest
-        command: ["sh", "/scripts/check-pvc-bound.sh"]
+        command: ["sh", "/scripts/init-pvc-bound.sh"]
         volumeMounts:
           - name: script
             mountPath: /scripts
