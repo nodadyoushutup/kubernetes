@@ -92,7 +92,7 @@ data:
 
     # Step 1: Create new assets
     ### VolumeSnapshot ###
-    kubectl log "Applying VolumeSnapshot configuration" && apply -f /scripts/radarr-volumesnapshot.yaml
+    log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/radarr-volumesnapshot.yaml
     while [ "$(kubectl get volumesnapshot radarr-config-snapshot -n radarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
       log "Waiting for the VolumeSnapshot to be ready..."
       sleep 10
