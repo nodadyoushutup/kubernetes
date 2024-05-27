@@ -82,7 +82,7 @@ data:
     set -e
     export NAMESPACE='radarr'
     git clone https://github.com/nodadyoushutup/kubernetes.git
-    ./kubernetes/tarshot.sh
+    ./kubernetes/script/tarshot.sh
   tarshot-copy.sh: |
     #!/bin/sh
     echo "Starting job at $(date)"
