@@ -102,10 +102,23 @@ data:
       fi
     }
 
+    delete_volumesnapshot() {
+      local volumesnapshot_name=$1
+      local namespace=$2
+
+      if kubectl get volumesnapshot "$volumesnapshot_name" -n "$namespace" &> /dev/null; then
+        log "Deleting VolumeSnapshot $volumesnapshot_name"
+        kubectl delete volumesnapshot "$volumesnapshot_name" -n "$namespace" --ignore-not-found && log "VolumeSnapshot $volumesnapshot_name deleted"
+      else
+        log "VolumeSnapshot $volumesnapshot_name not found"
+      fi
+    }
+
     log "Starting backup job..."
 
-    echo "Purging old assets"
+    log "Purging old assets (if they exist)"
     delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
+    delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
 
     # Step 1: Create new assets
     ### VolumeSnapshot ###
@@ -138,10 +151,10 @@ data:
     kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
     log "Deleting Job"
     kubectl delete job radarr-job-tarshot -n radarr --ignore-not-found && log "Job deleted"
-    log "Deleting VolumeSnapshot"
-    kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr --ignore-not-found && log "VolumeSnapshot deleted"
+    # log "Deleting VolumeSnapshot"
+    # kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr --ignore-not-found && log "VolumeSnapshot deleted"
 
-    
+    delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
     delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
 
     log "Assets cleaned up"
