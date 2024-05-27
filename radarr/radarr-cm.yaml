@@ -53,8 +53,8 @@ data:
             image: busybox
             command: ["sh", "/scripts/tarshot-copy.sh"]
             securityContext:
-              runAsUser: 568
-              runAsGroup: 568
+              runAsUser: 0
+              runAsGroup: 0
             volumeMounts:
             - name: pvc
               mountPath: /pvc
