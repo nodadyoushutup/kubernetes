@@ -107,6 +107,7 @@ data:
         log "Removing finalizers from PVC"
         kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
         log "Deleting PVC"
+        sleep 5
         kubectl delete pvc radarr-pvc-tarshot -n radarr $force_flag && log "PVC deleted"
       else
         log "PVC does not exist"
