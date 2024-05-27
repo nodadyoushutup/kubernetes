@@ -88,14 +88,22 @@ data:
       echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
     }
 
+    remove_finalizers() {
+      resource_type=$1
+      resource_name=$2
+      namespace=$3
+
+      log "Removing finalizers from $resource_type $resource_name"
+      kubectl patch $resource_type $resource_name -n $namespace --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from $resource_type $resource_name"
+    }
+
     cleanup_assets() {
       force_flag=$1
       log "Starting cleanup of assets..."
 
       # Check and delete VolumeSnapshot
       if kubectl get volumesnapshot radarr-volumesnapshot-tarshot -n radarr > /dev/null 2>&1; then
-        log "Removing finalizers from VolumeSnapshot"
-        kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
+        remove_finalizers volumesnapshot radarr-volumesnapshot-tarshot radarr
         log "Deleting VolumeSnapshot"
         kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr $force_flag && log "VolumeSnapshot deleted"
       else
@@ -104,10 +112,8 @@ data:
 
       # Check and delete PVC
       if kubectl get pvc radarr-pvc-tarshot -n radarr > /dev/null 2>&1; then
-        log "Removing finalizers from PVC"
-        kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
+        remove_finalizers pvc radarr-pvc-tarshot radarr
         log "Deleting PVC"
-        sleep 5
         kubectl delete pvc radarr-pvc-tarshot -n radarr $force_flag && log "PVC deleted"
       else
         log "PVC does not exist"
