@@ -15,7 +15,7 @@ spec:
           containers:
           - name: snapshot
             image: bitnami/kubectl:latest
-            command: ["/bin/sh", "/scripts/snapshot.sh"]
+            command: ["/bin/sh", "/scripts/tarshot.sh"]
             volumeMounts:
             - name: script
               mountPath: /scripts
