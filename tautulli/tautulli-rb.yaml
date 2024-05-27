@@ -5,7 +5,7 @@ metadata:
   namespace: tautulli
 subjects:
 - kind: ServiceAccount
-  name: radar-sa
+  name: tautulli-sa
   namespace: tautulli
 roleRef:
   kind: Role

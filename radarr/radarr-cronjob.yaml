@@ -11,7 +11,7 @@ spec:
     spec:
       template:
         spec:
-          serviceAccountName: radar-sa
+          serviceAccountName: radarr-sa
           containers:
           - name: tarshot
             image: bitnami/kubectl:latest

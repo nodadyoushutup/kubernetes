@@ -5,7 +5,7 @@ metadata:
   namespace: sonarr
 subjects:
 - kind: ServiceAccount
-  name: radar-sa
+  name: sonarr-sa
   namespace: sonarr
 roleRef:
   kind: Role
