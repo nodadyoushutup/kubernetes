@@ -123,6 +123,8 @@ data:
       local namespace=$2
 
       if kubectl get job "$job_name" -n "$namespace" &> /dev/null; then
+        log "Removing finalizers from Job"
+        kubectl patch job radarr-job-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from Job"
         log "Deleting Job $job_name"
         kubectl delete job "$job_name" -n "$namespace" --ignore-not-found && log "Job $job_name deleted"
       else
@@ -132,7 +134,7 @@ data:
 
     log "Starting backup job..."
 
-    log "Purging old assets (if they exist)"
+    log "Purging orphan assets (if they exist)"
     delete_job "radarr-job-tarshot" "$NAMESPACE"
     delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
     delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
@@ -161,15 +163,8 @@ data:
 
     log "Backup job completed"
 
-    # Step 2: Delete existing assets
-    # log "Removing finalizers from VolumeSnapshot"
-    # kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
-    # log "Removing finalizers from PVC"
-    # kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
-
-
     delete_job "radarr-job-tarshot" "$NAMESPACE"
     delete_volumesnapshot "radarr-volumesnapshot-tarshot" "$NAMESPACE"
     delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
 
-    log "Assets cleaned up"
+    log "Ephemeral assets cleaned up"
