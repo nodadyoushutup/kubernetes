@@ -17,6 +17,10 @@ spec:
       labels:
         k8s-app: tautulli
     spec:
+      initContainers:
+      - name: wait-for-pvc
+        image: busybox
+        command: ['sh', '-c', 'until [ "$(kubectl get pvc tautulli-pvc -n tautulli -o jsonpath="{.status.phase}")" == "Bound" ]; do echo Waiting for pvc to be bound...; sleep 2; done']
       containers:
       - name: tautulli
         image: linuxserver/tautulli:2.14.2
