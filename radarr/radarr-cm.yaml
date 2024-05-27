@@ -160,6 +160,6 @@ data:
     log "Backup job completed"
 
     # Post-cleanup without force flag
-    cleanup_assets
+    cleanup_assets "--force"
 
     log "Script execution completed"
