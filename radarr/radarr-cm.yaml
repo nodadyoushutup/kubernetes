@@ -95,6 +95,7 @@ data:
       local namespace=$2
 
       if kubectl get pvc "$pvc_name" -n "$namespace" &> /dev/null; then
+        log "Removing finalizers from PVC"
         kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
         log "Deleting PVC $pvc_name"
         kubectl delete pvc "$pvc_name" -n "$namespace" --ignore-not-found && log "PVC $pvc_name deleted"
@@ -108,6 +109,7 @@ data:
       local namespace=$2
 
       if kubectl get volumesnapshot "$volumesnapshot_name" -n "$namespace" &> /dev/null; then
+        log "Removing finalizers from VolumeSnapshot"
         kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
         log "Deleting VolumeSnapshot $volumesnapshot_name"
         kubectl delete volumesnapshot "$volumesnapshot_name" -n "$namespace" --ignore-not-found && log "VolumeSnapshot $volumesnapshot_name deleted"
@@ -160,9 +162,9 @@ data:
     log "Backup job completed"
 
     # Step 2: Delete existing assets
-    log "Removing finalizers from VolumeSnapshot"
+    # log "Removing finalizers from VolumeSnapshot"
     # kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
-    log "Removing finalizers from PVC"
+    # log "Removing finalizers from PVC"
     # kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
 
 
