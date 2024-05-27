@@ -92,46 +92,54 @@ data:
 
     log "Starting backup job..."
 
-    # Step 1: Create new assets
-    ### VolumeSnapshot ###
-    log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/radarr-volumesnapshot-tarshot.yaml
-    while [ "$(kubectl get volumesnapshot radarr-volumesnapshot-tarshot -n radarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
-      log "Waiting for the VolumeSnapshot to be ready..."
-      sleep 10
-    done
+    # # Step 1: Create new assets
+    # ### VolumeSnapshot ###
+    # log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/radarr-volumesnapshot-tarshot.yaml
+    # while [ "$(kubectl get volumesnapshot radarr-volumesnapshot-tarshot -n radarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
+    #   log "Waiting for the VolumeSnapshot to be ready..."
+    #   sleep 10
+    # done
 
-    ### PVC ###
-    log "Applying PVC configuration" && kubectl apply -f /scripts/radarr-pvc-tarshot.yaml
-    while [ "$(kubectl get pvc radarr-pvc-tarshot -n radarr -o jsonpath='{.status.phase}')" != "Bound" ]; do
-      log "Waiting for the PVC to be bound..."
-      sleep 10
-    done
+    # ### PVC ###
+    # log "Applying PVC configuration" && kubectl apply -f /scripts/radarr-pvc-tarshot.yaml
+    # while [ "$(kubectl get pvc radarr-pvc-tarshot -n radarr -o jsonpath='{.status.phase}')" != "Bound" ]; do
+    #   log "Waiting for the PVC to be bound..."
+    #   sleep 10
+    # done
 
-    ### JOB ###
-    log "Applying Job configuration" && kubectl apply -f /scripts/radarr-job-tarshot.yaml
-    while [ "$(kubectl get job radarr-job-tarshot -n radarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
-      log "Waiting for the Job to complete..."
-      sleep 10
-    done
+    # ### JOB ###
+    # log "Applying Job configuration" && kubectl apply -f /scripts/radarr-job-tarshot.yaml
+    # while [ "$(kubectl get job radarr-job-tarshot -n radarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
+    #   log "Waiting for the Job to complete..."
+    #   sleep 10
+    # done
 
-    log "Backup job completed"
+    # log "Backup job completed"
 
-    # Step 2: Delete existing assets
-    log "Removing finalizers from VolumeSnapshot"
-    kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
-    log "Removing finalizers from PVC"
-    kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
-    log "Deleting Job"
-    kubectl delete job radarr-job-tarshot -n radarr --ignore-not-found && log "Job deleted"
-    log "Deleting VolumeSnapshot"
-    kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr --ignore-not-found && log "VolumeSnapshot deleted"
+    # # Step 2: Delete existing assets
+    # log "Removing finalizers from VolumeSnapshot"
+    # kubectl patch volumesnapshot radarr-volumesnapshot-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
+    # log "Removing finalizers from PVC"
+    # kubectl patch pvc radarr-pvc-tarshot -n radarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
+    # log "Deleting Job"
+    # kubectl delete job radarr-job-tarshot -n radarr --ignore-not-found && log "Job deleted"
+    # log "Deleting VolumeSnapshot"
+    # kubectl delete volumesnapshot radarr-volumesnapshot-tarshot -n radarr --ignore-not-found && log "VolumeSnapshot deleted"
 
-
+    echo "######TEST"
     if $(kubectl get pvc radarr-pvc-tarshot -n $NAMESPACE &> /dev/null); then
-      log "Deleting PVC"
-      kubectl delete pvc radarr-pvc-tarshot -n $NAMESPACE --ignore-not-found && log "PVC deleted"
+      log "PVC found"
     else
       log "PVC radarr-pvc-tarshot not found"
     fi
+    echo "######TEST"
 
-    log "Assets cleaned up"
+    # kubectl get pvc radarr-pvc-tarshot -n $NAMESPACE &> /dev/null
+    # if [ $? -eq 0 ]; then
+    #   log "Deleting PVC"
+    #   kubectl delete pvc radarr-pvc-tarshot -n $NAMESPACE --ignore-not-found && log "PVC deleted"
+    # else
+    #   log "PVC radarr-pvc-tarshot not found"
+    # fi
+
+    # log "Assets cleaned up"
