@@ -104,6 +104,9 @@ data:
 
     log "Starting backup job..."
 
+    echo "Purging old assets"
+    delete_pvc "radarr-pvc-tarshot" "$NAMESPACE"
+
     # Step 1: Create new assets
     ### VolumeSnapshot ###
     log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/radarr-volumesnapshot-tarshot.yaml
