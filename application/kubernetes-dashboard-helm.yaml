@@ -12,6 +12,9 @@ spec:
     - chart: kubernetes-dashboard
       repoURL: https://kubernetes.github.io/dashboard/
       targetRevision: 7.4.0
+    - repoURL: https://github.com/nodadyoushutup/kubernetes
+      targetRevision: HEAD
+      path: kubernetes-dashboard
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
