@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hello-world
+  name: kubernetes-dashboard
   namespace: argocd
 spec:
   destination: 
     server: https://kubernetes.default.svc
-    namespace: hello-world
+    namespace: kubernetes-dashboard
   project: default
   sources:
     - chart: kubernetes-dashboard
@@ -14,7 +14,7 @@ spec:
       targetRevision: 7.4.0
     #   helm:
     #     valueFiles:
-    #     - $values/hello-world/values.yaml
+    #     - $values/kubernetes-dashboard/values.yaml
     # - repoURL: https://github.com/nodadyoushutup/kubernetes
     #   targetRevision: HEAD
     #   ref: values
