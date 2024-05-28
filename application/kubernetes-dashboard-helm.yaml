@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-world
+  namespace: argocd
+spec:
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: hello-world
+  project: default
+  sources:
+    - chart: kubernetes-dashboard
+      repoURL: https://github.com/kubernetes/dashboard
+      targetRevision: 7.4.0
+    #   helm:
+    #     valueFiles:
+    #     - $values/hello-world/values.yaml
+    # - repoURL: https://github.com/nodadyoushutup/kubernetes
+    #   targetRevision: HEAD
+    #   ref: values
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
