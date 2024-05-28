@@ -15,4 +15,6 @@ persistence:
     accessMode: ReadWriteMany
 # service:
 #   loadBalancerIP: 192.168.0.200
-externalTrafficPolicy: Local 
+# externalTrafficPolicy: Local 
+ingres:
+  enabled: true
