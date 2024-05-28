@@ -11,7 +11,7 @@ spec:
   sources:
     - chart: kube-plex
       repoURL: https://ressu.github.io/kube-plex
-      targetRevision: 0.1.0
+      targetRevision: 0.3.7
     #   helm:
     #     valueFiles:
     #     - $values/kube-plex/values.yaml
