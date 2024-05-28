@@ -1,26 +1,26 @@
-# kube-plex-pvc.yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: kube-plex-pvc-config
-  namespace: kube-plex
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 200Gi
-  storageClassName: rook-cephfs
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: kube-plex-pvc-transcode
-  namespace: kube-plex
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 50Gi
-  storageClassName: rook-cephfs
+# # kube-plex-pvc.yaml
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: kube-plex-pvc-config
+#   namespace: kube-plex
+# spec:
+#   accessModes:
+#   - ReadWriteMany
+#   resources:
+#     requests:
+#       storage: 200Gi
+#   storageClassName: rook-cephfs
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: kube-plex-pvc-transcode
+#   namespace: kube-plex
+# spec:
+#   accessModes:
+#   - ReadWriteMany
+#   resources:
+#     requests:
+#       storage: 50Gi
+#   storageClassName: rook-cephfs
