@@ -1,6 +1,13 @@
 persistence:
-  data:
+  config:
     claimName: kube-plex-pvc-config
+    storageClass: rook-cephfs
+  data:
+    claimName: kube-plex-pvc-data
+    storageClass: rook-cephfs
   transcode:
+    storageClass: rook-cephfs
     enabled: true
     claimName: kube-plex-pvc-transcode
+    size: 50Gi
+    accessMode: ReadWriteMany
