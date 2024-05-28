@@ -14,10 +14,9 @@ spec:
       targetRevision: 0.1.0
       helm:
         valueFiles:
-        - $values/values.yaml
+        - $values/hello-world/values.yaml
     - repoURL: https://github.com/nodadyoushutup/kubernetes
       targetRevision: HEAD
-      path: hello-world
       ref: values
   syncPolicy:
     syncOptions:
