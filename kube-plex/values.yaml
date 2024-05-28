@@ -1,0 +1,6 @@
+persistence:
+  data:
+    claimName: kube-plex-pvc-config
+  transcode:
+    enabled: true
+    claimName: kube-plex-pvc-transcode
