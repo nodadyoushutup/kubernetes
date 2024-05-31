@@ -27,7 +27,7 @@ spec:
             mountPath: /mnt/epool/init
       - name: init-pvc-bound
         image: bitnami/kubectl:latest
-        command: ["sh", "/script/init-pvc-bound.sh"]
+        command: ["sh", "-c", "mkdir -p /init && echo 'Directory /init created successfully'"]
         volumeMounts:
           - name: script
             mountPath: /script
