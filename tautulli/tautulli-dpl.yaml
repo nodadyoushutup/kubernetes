@@ -57,8 +57,6 @@ spec:
           mountPath: /backup
         - name: media
           mountPath: /media
-        - name: init
-          mountPath: /init
         readinessProbe:
           httpGet:
             path: /status
