@@ -51,10 +51,10 @@ spec:
           mountPath: /config
         - name: backup
           mountPath: /backup
-        - name: media
-          mountPath: /media
+        # - name: media
+        #   mountPath: /media
         - name: init
-          mountPath: /init
+          mountPath: /media
         readinessProbe:
           httpGet:
             path: /status
