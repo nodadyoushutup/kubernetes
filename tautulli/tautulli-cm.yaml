@@ -4,6 +4,15 @@ metadata:
   name: tautulli-cm
   namespace: tautulli
 data:
+  init-run.sh: |
+    #!/bin/sh
+    set -e
+    export NAMESPACE='tautulli'
+    git clone https://github.com/nodadyoushutup/kubernetes.git
+    ./kubernetes/script/init.sh
+  init-copy.sh: |
+    #!/bin/sh
+    echo "Hello"
   init-pvc-bound.sh: |
     #!/bin/sh
     echo "Waiting for PVC to be bound..."

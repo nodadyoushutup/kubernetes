@@ -19,9 +19,9 @@ spec:
     spec:
       serviceAccountName: tautulli-sa
       initContainers:
-      - name: create-init-dir
+      - name: init-run
         image: busybox
-        command: ["sh", "-c", "mkdir -p /init && echo 'Directory /config/init created successfully'"]
+        command: ["sh", "/script/init-run.sh"]
         volumeMounts:
           - name: init
             mountPath: /init
