@@ -19,6 +19,12 @@ spec:
     spec:
       serviceAccountName: tautulli-sa
       initContainers:
+      - name: create-init-dir
+        image: busybox
+        command: ["sh", "-c", "mkdir -p /init"]
+        volumeMounts:
+          - name: init
+            mountPath: /mnt/epool/init
       - name: init-pvc-bound
         image: bitnami/kubectl:latest
         command: ["sh", "/script/init-pvc-bound.sh"]
@@ -45,10 +51,10 @@ spec:
           mountPath: /config
         - name: backup
           mountPath: /backup
-        # - name: media
-        #   mountPath: /media
-        - name: init
+        - name: media
           mountPath: /media
+        - name: init
+          mountPath: /init
         readinessProbe:
           httpGet:
             path: /status
