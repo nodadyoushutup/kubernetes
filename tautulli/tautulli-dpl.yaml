@@ -29,7 +29,7 @@ spec:
           runAsUser: 0
       - name: init-pvc-bound
         image: bitnami/kubectl:latest
-        command: ["sh", "-c", "mkdir -p /init && echo 'Directory /init created successfully'"]
+        command: ["sh", "/script/init-pvc-bound.sh"]
         volumeMounts:
           - name: script
             mountPath: /script
