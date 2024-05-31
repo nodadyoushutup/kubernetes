@@ -4,11 +4,6 @@ metadata:
   name: sonarr-cm
   namespace: sonarr
 data:
-  tarcopy.sh: |
-    #!/bin/sh
-    echo "Starting job at $(date)"
-    tar -czf /nfs/sonarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz /pvc
-    echo "Job completed at $(date)"
   init-pvc-bound.sh: |
     #!/bin/sh
     echo "Waiting for PVC to be bound..."
@@ -56,8 +51,9 @@ data:
           containers:
           - name: tarcopy
             image: busybox
-            command: ["sh", "/scripts/tarcopy.sh"]
+            command: ["sh", "/script/tarshot-copy.sh"]
             securityContext:
+              privileged: true
               runAsUser: 568
               runAsGroup: 568
             volumeMounts:
@@ -66,7 +62,7 @@ data:
             - name: nfs
               mountPath: /nfs
             - name: script
-              mountPath: /scripts
+              mountPath: /script
           restartPolicy: OnFailure
           volumes:
           - name: pvc
@@ -76,54 +72,21 @@ data:
             nfs:
               server: 192.168.0.100
               path: /mnt/epool/tarshot/sonarr
+              readOnly: false
           - name: script
             configMap:
               name: sonarr-cm
               defaultMode: 0755
-  tarshot.sh: |
+  tarshot-run.sh: |
     #!/bin/sh
     set -e
-
-    log() {
-      echo "$(date +'%Y-%m-%d %H:%M:%S') - $1"
-    }
-
-    log "Starting backup job..."
-
-    # Step 1: Create new assets
-    ### VolumeSnapshot ###
-    log "Applying VolumeSnapshot configuration" && kubectl apply -f /scripts/sonarr-volumesnapshot-tarshot.yaml
-    while [ "$(kubectl get volumesnapshot sonarr-volumesnapshot-tarshot -n sonarr -o jsonpath='{.status.readyToUse}')" != "true" ]; do
-      log "Waiting for the VolumeSnapshot to be ready..."
-      sleep 10
-    done
-
-    ### PVC ###
-    log "Applying PVC configuration" && kubectl apply -f /scripts/sonarr-pvc-tarshot.yaml
-    while [ "$(kubectl get pvc sonarr-pvc-tarshot -n sonarr -o jsonpath='{.status.phase}')" != "Bound" ]; do
-      log "Waiting for the PVC to be bound..."
-      sleep 10
-    done
-
-    ### JOB ###
-    log "Applying Job configuration" && kubectl apply -f /scripts/sonarr-job-tarshot.yaml
-    while [ "$(kubectl get job sonarr-job-tarshot -n sonarr -o jsonpath='{.status.succeeded}')" != "1" ]; do
-      log "Waiting for the Job to complete..."
-      sleep 10
-    done
-
-    log "Backup job completed"
-
-    # Step 2: Delete existing assets
-    log "Removing finalizers from VolumeSnapshot"
-    kubectl patch volumesnapshot sonarr-volumesnapshot-tarshot -n sonarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from VolumeSnapshot"
-    log "Removing finalizers from PVC"
-    kubectl patch pvc sonarr-pvc-tarshot -n sonarr --type=json -p '[{"op": "remove", "path": "/metadata/finalizers"}]' && log "Finalizers removed from PVC"
-    log "Deleting Job"
-    kubectl delete job sonarr-job-tarshot -n sonarr --ignore-not-found && log "Job deleted"
-    log "Deleting VolumeSnapshot"
-    kubectl delete volumesnapshot sonarr-volumesnapshot-tarshot -n sonarr --ignore-not-found && log "VolumeSnapshot deleted"
-    log "Deleting PVC"
-    kubectl delete pvc sonarr-pvc-tarshot -n sonarr --ignore-not-found && log "PVC deleted"
-
-    log "Assets cleaned up"
+    export NAMESPACE='sonarr'
+    git clone https://github.com/nodadyoushutup/kubernetes.git
+    ./kubernetes/script/tarshot.sh
+  tarshot-copy.sh: |
+    #!/bin/sh
+    echo "Starting job at $(date)"
+    BACKUP_FILE="/nfs/sonarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz"
+    tar -czf ${BACKUP_FILE} /pvc
+    chown 568:568 ${BACKUP_FILE}
+    echo "Job completed at $(date)"

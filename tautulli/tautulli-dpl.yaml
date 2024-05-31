@@ -1,3 +1,4 @@
+# tautulli-dply.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,16 +21,16 @@ spec:
       initContainers:
       - name: init-pvc-bound
         image: bitnami/kubectl:latest
-        command: ["sh", "/scripts/init-pvc-bound.sh"]
+        command: ["sh", "/script/init-pvc-bound.sh"]
         volumeMounts:
           - name: script
-            mountPath: /scripts
+            mountPath: /script
       containers:
       - name: tautulli
-        image: linuxserver/tautulli:2.14.2
+        image: linuxserver/tautulli:5.6.0
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8181
+        - containerPort: 7878
         env:
         - name: UMASK_SET
           value: "022"
@@ -44,10 +45,12 @@ spec:
           mountPath: /config
         - name: backup
           mountPath: /backup
+        - name: media
+          mountPath: /media
         readinessProbe:
           httpGet:
-            path: /status
-            port: 8181
+            path: /ping
+            port: 7878
           initialDelaySeconds: 10
           periodSeconds: 10
       volumes:
@@ -59,6 +62,11 @@ spec:
         nfs:
           server: 192.168.0.100
           path: /mnt/epool/backup/tautulli
+          readOnly: false
+      - name: media
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/media
           readOnly: false
       - name: script
         configMap:
