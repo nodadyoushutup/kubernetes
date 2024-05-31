@@ -20,7 +20,7 @@ spec:
       serviceAccountName: tautulli-sa
       initContainers:
       - name: init-run
-        image: busybox
+        image: alpine/git:latest
         command: ["sh", "/script/init-run.sh"]
         volumeMounts:
           - name: init
