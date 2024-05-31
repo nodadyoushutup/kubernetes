@@ -27,7 +27,7 @@ spec:
             mountPath: /script
       containers:
       - name: tautulli
-        image: linuxserver/tautulli:5.6.0
+        image: linuxserver/tautulli:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7878

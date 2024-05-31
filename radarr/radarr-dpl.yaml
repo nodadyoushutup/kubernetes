@@ -27,7 +27,7 @@ spec:
             mountPath: /script
       containers:
       - name: radarr
-        image: linuxserver/radarr:5.6.0
+        image: linuxserver/radarr:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7878

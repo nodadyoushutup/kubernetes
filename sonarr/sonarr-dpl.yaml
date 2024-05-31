@@ -27,7 +27,7 @@ spec:
             mountPath: /script
       containers:
       - name: sonarr
-        image: linuxserver/sonarr:5.6.0
+        image: linuxserver/sonarr:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7878
