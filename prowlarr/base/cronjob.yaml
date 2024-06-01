@@ -37,5 +37,5 @@ spec:
               defaultMode: 0755
           - name: config
             persistentVolumeClaim:
-              claimName: prowlarr-pvc
+              claimName: prowlarr-movie-pvc
               readOnly: false
