@@ -1,6 +1,7 @@
 # prowlarr/base/kustomization.yaml
 resources:
   - persistentvolumeclaim.yaml
+  - namespace.yaml
 
 commonLabels:
   app: prowlarr

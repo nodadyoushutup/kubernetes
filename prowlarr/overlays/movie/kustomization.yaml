@@ -3,12 +3,12 @@ kind: Kustomization
 
 resources:
   - ../../base
-  - namespace.yaml
+  
 
 namespace: prowlarr-movie
 
-# patches:
-# - replicas.yaml
+patches:
+- namespace.yaml
 
 # configMapGenerator:
 # - name: mykustom-map
