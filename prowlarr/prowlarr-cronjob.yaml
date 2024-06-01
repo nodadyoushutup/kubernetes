@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: prowlarr-cronjob-tarshot
+  namespace: prowlarr
+spec:
+  schedule: "0 0 * * *"  # This schedule runs the job once a day at midnight
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: prowlarr-sa
+          containers:
+          - name: tarshot
+            image: bitnami/kubectl:latest
+            command: ["/bin/sh", "/script/tarshot-run.sh"]
+            securityContext:
+              privileged: true
+              runAsUser: 0
+              runAsGroup: 0
+            volumeMounts:
+            - name: script
+              mountPath: /script
+          restartPolicy: OnFailure
+          volumes:
+          - name: script
+            configMap:
+              name: prowlarr-cm
+              defaultMode: 0755
