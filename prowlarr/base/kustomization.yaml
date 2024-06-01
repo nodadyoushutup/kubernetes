@@ -1,11 +1,12 @@
 # prowlarr/base/kustomization.yaml
 resources:
-  - prowlarr-cm.yaml
-  - prowlarr-cronjob.yaml
-  - prowlarr-deploy.yaml
-  - prowlarr-ns.yaml
-  - prowlarr-pvc.yaml
-  - prowlarr-rb.yaml
-  - prowlarr-role.yaml
-  - prowlarr-sa.yaml
-  - prowlarr-svc.yaml
+  - persistentvolumeclaim.yaml
+
+commonLabels:
+  app: prowlarr
+
+commonAnnotations:
+  app: prowlarr-annontations
+
+namePrefix:
+  prowlarr-

@@ -4,45 +4,11 @@ kind: Kustomization
 resources:
   - ../../base
 
-configMapGenerator:
-  - name: prowlarr-movie-cm
-    files:
-      - prowlarr-movie-cm.yaml
+namespace: prowlarr-movie
 
-patches:
-  - target:
-      kind: ConfigMap
-      name: prowlarr-movie-cm
-    path: prowlarr-movie-cm.yaml
-  - target:
-      kind: CronJob
-      name: prowlarr-movie-cronjob-tarshot
-    path: prowlarr-movie-cronjob.yaml
-  - target:
-      kind: Deployment
-      name: prowlarr-movie-deploy
-    path: prowlarr-movie-deploy.yaml
-  - target:
-      kind: Namespace
-      name: prowlarr-movie
-    path: prowlarr-movie-ns.yaml
-  - target:
-      kind: PersistentVolumeClaim
-      name: prowlarr-movie-pvc
-    path: prowlarr-movie-pvc.yaml
-  - target:
-      kind: RoleBinding
-      name: prowlarr-movie-rb
-    path: prowlarr-movie-rb.yaml
-  - target:
-      kind: Role
-      name: prowlarr-movie-role
-    path: prowlarr-movie-role.yaml
-  - target:
-      kind: ServiceAccount
-      name: prowlarr-movie-sa
-    path: prowlarr-movie-sa.yaml
-  - target:
-      kind: Service
-      name: prowlarr-movie-svc
-    path: prowlarr-movie-svc.yaml
+# patches:
+# - replicas.yaml
+
+# configMapGenerator:
+# - name: mykustom-map
+#   env: config.properties

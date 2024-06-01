@@ -1,9 +1,0 @@
----
-# prowlarr/prowlarr-deploy.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: prowlarr-movie-deploy
-  namespace: prowlarr-movie
-  labels:
-    k8s-app: prowlarr-movie
