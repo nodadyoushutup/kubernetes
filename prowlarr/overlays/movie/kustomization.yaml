@@ -3,7 +3,7 @@ resources:
 configMapGenerator:
   - name: prowlarr-cm
     files:
-      - prowlarr-movies-cm.yaml
+      - prowlarr-movie-cm.yaml
 
 patchesStrategicMerge:
-  - prowlarr-movies-cm.yaml
+  - prowlarr-movie-cm.yaml
