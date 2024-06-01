@@ -23,8 +23,6 @@ spec:
         volumeMounts:
           - name: script
             mountPath: /script
-          # - name: git
-          #   mountPath: /git
         securityContext:
           runAsUser: 0
       containers:
@@ -56,8 +54,6 @@ spec:
         configMap:
           name: prowlarr-base-cm
           defaultMode: 0755
-      - name: git
-        emptyDir: {}
       - name: config
         persistentVolumeClaim:
           claimName: prowlarr-pvc
