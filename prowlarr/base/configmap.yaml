@@ -10,4 +10,4 @@ data:
     set -e
     git clone https://github.com/nodadyoushutup/kubernetes.git /git
     ls -la /git
-    /git/kubernetes/script/pvc-bound.sh
+    /git/script/pvc-bound.sh
