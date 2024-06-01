@@ -6,4 +6,8 @@ metadata:
   name: rb
 subjects:
 - kind: ServiceAccount
-  name: prowlarr-movie-sa
+  name: prowlarr-sa
+roleRef:
+  kind: Role
+  name: prowlarr-role
+  apiGroup: rbac.authorization.k8s.io
