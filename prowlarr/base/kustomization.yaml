@@ -1,4 +1,5 @@
 # prowlarr/base/kustomization.yaml
+---
 resources:
   - configmap.yaml
   - serviceaccount.yaml
