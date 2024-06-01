@@ -9,7 +9,7 @@ spec:
     spec:
       serviceAccountName: prowlarr-movie-sa
       initContainers:
-      - name: init-pvc-bound
+      - name: pvc-bound
         env:
         - name: NAMESPACE
           value: "prowlarr-movie"
