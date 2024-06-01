@@ -23,8 +23,8 @@ spec:
         volumeMounts:
           - name: script
             mountPath: /script
-          - name: git
-            mountPath: /git
+          # - name: git
+          #   mountPath: /git
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
