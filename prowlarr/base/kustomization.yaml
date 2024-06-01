@@ -5,6 +5,7 @@ resources:
   - rolebinding.yaml
   - service.yaml
   - serviceaccount.yaml
+  - deploy.yaml
 
 commonLabels:
   app: prowlarr

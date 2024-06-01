@@ -1,5 +1,4 @@
 ---
-# prowlarr/prowlarr-deploy.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,27 +18,14 @@ spec:
         k8s-app: prowlarr
     spec:
       serviceAccountName: prowlarr-sa
-      initContainers:
-      - name: init-pvc-bound
-        image: bitnami/kubectl:latest
-        imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/init-pvc-bound.sh"]
-        volumeMounts:
-          - name: script
-            mountPath: /script
-      # - name: init-run
+      # initContainers:
+      # - name: init-pvc-bound
       #   image: bitnami/kubectl:latest
       #   imagePullPolicy: IfNotPresent
-      #   command: ["sh", "/script/init-run.sh"]
+      #   command: ["sh", "/script/init-pvc-bound.sh"]
       #   volumeMounts:
-      #     - name: init
-      #       mountPath: /init
-      #     - name: config
-      #       mountPath: /config
       #     - name: script
       #       mountPath: /script
-      #   securityContext:
-      #     runAsUser: 0
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
