@@ -21,12 +21,14 @@ spec:
       initContainers:
       - name: init-pvc-bound
         image: bitnami/kubectl:latest
+        imagePullPolicy: IfNotPresent
         command: ["sh", "/script/init-pvc-bound.sh"]
         volumeMounts:
           - name: script
             mountPath: /script
       - name: init-run
         image: bitnami/kubectl:latest
+        imagePullPolicy: IfNotPresent
         command: ["sh", "/script/init-run.sh"]
         volumeMounts:
           - name: init
