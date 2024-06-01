@@ -59,16 +59,16 @@ apply_asset() {
     local condition_field=$3
     local condition_value=$4
     local yaml_file=$5
-    log "Applying $resource_type configuration" && kubectl apply -f "$yaml_file"
+    log "Applying $resource_type configuration" && envsubst < "$yaml_file" | kubectl apply -f -
     while [ "$(kubectl get "$resource_type" "$resource_name" -n ${NAMESPACE} -o jsonpath="{.status.$condition_field}")" != "$condition_value" ]; do
-    log "Waiting for the $resource_type $resource_name to be $condition_value..."
-    sleep 10
+        log "Waiting for the $resource_type $resource_name to be $condition_value..."
+        sleep 10
     done
 }
 
 apply_assets() {
     log "Starting backup job"
-    apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "readyToUse" "true" "/script/volumesnapshot-tarshot.yaml"
+    apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "readyToUse" "true" "/git/script/volumesnapshot-tarshot.yaml"
     # apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "phase" "Bound" "/git/script/${NAMESPACE}-pvc-tarshot.yaml"
     # apply_asset "job" "${NAMESPACE}-job-tarshot" "succeeded" "1" "/git/script/${NAMESPACE}-job-tarshot.yaml"
     log "Backup job completed"
