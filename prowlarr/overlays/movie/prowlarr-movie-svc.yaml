@@ -8,3 +8,10 @@ metadata:
 spec:
   selector:
     k8s-app: prowlarr-movie
+  type: NodePort
+  ports:
+    - name: prowlarr
+      port: 9696
+      targetPort: 9696
+      nodePort: 30096
+      protocol: TCP
