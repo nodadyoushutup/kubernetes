@@ -25,6 +25,8 @@ spec:
             mountPath: /script
           - name: git
             mountPath: /git
+        securityContext:
+          runAsUser: 0
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
