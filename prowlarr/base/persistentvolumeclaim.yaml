@@ -1,5 +1,5 @@
 ---
-# prowlarr/prowlarr-pvc.yaml
+# prowlarr/base/persistentvolumeclaim.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

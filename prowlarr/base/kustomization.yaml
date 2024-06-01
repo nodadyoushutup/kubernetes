@@ -4,7 +4,6 @@ resources:
   - role.yaml
   - rolebinding.yaml
   - service.yaml
-  # - serviceaccount.yaml
   - deployment.yaml
   - cronjob.yaml
   - configmap.yaml
