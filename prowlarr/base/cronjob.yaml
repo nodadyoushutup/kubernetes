@@ -20,10 +20,6 @@ spec:
             env:
             - name: NAMESPACE
               value: "prowlarr-movie" # TODOL: Make non-static
-            securityContext:
-              privileged: true
-              runAsUser: 0
-              runAsGroup: 0
             volumeMounts:
             - name: script
               mountPath: /script
