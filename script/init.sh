@@ -8,7 +8,7 @@ if [ -z "$NAMESPACE" ]; then
 fi
 
 # Define the tar.gz file path
-TAR_FILE="/init/${NAMESPACE}.tar.gz"
+TAR_FILE="/init/${NAMESPACE}_init.tar.gz"
 
 # Check if the tar.gz file exists
 if [ -f "$TAR_FILE" ]; then
