@@ -5,8 +5,9 @@ resources:
   - role.yaml
   - rolebinding.yaml
   - persistentvolumeclaim.yaml
+  - deployment.yaml
   # - service.yaml
-  # - deployment.yaml
+  
   # - cronjob.yaml
 
 namespace: prowlarr

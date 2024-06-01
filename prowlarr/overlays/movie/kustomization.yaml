@@ -13,11 +13,10 @@ namePrefix:
 
 patches:
   - path: rolebinding.yaml
+  - path: deployment.yaml
   # - path: service.yaml
-  # - path: deployment.yaml
   
   
-
 configMapGenerator:
   - name: cm
     behavior: merge
