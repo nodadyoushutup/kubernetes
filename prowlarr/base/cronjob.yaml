@@ -17,6 +17,9 @@ spec:
           - name: tarshot
             image: bitnami/kubectl:latest
             command: ["/bin/sh", "/script/tarshot.sh"]
+            env:
+            - name: NAMESPACE
+              value: "prowlarr-movie" # TODOL: Make non-static
             securityContext:
               privileged: true
               runAsUser: 0
@@ -32,11 +35,11 @@ spec:
           volumes:
           - name: script
             configMap:
-              name: prowlarr-movie-cm
+              name: prowlarr-movie-cm # TODOL: Make non-static
               defaultMode: 0755
           - name: config
             persistentVolumeClaim:
-              claimName: prowlarr-movie-pvc
+              claimName: prowlarr-movie-pvc # TODOL: Make non-static
               readOnly: false
           - name: backup
             nfs:
