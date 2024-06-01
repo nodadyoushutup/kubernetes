@@ -3,5 +3,5 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: prowlarr-movie-cronjob-tarshot
+  name: prowlarr-cronjob-tarshot
   namespace: prowlarr-movie

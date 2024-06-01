@@ -14,7 +14,10 @@ patches:
       kind: ConfigMap
       name: prowlarr-movie-cm
     path: prowlarr-movie-cm.yaml
-  - path: prowlarr-movie-cronjob.yaml
+  - target:
+      kind: CronJob
+      name: prowlarr-movie-cronjob-tarshot
+    path: prowlarr-movie-cronjob.yaml
   - path: prowlarr-movie-deploy.yaml
   - path: prowlarr-movie-ns.yaml
   - path: prowlarr-movie-pvc.yaml
