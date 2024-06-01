@@ -75,6 +75,6 @@ apply_assets() {
     log "Backup job completed"
 }
 
-delete_assets "Purging orphan assets (if they exist)"
+# delete_assets "Purging orphan assets (if they exist)"
 apply_assets
-delete_assets "Deleting ephemeral assets"
+# delete_assets "Deleting ephemeral assets"
