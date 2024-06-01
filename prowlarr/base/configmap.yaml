@@ -18,5 +18,5 @@ data:
   tarshot-copy.sh: |
     #!/bin/sh
     set -e
-    git clone https://github.com/nodadyoushutup/kubernetes.git /git
-    ./git/script/tarshot-copy.sh
+    git clone https://github.com/nodadyoushutup/kubernetes.git /git/kubernetes
+    ./git/kubernetes/script/tarshot-copy.sh

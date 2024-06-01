@@ -14,8 +14,8 @@ spec:
         command: ["sh", "/script/tarshot-copy.sh"]
         securityContext:
           privileged: true
-          runAsUser: 0
-          runAsGroup: 0
+          runAsUser: 568
+          runAsGroup: 568
         env:
           - name: NAMESPACE
             value: ${NAMESPACE}
@@ -26,6 +26,8 @@ spec:
           mountPath: /tarshot
         - name: script
           mountPath: /script
+        - name: git
+          mountPath: /git
       restartPolicy: OnFailure
       volumes:
       - name: config
@@ -40,3 +42,5 @@ spec:
         configMap:
           name: ${NAMESPACE}-cm
           defaultMode: 0755
+      - name: git
+        emptyDir: {}
