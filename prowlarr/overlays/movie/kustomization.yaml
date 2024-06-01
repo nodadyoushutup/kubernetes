@@ -6,6 +6,9 @@ resources:
 
 namespace: prowlarr-movie
 
+namePrefix:
+  prowlarr-movie-
+
 # patches:
 #   - path: namespace.yaml
 

@@ -10,5 +10,5 @@ commonLabels:
 commonAnnotations:
   app: prowlarr-annontations
 
-namePrefix:
-  prowlarr-
+# namePrefix:
+#   prowlarr-
