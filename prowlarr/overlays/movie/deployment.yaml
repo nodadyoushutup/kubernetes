@@ -17,7 +17,7 @@ spec:
       - name: prowlarr
         envFrom:
           - configMapRef:
-              name: prowlarr-cm
+              name: prowlarr-movie-cm
       volumes:
       - name: config
         persistentVolumeClaim:
