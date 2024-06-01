@@ -1,0 +1,27 @@
+---
+# prowlarr/prowlarr-cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-tarshot
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: prowlarr-movie-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+          containers:
+          - name: tarshot
+            env:
+            - name: NAMESPACE
+              value: "prowlarr-movie"
+          volumes:
+          - name: script
+            configMap:
+              name: prowlarr-movie-cm
+          - name: config
+            persistentVolumeClaim:
+              claimName: prowlarr-movie-pvc
+          - name: backup
+            nfs:
+              path: /mnt/epool/backup/prowlarr-movie
