@@ -1,0 +1,77 @@
+# overseerr-dply.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: overseerr-dpl
+  namespace: overseerr
+  labels:
+    k8s-app: overseerr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      k8s-app: overseerr
+  template:
+    metadata:
+      labels:
+        k8s-app: overseerr
+    spec:
+      serviceAccountName: overseerr-sa
+      initContainers:
+      - name: init-pvc-bound
+        image: bitnami/kubectl:latest
+        command: ["sh", "/script/init-pvc-bound.sh"]
+        volumeMounts:
+          - name: script
+            mountPath: /script
+      - name: init-run
+        image: bitnami/kubectl:latest
+        command: ["sh", "/script/init-run.sh"]
+        volumeMounts:
+          - name: init
+            mountPath: /init
+          - name: config
+            mountPath: /config
+          - name: script
+            mountPath: /script
+        securityContext:
+          runAsUser: 0
+      containers:
+      - name: overseerr
+        image: linuxserver/overseerr:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9055
+        env:
+        - name: UMASK_SET
+          value: "022"
+        - name: TZ
+          value: "America/New_York"
+        - name: PUID
+          value: "568"
+        - name: PGID
+          value: "568"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        readinessProbe:
+          httpGet:
+            path: /status
+            port: 9055
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: overseerr-pvc
+          readOnly: false
+      - name: init
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/init
+          readOnly: false
+      - name: script
+        configMap:
+          name: overseerr-cm
+          defaultMode: 0755

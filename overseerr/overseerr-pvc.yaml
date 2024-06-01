@@ -1,0 +1,13 @@
+# overseerr-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: overseerr-pvc
+  namespace: overseerr
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: rook-cephfs

@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: overseerr-cronjob-tarshot
+  namespace: overseerr
+spec:
+  schedule: "0 0 * * *"  # This schedule runs the job once a day at midnight
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: overseerr-sa
+          containers:
+          - name: tarshot
+            image: bitnami/kubectl:latest
+            command: ["/bin/sh", "/script/tarshot-run.sh"]
+            securityContext:
+              privileged: true
+              runAsUser: 0
+              runAsGroup: 0
+            volumeMounts:
+            - name: script
+              mountPath: /script
+          restartPolicy: OnFailure
+          volumes:
+          - name: script
+            configMap:
+              name: overseerr-cm
+              defaultMode: 0755
