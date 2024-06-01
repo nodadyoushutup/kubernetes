@@ -10,10 +10,6 @@ data:
     export NAMESPACE='tautulli'
     git clone https://github.com/nodadyoushutup/kubernetes.git
     ./kubernetes/script/init.sh
-    echo "RUN"
-  init-copy.sh: |
-    #!/bin/sh
-    echo "Hello"
   init-pvc-bound.sh: |
     #!/bin/sh
     echo "Waiting for PVC to be bound..."
