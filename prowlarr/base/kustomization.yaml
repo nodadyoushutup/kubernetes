@@ -3,6 +3,7 @@ resources:
   - configmap.yaml
   - serviceaccount.yaml
   - role.yaml
+  - rolebinding.yaml
   # - persistentvolumeclaim.yaml
   # - service.yaml
   # - deployment.yaml

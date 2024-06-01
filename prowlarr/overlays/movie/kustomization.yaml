@@ -12,11 +12,12 @@ namespace: prowlarr-movie
 namePrefix:
   prowlarr-movie-
 
-# patches:
+patches:
+  - path: rolebinding.yaml
   # - path: serviceaccount.yaml
   # - path: service.yaml
   # - path: deployment.yaml
-  # - path: rolebinding.yaml
+  
   
 
 # configMapGenerator:
