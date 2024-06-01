@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: cm
 data:
-  appname: prowlarr-movie
+  namespace: prowlarr-movie
