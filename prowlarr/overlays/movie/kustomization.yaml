@@ -18,7 +18,7 @@ patches:
   - path: rolebinding.yaml
 
 configMapGenerator:
-  - name: cm
+  - name: base-cm
     behavior: merge
     # literals:
     #   - additional-config-key=additional-config-value
