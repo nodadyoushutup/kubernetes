@@ -4,6 +4,13 @@ configMapGenerator:
   - name: prowlarr-cm
     files:
       - prowlarr-movie-cm.yaml
-
 patchesStrategicMerge:
   - prowlarr-movie-cm.yaml
+  - prowlarr-movie-cronjob.yaml
+  - prowlarr-movie-deploy.yaml
+  - prowlarr-movie-ns.yaml
+  - prowlarr-movie-pvc.yaml
+  - prowlarr-movie-rb.yaml
+  - prowlarr-movie-role.yaml
+  - prowlarr-movie-sa.yaml
+  - prowlarr-movie-svc.yaml

@@ -1,0 +1,7 @@
+---
+# prowlarr/prowlarr-movie-cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: prowlarr-movie-cronjob-tarshot
+  namespace: prowlarr-movie

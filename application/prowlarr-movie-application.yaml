@@ -13,7 +13,7 @@ spec:
     path: prowlarr/overlays/movie
   destination: 
     server: https://kubernetes.default.svc
-    namespace: prowlarr
+    namespace: prowlarr-movie
   syncPolicy:
     syncOptions:
     - CreateNamespace=true

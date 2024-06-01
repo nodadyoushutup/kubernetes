@@ -1,0 +1,7 @@
+---
+# prowlarr/prowlarr-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prowlarr-movie-role
+  namespace: prowlarr-movie

@@ -1,0 +1,10 @@
+---
+# prowlarr/prowlarr-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: prowlarr-movie-svc
+  namespace: prowlarr-movie
+spec:
+  selector:
+    k8s-app: prowlarr-movie

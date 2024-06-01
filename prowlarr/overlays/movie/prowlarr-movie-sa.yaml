@@ -1,0 +1,7 @@
+---
+# prowlarr/prowlarr-sa.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prowlarr-movie-sa
+  namespace: prowlarr-movie

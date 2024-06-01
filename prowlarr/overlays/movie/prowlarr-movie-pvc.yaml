@@ -1,0 +1,6 @@
+# prowlarr/prowlarr-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prowlarr-movie-pvc
+  namespace: prowlarr-movie
