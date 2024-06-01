@@ -7,7 +7,6 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: prowlarr-movie-sa
-  namespace: prowlarr
 roleRef:
   kind: Role
   name: prowlarr-movie-role
