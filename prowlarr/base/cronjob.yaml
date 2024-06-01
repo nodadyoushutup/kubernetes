@@ -28,5 +28,5 @@ spec:
           volumes:
           - name: script
             configMap:
-              name: prowlarr-cm
+              name: prowlarr-movie-cm
               defaultMode: 0755
