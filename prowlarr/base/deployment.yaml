@@ -27,10 +27,6 @@ spec:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
         imagePullPolicy: IfNotPresent
-        securityContext:
-          privileged: true
-          runAsUser: 568
-          runAsGroup: 568
         ports:
         - containerPort: 9696
         env:
@@ -38,10 +34,10 @@ spec:
           value: "022"
         - name: TZ
           value: "America/New_York"
-        # - name: PUID
-        #   value: "568"
-        # - name: PGID
-        #   value: "568"
+        - name: PUID
+          value: "568"
+        - name: PGID
+          value: "568"
         volumeMounts:
         - name: config
           mountPath: /config
