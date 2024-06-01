@@ -5,6 +5,7 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - serviceaccount.yaml
 
 namespace: prowlarr-movie
 
