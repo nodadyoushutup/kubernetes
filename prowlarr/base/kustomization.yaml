@@ -9,6 +9,8 @@ resources:
   # - deployment.yaml
   # - cronjob.yaml
 
+namespace: prowlarr
+
 commonLabels:
   app: prowlarr
 
