@@ -8,6 +8,11 @@ spec:
   template:
     spec:
       serviceAccountName: prowlarr-movie-sa
+      initContainers:
+      - name: init-pvc-bound
+        env:
+        - name: NAMESPACE
+          value: "prowlarr-movie"
       volumes:
       - name: config
         persistentVolumeClaim:

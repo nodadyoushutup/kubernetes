@@ -1,13 +1,14 @@
+---
+# prowlarr/base/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: base-cm
 data:
-  namespace: prowlarr
   init-pvc-bound.sh: |
     #!/bin/sh
-    echo "Waiting for PVC to be bound in ${namespace} namespace..."
-    until [ "$(kubectl get pvc ${namespace}-pvc -n ${namespace} -o jsonpath='{.status.phase}')" = "Bound" ]; do
+    echo "Waiting for PVC to be bound in ${NAMESPACE} namespace..."
+    until [ "$(kubectl get pvc ${NAMESPACE}-pvc -n ${NAMESPACE} -o jsonpath='{.status.phase}')" = "Bound" ]; do
       echo "PVC not bound yet. Waiting..."
       sleep 2
     done
