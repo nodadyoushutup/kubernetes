@@ -5,7 +5,7 @@ kind: Kustomization
 
 resources:
   - ../../base
-  - rolebinding.yaml
+  # - rolebinding.yaml
 
 namespace: prowlarr-movie
 
@@ -13,10 +13,10 @@ namePrefix:
   prowlarr-movie-
 
 patches:
-  - path: service.yaml
+  # - path: service.yaml
   - path: serviceaccount.yaml
-  - path: deployment.yaml
-  - path: rolebinding.yaml
+  # - path: deployment.yaml
+  # - path: rolebinding.yaml
   
 
 configMapGenerator:

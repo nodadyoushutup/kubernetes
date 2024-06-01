@@ -1,11 +1,11 @@
 # prowlarr/base/kustomization.yaml
 resources:
-  - persistentvolumeclaim.yaml
-  - role.yaml
-  - service.yaml
-  - deployment.yaml
-  - cronjob.yaml
-  - configmap.yaml
+  # - persistentvolumeclaim.yaml
+  # - role.yaml
+  # - service.yaml
+  # - deployment.yaml
+  # - cronjob.yaml
+  # - configmap.yaml
   - serviceaccount.yaml
 
 commonLabels:
