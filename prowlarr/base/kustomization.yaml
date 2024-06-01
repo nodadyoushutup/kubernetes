@@ -3,6 +3,7 @@ resources:
   - persistentvolumeclaim.yaml
   - role.yaml
   - rolebinding.yaml
+  - service.yaml
 
 commonLabels:
   app: prowlarr
