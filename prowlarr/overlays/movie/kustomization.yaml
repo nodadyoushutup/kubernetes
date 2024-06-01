@@ -20,6 +20,6 @@ patches:
 configMapGenerator:
   - name: base-cm
     behavior: merge
-    # literals:
-    #   - additional-config-key=additional-config-value
+    literals:
+      - additional-config-key=additional-config-value
     env: config.properties
