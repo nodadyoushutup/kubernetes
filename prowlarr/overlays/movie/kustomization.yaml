@@ -14,7 +14,7 @@ namePrefix:
 patches:
   - path: rolebinding.yaml
   - path: deployment.yaml
-  # - path: service.yaml
+  - path: service.yaml
   
   
 configMapGenerator:

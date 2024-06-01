@@ -1,8 +1,0 @@
----
-# prowlarr/prowlarr-ns.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: prowlarr
-  labels:
-    name: prowlarr

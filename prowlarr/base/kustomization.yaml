@@ -7,7 +7,6 @@ resources:
   - persistentvolumeclaim.yaml
   - deployment.yaml
   - service.yaml
-  
   # - cronjob.yaml
 
 namespace: prowlarr
