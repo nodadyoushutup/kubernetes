@@ -9,7 +9,17 @@ spec:
       containers:
       - name: tarcopy
         image: busybox
-        command: ["sh", "ls -la", "/script/tarshot-copy.sh"]
+        command: ["sh", "-c"]
+        args:
+          - |
+            echo "Listing /config contents:"
+            ls -la /config
+            echo "Listing /tarshot contents:"
+            ls -la /tarshot
+            echo "Listing /script contents:"
+            ls -la /script
+            echo "Running tarshot-copy.sh:"
+            sh /script/tarshot-copy.sh
         securityContext:
           privileged: true
           runAsUser: 0
