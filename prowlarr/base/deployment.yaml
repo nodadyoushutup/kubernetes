@@ -23,8 +23,8 @@ spec:
         volumeMounts:
           - name: script
             mountPath: /script
-          - name: git-clone
-            mountPath: /git
+          # - name: git
+          #   mountPath: /git
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
@@ -54,7 +54,7 @@ spec:
         configMap:
           name: prowlarr-base-cm
           defaultMode: 0755
-      - name: git-clone
+      - name: git
         emptyDir: {}
       - name: config
         persistentVolumeClaim:
