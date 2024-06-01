@@ -28,7 +28,7 @@ spec:
         image: linuxserver/prowlarr:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 9697
+        - containerPort: 9696
         env:
         - name: UMASK_SET
           value: "022"
