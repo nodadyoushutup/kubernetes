@@ -45,6 +45,8 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
+        - name: git
+          mountPath: /git
         readinessProbe:
           httpGet:
             path: /status
@@ -60,3 +62,5 @@ spec:
         persistentVolumeClaim:
           claimName: prowlarr-pvc
           readOnly: false
+      - name: git
+        emptyDir: {}
