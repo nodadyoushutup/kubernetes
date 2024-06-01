@@ -10,9 +10,9 @@ spec:
       serviceAccountName: prowlarr-movie-sa
       initContainers:
       - name: pvc-bound
-        env:
-        - name: NAMESPACE
-          value: "prowlarr-movie"
+        envFrom:
+          - configMapRef:
+              name: prowlarr-movie-cm
       volumes:
       - name: config
         persistentVolumeClaim:
