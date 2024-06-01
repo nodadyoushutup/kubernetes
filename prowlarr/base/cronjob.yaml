@@ -12,7 +12,7 @@ spec:
     spec:
       template:
         spec:
-          serviceAccountName: prowlarr-sa
+          serviceAccountName: prowlarr-movie-sa
           containers:
           - name: tarshot
             image: bitnami/kubectl:latest
