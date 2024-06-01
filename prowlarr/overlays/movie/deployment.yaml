@@ -12,3 +12,6 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: prowlarr-movie-pvc
+      - name: script
+        configMap:
+          name: prowlarr-movie-base-cm
