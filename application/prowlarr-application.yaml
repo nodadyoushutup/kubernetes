@@ -1,5 +1,5 @@
 ---
-# application/prowlarr-application.yaml
+# application/prowlarr-cm.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/nodadyoushutup/kubernetes
     targetRevision: HEAD
-    path: prowlarr
+    path: prowlarr/overlays/movie
   destination: 
     server: https://kubernetes.default.svc
     namespace: prowlarr

@@ -1,0 +1,9 @@
+resources:
+  - ../../base
+configMapGenerator:
+  - name: prowlarr-cm
+    files:
+      - prowlarr-movies-cm.yaml
+
+patchesStrategicMerge:
+  - prowlarr-movies-cm.yaml
