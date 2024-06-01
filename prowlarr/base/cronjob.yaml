@@ -22,8 +22,8 @@ spec:
               value: "prowlarr-movie"
             securityContext:
               privileged: true
-              runAsUser: 568
-              runAsGroup: 568
+              runAsUser: 0
+              runAsGroup: 0
             volumeMounts:
             - name: script
               mountPath: /script
