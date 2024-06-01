@@ -1,0 +1,9 @@
+---
+# prowlarr/overlays/movie/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rb
+subjects:
+- kind: ServiceAccount
+  name: prowlarr-movie-sa
