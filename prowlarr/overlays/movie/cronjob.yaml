@@ -12,9 +12,9 @@ spec:
           serviceAccountName: prowlarr-movie-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
           containers:
           - name: tarshot
-            env:
-            - name: NAMESPACE
-              value: "prowlarr-movie"
+            # env:
+            # - name: NAMESPACE
+            #   value: "prowlarr-movie"
           volumes:
           - name: script
             configMap:

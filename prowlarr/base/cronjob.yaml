@@ -17,9 +17,9 @@ spec:
           - name: tarshot
             image: bitnami/kubectl:latest
             command: ["/bin/sh", "/script/tarshot.sh"]
-            env:
-            - name: NAMESPACE
-              value: "prowlarr"
+            # env:
+            # - name: NAMESPACE
+            #   value: "prowlarr"
             volumeMounts:
             - name: script
               mountPath: /script
