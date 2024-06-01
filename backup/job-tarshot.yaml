@@ -14,8 +14,8 @@ spec:
         command: ["sh", "/script/tarshot-copy.sh"]
         securityContext:
           privileged: true
-          runAsUser: 568
-          runAsGroup: 568
+          runAsUser: 0
+          runAsGroup: 0
         env:
           - name: NAMESPACE
             value: ${NAMESPACE}
