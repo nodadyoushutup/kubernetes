@@ -16,7 +16,7 @@ spec:
           containers:
           - name: tarshot
             image: bitnami/kubectl:latest
-            command: ["/bin/sh", "/script/tarshot-run.sh"]
+            command: ["/bin/sh", "/script/tarshot.sh"]
             securityContext:
               privileged: true
               runAsUser: 0
