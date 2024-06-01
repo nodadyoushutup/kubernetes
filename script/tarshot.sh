@@ -79,7 +79,7 @@ apply_assets() {
 # apply_assets
 # delete_assets "Deleting ephemeral assets"
 echo "Starting job at $(date)"
-BACKUP_FILE="/nfs/${NAMESPACE}_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz"
+BACKUP_FILE="/backup/${NAMESPACE}_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz"
 tar -czvf ${BACKUP_FILE} /config
 chown 568:568 ${BACKUP_FILE}
 echo "Job completed at $(date)"
