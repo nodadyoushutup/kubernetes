@@ -18,18 +18,18 @@ spec:
           - name: NAMESPACE
             value: ${NAMESPACE}
         volumeMounts:
-        - name: pvc
-          mountPath: /pvc
-        - name: nfs
-          mountPath: /nfs
+        - name: config
+          mountPath: /config
+        - name: tarshot
+          mountPath: /tarshot
         - name: script
           mountPath: /script
       restartPolicy: OnFailure
       volumes:
-      - name: pvc
+      - name: config
         persistentVolumeClaim:
           claimName: ${NAMESPACE}-pvc-tarshot
-      - name: nfs
+      - name: tarshot
         nfs:
           server: 192.168.0.100
           path: /mnt/epool/tarshot/${NAMESPACE}

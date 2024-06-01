@@ -68,18 +68,13 @@ apply_asset() {
 
 apply_assets() {
     log "Starting backup job"
-    # apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "readyToUse" "true" "/git/backup/volumesnapshot-tarshot.yaml"
-    # apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "phase" "Bound" "/git/backup/pvc-tarshot.yaml"
-    # apply_asset "job" "${NAMESPACE}-job-tarshot" "succeeded" "1" "/git/backup/job-tarshot.yaml"
+    apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "readyToUse" "true" "/git/backup/volumesnapshot-tarshot.yaml"
+    apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "phase" "Bound" "/git/backup/pvc-tarshot.yaml"
+    apply_asset "job" "${NAMESPACE}-job-tarshot" "succeeded" "1" "/git/backup/job-tarshot.yaml"
     ls -la 
     log "Backup job completed"
 }
 
-# delete_assets "Purging orphan assets (if they exist)"
-# apply_assets
-# delete_assets "Deleting ephemeral assets"
-echo "Starting job at $(date)"
-BACKUP_FILE="/backup/${NAMESPACE}_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz"
-tar -czvf ${BACKUP_FILE} /config
-# chown 568:568 ${BACKUP_FILE}
-echo "Job completed at $(date)"
+delete_assets "Purging orphan assets (if they exist)"
+apply_assets
+delete_assets "Deleting ephemeral assets"
