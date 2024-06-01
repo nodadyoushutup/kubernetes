@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  namespace: prowlarr-movie
+spec:
+  template:
+    spec:
+      serviceAccountName: prowlarr-movie-sa
+      containers:
+      - name: prowlarr
+        image: linuxserver/prowlarr:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9696
+        env:
+        - name: UMASK_SET
+          value: "022"
+        - name: TZ
+          value: "America/New_York"
+        - name: PUID
+          value: "568"
+        - name: PGID
+          value: "568"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        readinessProbe:
+          httpGet:
+            path: /status
+            port: 9696
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: prowlarr-movie-pvc
+          readOnly: false

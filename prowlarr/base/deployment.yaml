@@ -2,30 +2,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: prowlarr-deploy
+  name: deployment
   namespace: prowlarr
   labels:
     k8s-app: prowlarr
 spec:
   replicas: 1
   revisionHistoryLimit: 0
-  selector:
-    matchLabels:
-      k8s-app: prowlarr
   template:
-    metadata:
-      labels:
-        k8s-app: prowlarr
     spec:
       serviceAccountName: prowlarr-sa
-      # initContainers:
-      # - name: init-pvc-bound
-      #   image: bitnami/kubectl:latest
-      #   imagePullPolicy: IfNotPresent
-      #   command: ["sh", "/script/init-pvc-bound.sh"]
-      #   volumeMounts:
-      #     - name: script
-      #       mountPath: /script
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
@@ -55,12 +41,3 @@ spec:
         persistentVolumeClaim:
           claimName: prowlarr-pvc
           readOnly: false
-      - name: init
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/init
-          readOnly: false
-      - name: script
-        configMap:
-          name: prowlarr-cm
-          defaultMode: 0755
