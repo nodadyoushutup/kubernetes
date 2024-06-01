@@ -25,8 +25,8 @@ spec:
             mountPath: /script
         securityContext:
           privileged: true
-          runAsUser: 0
-          runAsGroup: 0
+          runAsUser: 568
+          runAsGroup: 568
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
