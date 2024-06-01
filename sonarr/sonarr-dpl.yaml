@@ -80,6 +80,11 @@ spec:
           server: 192.168.0.100
           path: /mnt/epool/media
           readOnly: false
+      - name: init
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/init
+          readOnly: false
       - name: script
         configMap:
           name: sonarr-cm
