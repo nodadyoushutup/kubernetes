@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cm
+  name: base-cm
 data:
   namespace: prowlarr
   init-pvc-bound.sh: |
