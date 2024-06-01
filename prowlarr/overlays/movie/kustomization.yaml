@@ -13,3 +13,10 @@ namePrefix:
 
 patches:
   - path: deployment.yaml
+
+configMapGenerator:
+  - name: cm
+    behavior: merge
+    literals:
+      - additional-config-key=additional-config-value
+    env: config.properties
