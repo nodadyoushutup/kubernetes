@@ -42,7 +42,7 @@ spec:
         image: linuxserver/overseerr:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 9055
+        - containerPort: 5055
         env:
         - name: UMASK_SET
           value: "022"
@@ -58,7 +58,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /status
-            port: 9055
+            port: 5055
           initialDelaySeconds: 10
           periodSeconds: 10
       volumes:
