@@ -19,4 +19,4 @@ spec:
           claimName: prowlarr-movie-pvc
       - name: script
         configMap:
-          name: prowlarr-movie-base-cm
+          name: prowlarr-movie-cm
