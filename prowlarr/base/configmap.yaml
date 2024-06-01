@@ -8,8 +8,8 @@ data:
   pvc-bound.sh: |
     #!/bin/sh
     set -e
-    git clone https://github.com/nodadyoushutup/kubernetes.git /git
-    ./git/script/pvc-bound.sh
+    git clone https://github.com/nodadyoushutup/kubernetes.git /tmp/git
+    ./tmp/git/script/pvc-bound.sh
   tarshot.sh: |
     #!/bin/sh
     set -e
