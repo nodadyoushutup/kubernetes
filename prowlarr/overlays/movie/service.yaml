@@ -5,10 +5,6 @@ kind: Service
 metadata:
   name: svc
 spec:
-  type: NodePort
   ports:
     - name: prowlarr
-      port: 9696
-      targetPort: 9696
-      nodePort: 30096
-      protocol: TCP
+      nodePort: 30097
