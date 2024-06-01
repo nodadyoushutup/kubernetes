@@ -17,6 +17,9 @@ spec:
           - name: tarshot
             image: bitnami/kubectl:latest
             command: ["/bin/sh", "/script/tarshot.sh"]
+            env:
+            - name: NAMESPACE
+              value: "prowlarr-movie"
             securityContext:
               privileged: true
               runAsUser: 0

@@ -68,9 +68,9 @@ apply_asset() {
 
 apply_assets() {
     log "Starting backup job"
-    apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "readyToUse" "true" "/script/${NAMESPACE}-volumesnapshot-tarshot.yaml"
-    apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "phase" "Bound" "/script/${NAMESPACE}-pvc-tarshot.yaml"
-    apply_asset "job" "${NAMESPACE}-job-tarshot" "succeeded" "1" "/script/${NAMESPACE}-job-tarshot.yaml"
+    apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "readyToUse" "true" "/script/volumesnapshot-tarshot.yaml"
+    # apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "phase" "Bound" "/git/script/${NAMESPACE}-pvc-tarshot.yaml"
+    # apply_asset "job" "${NAMESPACE}-job-tarshot" "succeeded" "1" "/git/script/${NAMESPACE}-job-tarshot.yaml"
     log "Backup job completed"
 }
 
