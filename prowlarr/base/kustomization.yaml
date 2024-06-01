@@ -6,6 +6,7 @@ resources:
   - service.yaml
   - serviceaccount.yaml
   - deployment.yaml
+  - cronjob.yaml
 
 commonLabels:
   app: prowlarr

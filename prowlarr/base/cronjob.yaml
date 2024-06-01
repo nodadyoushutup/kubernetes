@@ -4,7 +4,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: prowlarr-cronjob-tarshot
-  namespace: prowlarr
 spec:
   schedule: "0 0 * * *"  # This schedule runs the job once a day at midnight
   successfulJobsHistoryLimit: 1
