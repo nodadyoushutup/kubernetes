@@ -1,0 +1,12 @@
+---
+# prowlarr/base/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: base-cm
+data:
+  pvc-bound.sh: |
+    #!/bin/sh
+    set -e
+    git clone https://github.com/nodadyoushutup/kubernetes.git
+    ./kubernetes/script/pvc-bound.sh

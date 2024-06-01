@@ -16,7 +16,7 @@ spec:
       - name: init-pvc-bound
         image: bitnami/kubectl:latest
         imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/init-pvc-bound.sh"]
+        command: ["sh", "/script/pvc-bound.sh"]
         volumeMounts:
           - name: script
             mountPath: /script
