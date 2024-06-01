@@ -11,8 +11,8 @@ namespace: prowlarr-movie
 namePrefix:
   prowlarr-movie-
 
-# patches:
-#   - path: deployment.yaml
+patches:
+  - path: deployment.yaml
 
 # Uncomment and customize the following if needed
 # configMapGenerator:
