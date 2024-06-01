@@ -1,3 +1,5 @@
+---
+# backup/job-tarshot.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -8,7 +10,7 @@ spec:
     spec:
       containers:
       - name: tarcopy
-        image: busybox
+        image: bitnami/kubectl:latest
         command: ["sh", "-c"]
         args:
           - |
