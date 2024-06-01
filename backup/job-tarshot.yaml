@@ -9,7 +9,7 @@ spec:
       containers:
       - name: tarcopy
         image: busybox
-        command: ["sh", "/script/tarshot-copy.sh"]
+        command: ["sh", "/git/script/tarshot-copy.sh"]
         securityContext:
           privileged: true
           runAsUser: 0
