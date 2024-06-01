@@ -4,6 +4,12 @@ metadata:
   name: radarr-cm
   namespace: radarr
 data:
+  init-run.sh: |
+    #!/bin/sh
+    set -e
+    export NAMESPACE='radarr'
+    git clone https://github.com/nodadyoushutup/kubernetes.git
+    ./kubernetes/script/init.sh
   init-pvc-bound.sh: |
     #!/bin/sh
     echo "Waiting for PVC to be bound..."

@@ -25,6 +25,18 @@ spec:
         volumeMounts:
           - name: script
             mountPath: /script
+      - name: init-run
+        image: bitnami/kubectl:latest
+        command: ["sh", "/script/init-run.sh"]
+        volumeMounts:
+          - name: init
+            mountPath: /init
+          - name: config
+            mountPath: /config
+          - name: script
+            mountPath: /script
+        securityContext:
+          runAsUser: 0
       containers:
       - name: radarr
         image: linuxserver/radarr:latest
@@ -67,6 +79,11 @@ spec:
         nfs:
           server: 192.168.0.100
           path: /mnt/epool/media
+          readOnly: false
+      - name: init
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/init
           readOnly: false
       - name: script
         configMap:
