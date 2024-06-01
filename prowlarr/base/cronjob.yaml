@@ -12,7 +12,7 @@ spec:
     spec:
       template:
         spec:
-          serviceAccountName: prowlarr-movie-sa
+          serviceAccountName: prowlarr-movie-sa # TODOL: Make non-static                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
           containers:
           - name: tarshot
             image: bitnami/kubectl:latest
@@ -40,4 +40,4 @@ spec:
           - name: backup
             nfs:
               server: 192.168.0.100
-              path: /mnt/epool/backup/prowlarr-movie
+              path: /mnt/epool/backup/prowlarr-movie # TODOL: Make non-static
