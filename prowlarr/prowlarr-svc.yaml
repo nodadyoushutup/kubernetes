@@ -1,5 +1,5 @@
 ---
-# prowlarr-svc.yaml
+# prowlarr/prowlarr-svc.yaml
 apiVersion: v1
 kind: Service
 metadata:
