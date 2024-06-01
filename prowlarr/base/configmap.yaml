@@ -6,7 +6,7 @@ data:
   namespace: prowlarr
   init-pvc-bound.sh: |
     #!/bin/sh
-    echo "Waiting for PVC to be bound..."
+    echo "Waiting for PVC to be bound in ${namespace} namespace..."
     until [ "$(kubectl get pvc ${namespace}-pvc -n ${namespace} -o jsonpath='{.status.phase}')" = "Bound" ]; do
       echo "PVC not bound yet. Waiting..."
       sleep 2
