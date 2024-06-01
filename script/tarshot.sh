@@ -71,7 +71,6 @@ apply_assets() {
     apply_asset "volumesnapshot" "${NAMESPACE}-volumesnapshot-tarshot" "readyToUse" "true" "/git/backup/volumesnapshot-tarshot.yaml"
     apply_asset "pvc" "${NAMESPACE}-pvc-tarshot" "phase" "Bound" "/git/backup/pvc-tarshot.yaml"
     apply_asset "job" "${NAMESPACE}-job-tarshot" "succeeded" "1" "/git/backup/job-tarshot.yaml"
-    ls -la 
     log "Backup job completed"
 }
 
