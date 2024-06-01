@@ -13,6 +13,11 @@ spec:
         envFrom:
           - configMapRef:
               name: prowlarr-movie-cm
+      containers:
+      - name: prowlarr
+        envFrom:
+          - configMapRef:
+              name: prowlarr-cm
       volumes:
       - name: config
         persistentVolumeClaim:

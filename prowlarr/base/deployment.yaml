@@ -32,15 +32,9 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9696
-        env:
-        - name: UMASK_SET
-          value: "022"
-        - name: TZ
-          value: "America/New_York"
-        - name: PUID
-          value: "568"
-        - name: PGID
-          value: "568"
+        envFrom:
+          - configMapRef:
+              name: prowlarr-cm
         volumeMounts:
         - name: config
           mountPath: /config
