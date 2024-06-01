@@ -2,7 +2,6 @@
 resources:
   - persistentvolumeclaim.yaml
   - role.yaml
-  - rolebinding.yaml
   - service.yaml
   - deployment.yaml
   - cronjob.yaml

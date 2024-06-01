@@ -6,6 +6,7 @@ kind: Kustomization
 resources:
   - ../../base
   - serviceaccount.yaml
+  - rolebinding.yaml
 
 namespace: prowlarr-movie
 
