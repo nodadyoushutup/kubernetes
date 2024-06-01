@@ -12,14 +12,14 @@ spec:
     spec:
       template:
         spec:
-          serviceAccountName: prowlarr-sa # TODOL: Make non-static                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+          serviceAccountName: prowlarr-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
           containers:
           - name: tarshot
             image: bitnami/kubectl:latest
             command: ["/bin/sh", "/script/tarshot.sh"]
             env:
             - name: NAMESPACE
-              value: "prowlarr" # TODOL: Make non-static
+              value: "prowlarr"
             volumeMounts:
             - name: script
               mountPath: /script
@@ -31,13 +31,13 @@ spec:
           volumes:
           - name: script
             configMap:
-              name: prowlarr-cm # TODOL: Make non-static
+              name: prowlarr-cm
               defaultMode: 0755
           - name: config
             persistentVolumeClaim:
-              claimName: prowlarr-pvc # TODOL: Make non-static
+              claimName: prowlarr-pvc
               readOnly: false
           - name: backup
             nfs:
               server: 192.168.0.100
-              path: /mnt/epool/backup/prowlarr # TODOL: Make non-static
+              path: /mnt/epool/backup/prowlarr
