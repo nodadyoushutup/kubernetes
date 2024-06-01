@@ -20,7 +20,7 @@ spec:
       serviceAccountName: tautulli-sa
       initContainers:
       - name: init-run
-        image: alpine/git:latest
+        image: bitnami/kubectl:latest
         command: ["sh", "/script/init-run.sh"]
         volumeMounts:
           - name: init
