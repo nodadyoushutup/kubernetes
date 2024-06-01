@@ -12,10 +12,10 @@ spec:
       - name: tarcopy
         image: bitnami/kubectl:latest
         command: ["sh", "/script/tarshot-copy.sh"]
-        # securityContext:
-        #   privileged: true
-        #   runAsUser: 568
-        #   runAsGroup: 568
+        securityContext:
+          privileged: true
+          runAsUser: 568
+          runAsGroup: 568
         env:
           - name: NAMESPACE
             value: ${NAMESPACE}

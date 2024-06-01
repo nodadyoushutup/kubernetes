@@ -23,10 +23,10 @@ spec:
         volumeMounts:
           - name: script
             mountPath: /script
-        securityContext:
-          privileged: true
-          runAsUser: 568
-          runAsGroup: 568
+        # securityContext:
+        #   privileged: true
+        #   runAsUser: 568
+        #   runAsGroup: 568
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
