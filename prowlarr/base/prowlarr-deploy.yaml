@@ -27,19 +27,19 @@ spec:
         volumeMounts:
           - name: script
             mountPath: /script
-      - name: init-run
-        image: bitnami/kubectl:latest
-        imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/init-run.sh"]
-        volumeMounts:
-          - name: init
-            mountPath: /init
-          - name: config
-            mountPath: /config
-          - name: script
-            mountPath: /script
-        securityContext:
-          runAsUser: 0
+      # - name: init-run
+      #   image: bitnami/kubectl:latest
+      #   imagePullPolicy: IfNotPresent
+      #   command: ["sh", "/script/init-run.sh"]
+      #   volumeMounts:
+      #     - name: init
+      #       mountPath: /init
+      #     - name: config
+      #       mountPath: /config
+      #     - name: script
+      #       mountPath: /script
+      #   securityContext:
+      #     runAsUser: 0
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
