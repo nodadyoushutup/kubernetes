@@ -19,5 +19,4 @@ if [ -f "$TAR_FILE" ]; then
   echo "Extraction complete."
 else
   echo "File $TAR_FILE does not exist. No migration action is necessary."
-  exit 1
 fi
