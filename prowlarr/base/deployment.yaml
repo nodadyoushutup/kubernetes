@@ -13,10 +13,12 @@ spec:
     spec:
       serviceAccountName: prowlarr-sa
       initContainers:
-      - name: init-pvc-bound
+      - name: pvc-bound
         image: bitnami/kubectl:latest
         imagePullPolicy: IfNotPresent
         command: ["sh", "/script/pvc-bound.sh"]
+        securityContext:
+          runAsUser: 0
         volumeMounts:
           - name: script
             mountPath: /script
