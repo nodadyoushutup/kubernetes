@@ -1,4 +1,5 @@
 #!/bin/sh
 set -e
 
-echo "hey now"
+ls -la
+ls -la /
