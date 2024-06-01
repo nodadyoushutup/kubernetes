@@ -12,6 +12,14 @@ spec:
   template:
     spec:
       serviceAccountName: prowlarr-sa
+      initContainers:
+      - name: init-pvc-bound
+        image: bitnami/kubectl:latest
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "/script/init-pvc-bound.sh"]
+        volumeMounts:
+          - name: script
+            mountPath: /script
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
@@ -37,6 +45,10 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 10
       volumes:
+      - name: script
+        configMap:
+          name: prowlarr-base-cm
+          defaultMode: 0755
       - name: config
         persistentVolumeClaim:
           claimName: prowlarr-pvc
