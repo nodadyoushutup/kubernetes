@@ -4,7 +4,7 @@ resources:
   - serviceaccount.yaml
   - role.yaml
   - rolebinding.yaml
-  # - persistentvolumeclaim.yaml
+  - persistentvolumeclaim.yaml
   # - service.yaml
   # - deployment.yaml
   # - cronjob.yaml
