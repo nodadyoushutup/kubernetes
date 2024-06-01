@@ -10,5 +10,5 @@ spec:
     - name: prowlarr
       port: 9696
       targetPort: 9696
-      nodePort: 30097
+      nodePort: 30096
       protocol: TCP
