@@ -26,8 +26,6 @@ spec:
           mountPath: /tarshot
         - name: script
           mountPath: /script
-        - name: git
-          mountPath: /git
       restartPolicy: OnFailure
       volumes:
       - name: config
@@ -42,5 +40,3 @@ spec:
         configMap:
           name: ${NAMESPACE}-cm
           defaultMode: 0755
-      - name: git
-        emptyDir: {}
