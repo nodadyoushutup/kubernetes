@@ -11,8 +11,6 @@ resources:
   - cronjob.yaml
 
 namespace: prowlarr
-namePrefix:
-  prowlarr-
 commonLabels:
   app: prowlarr
 
