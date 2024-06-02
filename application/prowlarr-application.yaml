@@ -24,7 +24,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prowlarr
+  name: prowlarr-television
   namespace: argocd
 spec:
   project: default
@@ -34,7 +34,7 @@ spec:
     path: prowlarr/overlays/television
   destination: 
     server: https://kubernetes.default.svc
-    namespace: prowlarr
+    namespace: prowlarr-television
   syncPolicy:
     syncOptions:
     - CreateNamespace=true

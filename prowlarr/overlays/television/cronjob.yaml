@@ -1,0 +1,29 @@
+# prowlarr/prowlarr-cronjob.yaml
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-tarshot
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: prowlarr-television-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+          containers:
+          - name: tarshot
+            envFrom:
+              - configMapRef:
+                  name: prowlarr-television-cm
+          volumes:
+          - name: script
+            configMap:
+              name: prowlarr-television-cm
+              defaultMode: 0755
+          - name: config
+            persistentVolumeClaim:
+              claimName: prowlarr-television-pvc
+              readOnly: false
+          - name: backup
+            nfs:
+              path: /mnt/epool/backup/prowlarr-television
