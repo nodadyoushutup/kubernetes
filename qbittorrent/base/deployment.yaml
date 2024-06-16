@@ -42,7 +42,6 @@ spec:
       - name: qbittorrent
         image: linuxserver/qbittorrent:latest
         imagePullPolicy: IfNotPresent
-        command: ["sh", "-c", "sleep 5 && grep -q '^WebUI\\HostHeaderValidation=false$' /config/qBittorrent/qBittorrent.conf || echo 'WebUI\\HostHeaderValidation=false' >> /config/qBittorrent/qBittorrent.conf && ls -la /config/qBittorrent && cat /config/qBittorrent/qBittorrent.conf"]
         ports:
         - containerPort: 8080
           protocol: TCP
