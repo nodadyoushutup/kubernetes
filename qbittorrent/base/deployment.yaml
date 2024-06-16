@@ -31,9 +31,9 @@ spec:
         imagePullPolicy: IfNotPresent
         command: ["sh", "/script/qbittorrent-config.sh"]
         securityContext:
-          runAsUser: 568
-          runAsGroup: 568
-          fsGroup: 568
+          runAsUser: 0
+          runAsGroup: 0
+          fsGroup: 0
         volumeMounts:
           - name: script
             mountPath: /script
