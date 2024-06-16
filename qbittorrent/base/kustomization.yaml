@@ -6,9 +6,10 @@ resources:
   - role.yaml
   - rolebinding.yaml
   - persistentvolumeclaim.yaml
-  - deployment.yaml
+  # - deployment.yaml
   - service.yaml
   # - cronjob.yaml
+  - debug.yaml
 
 namespace: qbittorrent
 commonLabels:
