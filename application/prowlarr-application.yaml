@@ -6,7 +6,7 @@ metadata:
   name: prowlarr-movie
   namespace: argocd
   labels:
-    - prowlarr
+    app: prowlarr
 spec:
   project: default
   source:
@@ -29,7 +29,7 @@ metadata:
   name: prowlarr-television
   namespace: argocd
   labels:
-    - prowlarr
+    app: prowlarr
 spec:
   project: default
   source:
