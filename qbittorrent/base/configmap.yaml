@@ -20,7 +20,12 @@ data:
     set -e
     git clone https://github.com/nodadyoushutup/kubernetes.git /tmp/git
     ./tmp/git/script/tarshot-copy.sh
-  qBittorrent.conf: |
+  qbittorrent-config.sh: |
+    #!/bin/sh
+    set -e
+    git clone https://github.com/nodadyoushutup/kubernetes.git /tmp/git
+    ./tmp/git/script/qbittorrent-config.sh
+  qBittorrent-default.conf: |
     [AutoRun]
     enabled=false
     program=
@@ -38,48 +43,5 @@ data:
     WebUI\ServerDomains=*
     WebUI\HostHeaderValidation=false
     WebUI\Username=admin
+    # Default password "adminadmin"
     WebUI\Password_PBKDF2="@ByteArray(2not9r6jLIKcHuU/4MkA9g==:2XUrgHJMZ9A2eQR2SvnASD/15W2JoQ/YtkaRzOgTQRFIVLCcJELC6Y19Jv2rXSDQSN/MKKV/JtWzi2dNPRFeVw==)"
-  init-config.sh: | 
-    #!/bin/sh
-    set -e
-
-    SOURCE_FILE="/script/qBittorrent.conf"
-    DEST_FILE="/config/qBittorrent/qBittorrent.conf"
-
-    # Check if the destination configuration file exists
-    if [ ! -f "$DEST_FILE" ]; then
-        echo "Configuration file not found at $DEST_FILE."
-        echo "Copying default configuration from $SOURCE_FILE to $DEST_FILE."
-
-        # Ensure the destination directory exists
-        mkdir -p $(dirname "$DEST_FILE")
-
-        # Copy the default configuration file to the destination
-        cp "$SOURCE_FILE" "$DEST_FILE"
-
-        echo "Default configuration copied."
-    else
-        echo "Configuration file already exists at $DEST_FILE. Checking contents."
-
-        # Check if "WebUI\HostHeaderValidation=false" exists in the file
-        if ! grep -q "^WebUI\\HostHeaderValidation=false" "$DEST_FILE"; then
-            echo "Adding 'WebUI\HostHeaderValidation=false' to the Preferences section in $DEST_FILE."
-
-            # Find the line number where the [Preferences] section starts
-            PREF_LINE=$(grep -n "^\[Preferences\]" "$DEST_FILE" | cut -d ':' -f 1)
-
-            if [ -n "$PREF_LINE" ]; then
-                # Add the setting right after the Preferences section header
-                PREF_LINE=$((PREF_LINE + 1))
-                sed -i "${PREF_LINE}iWebUI\\HostHeaderValidation=false" "$DEST_FILE"
-            else
-                # If the Preferences section is not found, append the line at the end of the file
-                echo "[Preferences]" >> "$DEST_FILE"
-                echo "WebUI\\HostHeaderValidation=false" >> "$DEST_FILE"
-            fi
-
-            echo "'WebUI\HostHeaderValidation=false' added to the configuration."
-        else
-            echo "'WebUI\HostHeaderValidation=false' is already present in $DEST_FILE."
-        fi
-    fi

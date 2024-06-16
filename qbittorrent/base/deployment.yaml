@@ -27,9 +27,9 @@ spec:
           - configMapRef:
               name: qbittorrent-movie-cm
       - name: set-config
-        image: busybox:latest
+        image: bitnami/kubectl:latest
         imagePullPolicy: IfNotPresent
-        command: ["sh", "-c", "/script/init-config.sh"]
+        command: ["sh", "/script/qbittorrent-config.sh"]
         volumeMounts:
           - name: script
             mountPath: /script
