@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc
+  name: svc-webui
 spec:
   type: NodePort
   ports:
@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc
+  name: svc-traffic-tcp
 spec:
   type: NodePort
   ports:
@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc
+  name: svc-traffic-udp
 spec:
   type: NodePort
   ports:
