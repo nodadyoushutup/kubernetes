@@ -1,4 +1,4 @@
-# qbittorrent/overlays/movies/service.yaml
+# qbittorrent/base/service.yaml
 ---
 apiVersion: v1
 kind: Service
@@ -8,7 +8,33 @@ spec:
   type: NodePort
   ports:
     - name: qbittorrent
-      port: 9696
-      targetPort: 9696
-      nodePort: 30196
+      port: 8080
+      targetPort: 8080
+      nodePort: 30125
       protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc
+spec:
+  type: NodePort
+  ports:
+    - name: qbittorrent
+      port: 31125
+      targetPort: 31125
+      nodePort: 31125
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc
+spec:
+  type: NodePort
+  ports:
+    - name: qbittorrent
+      port: 31125
+      targetPort: 31125
+      nodePort: 31125
+      protocol: UDP
