@@ -1,82 +1,82 @@
 # qbittorrent/base/deployment.yaml
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: deployment
-#   labels:
-#     k8s-app: qbittorrent
-# spec:
-#   replicas: 1
-#   revisionHistoryLimit: 0
-#   template:
-#     metadata:
-#       labels:
-#         k8s-app: qbittorrent
-#     spec:
-#       serviceAccountName: qbittorrent-sa
-#       initContainers:
-#       - name: pvc-bound
-#         image: bitnami/kubectl:latest
-#         imagePullPolicy: IfNotPresent
-#         command: ["sh", "/script/pvc-bound.sh"]
-#         volumeMounts:
-#           - name: script
-#             mountPath: /script
-#         envFrom:
-#           - configMapRef:
-#               name: qbittorrent-movie-cm
-#       # - name: set-config
-#       #   image: busybox:latest
-#       #   imagePullPolicy: IfNotPresent
-#       #   # command: ["sh", "-c", "ls -la /script && ls -la /config/qBittorrent"]
-#       #   command: ["sh", "-c", "cp /script/qBittorrent.conf /config/qBittorrent/qBittorrent.conf && cat /config/qBittorrent/qBittorrent.conf"]
-#       #   volumeMounts:
-#       #     - name: script
-#       #       mountPath: /script
-#       #     - name: config
-#       #       mountPath: /config
-#       #   envFrom:
-#       #     - configMapRef:
-#       #         name: qbittorrent-movie-cm
-#       containers:
-#       - name: qbittorrent
-#         image: linuxserver/qbittorrent:latest
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 8080
-#           protocol: TCP
-#         - containerPort: 31125
-#           protocol: TCP
-#         - containerPort: 31125
-#           protocol: UDP
-#         envFrom:
-#           - configMapRef:
-#               name: qbittorrent-cm
-#         volumeMounts:
-#         - name: config
-#           mountPath: /config
-#         - name: media
-#           mountPath: /media
-#         readinessProbe:
-#           httpGet:
-#             path: /
-#             port: 8080
-#           initialDelaySeconds: 10
-#           periodSeconds: 10
-#       volumes:
-#       - name: script
-#         configMap:
-#           name: qbittorrent-cm
-#           defaultMode: 0755
-#       - name: config
-#         persistentVolumeClaim:
-#           claimName: qbittorrent-pvc
-#           readOnly: false
-#       - name: media
-#         nfs:
-#           server: 192.168.0.100
-#           path: /mnt/epool/media
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  labels:
+    k8s-app: qbittorrent
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        k8s-app: qbittorrent
+    spec:
+      serviceAccountName: qbittorrent-sa
+      initContainers:
+      - name: pvc-bound
+        image: bitnami/kubectl:latest
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "/script/pvc-bound.sh"]
+        volumeMounts:
+          - name: script
+            mountPath: /script
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-movie-cm
+      # - name: set-config
+      #   image: busybox:latest
+      #   imagePullPolicy: IfNotPresent
+      #   # command: ["sh", "-c", "ls -la /script && ls -la /config/qBittorrent"]
+      #   command: ["sh", "-c", "cp /script/qBittorrent.conf /config/qBittorrent/qBittorrent.conf && cat /config/qBittorrent/qBittorrent.conf"]
+      #   volumeMounts:
+      #     - name: script
+      #       mountPath: /script
+      #     - name: config
+      #       mountPath: /config
+      #   envFrom:
+      #     - configMapRef:
+      #         name: qbittorrent-movie-cm
+      containers:
+      - name: qbittorrent
+        image: linuxserver/qbittorrent:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 31125
+          protocol: TCP
+        - containerPort: 31125
+          protocol: UDP
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-cm
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: media
+          mountPath: /media
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: script
+        configMap:
+          name: qbittorrent-cm
+          defaultMode: 0755
+      - name: config
+        persistentVolumeClaim:
+          claimName: qbittorrent-pvc
+          readOnly: false
+      - name: media
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/media
 ---
 apiVersion: v1
 kind: Pod
