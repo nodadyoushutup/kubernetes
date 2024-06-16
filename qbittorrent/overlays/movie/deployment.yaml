@@ -1,31 +1,31 @@
 # qbittorrent/overlays/movie/deployment.yaml
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: deployment
-# spec:
-#   template:
-#     spec:
-#       serviceAccountName: qbittorrent-movie-sa
-#       initContainers:
-#       - name: pvc-bound
-#         envFrom:
-#           - configMapRef:
-#               name: qbittorrent-movie-cm
-#       # - name: set-config
-#       #   envFrom:
-#       #     - configMapRef:
-#       #         name: qbittorrent-movie-cm
-#       containers:
-#       - name: qbittorrent
-#         envFrom:
-#           - configMapRef:
-#               name: qbittorrent-movie-cm
-#       volumes:
-#       - name: config
-#         persistentVolumeClaim:
-#           claimName: qbittorrent-movie-pvc
-#       - name: script
-#         configMap:
-#           name: qbittorrent-movie-cm
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  template:
+    spec:
+      serviceAccountName: qbittorrent-movie-sa
+      initContainers:
+      - name: pvc-bound
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-movie-cm
+      # - name: set-config
+      #   envFrom:
+      #     - configMapRef:
+      #         name: qbittorrent-movie-cm
+      containers:
+      - name: qbittorrent
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-movie-cm
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: qbittorrent-movie-pvc
+      - name: script
+        configMap:
+          name: qbittorrent-movie-cm
