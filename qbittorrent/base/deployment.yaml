@@ -30,6 +30,10 @@ spec:
         image: bitnami/kubectl:latest
         imagePullPolicy: IfNotPresent
         command: ["sh", "/script/qbittorrent-config.sh"]
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          fsGroup: 568
         volumeMounts:
           - name: script
             mountPath: /script
