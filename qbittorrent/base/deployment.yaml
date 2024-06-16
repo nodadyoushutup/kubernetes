@@ -96,5 +96,5 @@ spec:
   volumes:
   - name: config
     persistentVolumeClaim:
-      claimName: qbittorrent-pvc
+      claimName: qbittorrent-movie-pvc
   restartPolicy: Never
