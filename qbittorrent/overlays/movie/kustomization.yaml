@@ -9,7 +9,7 @@ namePrefix:
   qbittorrent-movie-
 patches:
   - path: rolebinding.yaml
-  # - path: deployment.yaml
+  - path: deployment.yaml
   # - path: service.yaml
   # - path: cronjob.yaml
 configMapGenerator:
