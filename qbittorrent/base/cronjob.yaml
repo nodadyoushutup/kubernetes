@@ -1,0 +1,43 @@
+# qbittorrent/base/cronjob.yaml
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-tarshot
+spec:
+  schedule: "0 0 * * *"  # This schedule runs the job once a day at midnight
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: qbittorrent-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+          containers:
+          - name: tarshot
+            image: bitnami/kubectl:latest
+            command: ["/bin/sh", "/script/tarshot.sh"]
+            envFrom:
+              - configMapRef:
+                  name: qbittorrent-cm
+            volumeMounts:
+            - name: script
+              mountPath: /script
+            - name: config
+              mountPath: /config
+            - name: backup
+              mountPath: /backup
+          restartPolicy: OnFailure
+          volumes:
+          - name: script
+            configMap:
+              name: qbittorrent-cm
+              defaultMode: 0755
+          - name: config
+            persistentVolumeClaim:
+              claimName: qbittorrent-pvc
+              readOnly: false
+          - name: backup
+            nfs:
+              server: 192.168.0.100
+              path: /mnt/epool/backup/qbittorrent

@@ -1,0 +1,22 @@
+# qbittorrent/base/configmap.yaml
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm
+data:
+  pvc-bound.sh: |
+    #!/bin/sh
+    set -e
+    git clone https://github.com/nodadyoushutup/kubernetes.git /tmp/git
+    ./tmp/git/script/pvc-bound.sh
+  tarshot.sh: |
+    #!/bin/sh
+    set -e
+    git clone https://github.com/nodadyoushutup/kubernetes.git /tmp/git
+    ./tmp/git/script/tarshot.sh
+  tarshot-copy.sh: |
+    #!/bin/sh
+    set -e
+    git clone https://github.com/nodadyoushutup/kubernetes.git /tmp/git
+    ./tmp/git/script/tarshot-copy.sh

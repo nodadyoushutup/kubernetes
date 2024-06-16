@@ -1,0 +1,18 @@
+# qbittorrent/base/kustomization.yaml
+---
+resources:
+  - configmap.yaml
+  - serviceaccount.yaml
+  - role.yaml
+  - rolebinding.yaml
+  - persistentvolumeclaim.yaml
+  - deployment.yaml
+  - service.yaml
+  # - cronjob.yaml
+
+namespace: qbittorrent
+commonLabels:
+  app: qbittorrent
+
+commonAnnotations:
+  app: qbittorrent-annontations
