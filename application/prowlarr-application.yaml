@@ -5,6 +5,8 @@ kind: Application
 metadata:
   name: prowlarr-movie
   namespace: argocd
+  labels:
+    app: radarr
 spec:
   project: default
   source:
@@ -26,6 +28,8 @@ kind: Application
 metadata:
   name: prowlarr-television
   namespace: argocd
+  labels:
+    app: radarr
 spec:
   project: default
   source:
