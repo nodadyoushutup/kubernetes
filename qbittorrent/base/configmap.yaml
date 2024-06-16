@@ -37,7 +37,7 @@ data:
     WebUI\Address=*
     WebUI\ServerDomains=*
     WebUI\HostHeaderValidation=false
-  init-config.conf: | 
+  init-config.sh: | 
     #!/bin/sh
     set -e
     SOURCE_FILE="/script/qBittorrent.conf"
