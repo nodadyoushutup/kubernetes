@@ -30,7 +30,7 @@ spec:
         image: busybox:latest
         imagePullPolicy: IfNotPresent
         # command: ["sh", "-c", "ls -la /script && ls -la /config/qBittorrent"]
-        command: ["sh", "-c", "cp /script/qBittorrent.conf /config/qBittorrent/qBittorrent.conf"]
+        command: ["sh", "-c", "cp /script/qBittorrent.conf /config/qBittorrent/qBittorrent.conf && cat /config/qBittorrent/qBittorrent.conf"]
         volumeMounts:
           - name: script
             mountPath: /script
