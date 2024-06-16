@@ -45,3 +45,26 @@ spec:
     automated:
       selfHeal: true
       prune: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prowlarr-music
+  namespace: argocd
+  labels:
+    app: prowlarr
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nodadyoushutup/kubernetes
+    targetRevision: HEAD
+    path: prowlarr/overlays/music
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: prowlarr-music
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true

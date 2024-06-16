@@ -1,0 +1,27 @@
+# prowlarr/overlays/music/deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  template:
+    spec:
+      serviceAccountName: prowlarr-music-sa
+      initContainers:
+      - name: pvc-bound
+        envFrom:
+          - configMapRef:
+              name: prowlarr-music-cm
+      containers:
+      - name: prowlarr
+        envFrom:
+          - configMapRef:
+              name: prowlarr-music-cm
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: prowlarr-music-pvc
+      - name: script
+        configMap:
+          name: prowlarr-music-cm

@@ -1,0 +1,20 @@
+# prowlarr/overlays/music/kustomization.yaml
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+namespace: prowlarr-music
+namePrefix:
+  prowlarr-music-
+patches:
+  - path: rolebinding.yaml
+  - path: deployment.yaml
+  - path: service.yaml
+  # - path: cronjob.yaml
+configMapGenerator:
+  - name: cm
+    behavior: merge
+    env: config.properties
+    # literals:
+    #   - additional-config-key=additional-config-value
