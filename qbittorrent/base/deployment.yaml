@@ -25,7 +25,7 @@ spec:
             mountPath: /script
         envFrom:
           - configMapRef:
-              name: qbittorrent-cm
+              name: qbittorrent-movie-cm
       - name: set-config
         image: bitnami/kubectl:latest
         imagePullPolicy: IfNotPresent
