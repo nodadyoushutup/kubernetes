@@ -37,6 +37,8 @@ data:
     WebUI\Address=*
     WebUI\ServerDomains=*
     WebUI\HostHeaderValidation=false
+    WebUI\Username=admin
+    WebUI\Password_PBKDF2="@ByteArray(ufqyy/yMlwXhkVu+pnL63w==:ZFrtf8DNt/qzrAZV9QfXiKtu4e6CzakU2fBwtaeFQPTdlIzJx9JMFcHVNbNtym735JSQpyDd/JtYerwIZ0xIeg==)"
   init-config.sh: | 
     #!/bin/sh
     set -e
@@ -79,5 +81,44 @@ data:
             echo "'WebUI\HostHeaderValidation=false' added to the configuration."
         else
             echo "'WebUI\HostHeaderValidation=false' is already present in $DEST_FILE."
+        fi
+
+        # Check if "WebUI\Username=admin" exists in the file
+        if ! grep -q "^WebUI\\Username=admin" "$DEST_FILE"; then
+            echo "Adding 'WebUI\Username=admin' to the Preferences section in $DEST_FILE."
+
+            if [ -n "$PREF_LINE" ]; then
+                # Add the setting right after the Preferences section header
+                PREF_LINE=$((PREF_LINE + 1))
+                sed -i "${PREF_LINE}iWebUI\\Username=admin" "$DEST_FILE"
+            else
+                # If the Preferences section is not found, append the line at the end of the file
+                echo "[Preferences]" >> "$DEST_FILE"
+                echo "WebUI\\Username=admin" >> "$DEST_FILE"
+            fi
+
+            echo "'WebUI\Username=admin' added to the configuration."
+        else
+            echo "'WebUI\Username=admin' is already present in $DEST_FILE."
+        fi
+
+        # Check if "WebUI\Password_PBKDF2=..." exists in the file
+        PASSWORD_LINE="WebUI\Password_PBKDF2="@ByteArray(ufqyy/yMlwXhkVu+pnL63w==:ZFrtf8DNt/qzrAZV9QfXiKtu4e6CzakU2fBwtaeFQPTdlIzJx9JMFcHVNbNtym735JSQpyDd/JtYerwIZ0xIeg==)""
+        if ! grep -q "^$PASSWORD_LINE" "$DEST_FILE"; then
+            echo "Adding 'WebUI\Password_PBKDF2=...' to the Preferences section in $DEST_FILE."
+
+            if [ -n "$PREF_LINE" ]; then
+                # Add the setting right after the Preferences section header
+                PREF_LINE=$((PREF_LINE + 1))
+                sed -i "${PREF_LINE}i$PASSWORD_LINE" "$DEST_FILE"
+            else
+                # If the Preferences section is not found, append the line at the end of the file
+                echo "[Preferences]" >> "$DEST_FILE"
+                echo "$PASSWORD_LINE" >> "$DEST_FILE"
+            fi
+
+            echo "'WebUI\Password_PBKDF2=...' added to the configuration."
+        else
+            echo "'WebUI\Password_PBKDF2=...' is already present in $DEST_FILE."
         fi
     fi
