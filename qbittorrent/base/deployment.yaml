@@ -26,6 +26,16 @@ spec:
         envFrom:
           - configMapRef:
               name: qbittorrent-cm
+      - name: set-config
+        image: bitnami/kubectl:latest
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "cp /script/qBittorrent.conf /config/qBittorrent"]
+        volumeMounts:
+          - name: script
+            mountPath: /script
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-cm
       containers:
       - name: qbittorrent
         image: linuxserver/qbittorrent:latest
