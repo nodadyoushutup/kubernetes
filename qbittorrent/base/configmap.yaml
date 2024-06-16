@@ -37,6 +37,8 @@ data:
     WebUI\Address=*
     WebUI\ServerDomains=*
     WebUI\HostHeaderValidation=false
+    WebUI\Username=admin
+    WebUI\Password_PBKDF2="@ByteArray(ufqyy/yMlwXhkVu+pnL63w==:ZFrtf8DNt/qzrAZV9QfXiKtu4e6CzakU2fBwtaeFQPTdlIzJx9JMFcHVNbNtym735JSQpyDd/JtYerwIZ0xIeg==)"
   init-config.sh: | 
     #!/bin/sh
     set -e
