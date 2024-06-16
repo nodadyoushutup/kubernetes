@@ -3,7 +3,7 @@ set -e
 whoami
 echo "test $PUID $GUID"
 DEFAULT_FILE="/script/qBittorrent-default.conf"
-CONF_FILE="/config/qBittorrent/qBittorrent-default.conf"
+CONF_FILE="/config/qBittorrent/qBittorrent.conf"
 
 # Check if the destination configuration file exists
 if [ ! -f "$CONF_FILE" ]; then
