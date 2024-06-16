@@ -68,3 +68,49 @@ spec:
     automated:
       selfHeal: true
       prune: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prowlarr-book
+  namespace: argocd
+  labels:
+    app: prowlarr
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nodadyoushutup/kubernetes
+    targetRevision: HEAD
+    path: prowlarr/overlays/book
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: prowlarr-book
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prowlarr-cross-seed
+  namespace: argocd
+  labels:
+    app: prowlarr
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nodadyoushutup/kubernetes
+    targetRevision: HEAD
+    path: prowlarr/overlays/cross-seed
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: prowlarr-cross-seed
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true

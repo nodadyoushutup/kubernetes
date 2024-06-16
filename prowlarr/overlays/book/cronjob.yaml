@@ -1,0 +1,29 @@
+# prowlarr/prowlarr-cronjob.yaml
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-tarshot
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: prowlarr-book-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+          containers:
+          - name: tarshot
+            envFrom:
+              - configMapRef:
+                  name: prowlarr-book-cm
+          volumes:
+          - name: script
+            configMap:
+              name: prowlarr-book-cm
+              defaultMode: 0755
+          - name: config
+            persistentVolumeClaim:
+              claimName: prowlarr-book-pvc
+              readOnly: false
+          - name: backup
+            nfs:
+              path: /mnt/epool/backup/prowlarr-book
