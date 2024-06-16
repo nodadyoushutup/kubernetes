@@ -103,7 +103,7 @@ data:
         fi
 
         # Check if "WebUI\Password_PBKDF2=..." exists in the file
-        PASSWORD_LINE="WebUI\Password_PBKDF2="@ByteArray(ufqyy/yMlwXhkVu+pnL63w==:ZFrtf8DNt/qzrAZV9QfXiKtu4e6CzakU2fBwtaeFQPTdlIzJx9JMFcHVNbNtym735JSQpyDd/JtYerwIZ0xIeg==)""
+        PASSWORD_LINE="WebUI\\Password_PBKDF2=\"@ByteArray(ufqyy/yMlwXhkVu+pnL63w==:ZFrtf8DNt/qzrAZV9QfXiKtu4e6CzakU2fBwtaeFQPTdlIzJx9JMFcHVNbNtym735JSQpyDd/JtYerwIZ0xIeg==)\""
         if ! grep -q "^$PASSWORD_LINE" "$DEST_FILE"; then
             echo "Adding 'WebUI\Password_PBKDF2=...' to the Preferences section in $DEST_FILE."
 
