@@ -13,6 +13,10 @@ spec:
         envFrom:
           - configMapRef:
               name: qbittorrent-movie-cm
+      - name: set-config
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-movie-cm
       containers:
       - name: qbittorrent
         envFrom:
