@@ -102,9 +102,9 @@ data:
             echo "'WebUI\Username=admin' is already present in $DEST_FILE."
         fi
 
-        # Check if "WebUI\Password_PBKDF2=..." exists in the file
+        # Correctly handle the password line with parentheses and special characters
         PASSWORD_LINE="WebUI\\Password_PBKDF2=\"@ByteArray(ufqyy/yMlwXhkVu+pnL63w==:ZFrtf8DNt/qzrAZV9QfXiKtu4e6CzakU2fBwtaeFQPTdlIzJx9JMFcHVNbNtym735JSQpyDd/JtYerwIZ0xIeg==)\""
-        if ! grep -q "^$PASSWORD_LINE" "$DEST_FILE"; then
+        if ! grep -q "^WebUI\\Password_PBKDF2=\"@ByteArray(ufqyy/yMlwXhkVu+pnL63w==:ZFrtf8DNt/qzrAZV9QfXiKtu4e6CzakU2fBwtaeFQPTdlIzJx9JMFcHVNbNtym735JSQpyDd/JtYerwIZ0xIeg==)\"" "$DEST_FILE"; then
             echo "Adding 'WebUI\Password_PBKDF2=...' to the Preferences section in $DEST_FILE."
 
             if [ -n "$PREF_LINE" ]; then
