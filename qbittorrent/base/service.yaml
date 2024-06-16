@@ -25,16 +25,3 @@ spec:
       targetPort: 31025
       nodePort: 31025
       protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: svc-traffic-udp
-spec:
-  type: NodePort
-  ports:
-    - name: qbittorrent
-      port: 31025
-      targetPort: 31025
-      nodePort: 31025
-      protocol: UDP
