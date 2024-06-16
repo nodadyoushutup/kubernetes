@@ -33,6 +33,8 @@ spec:
         volumeMounts:
           - name: script
             mountPath: /script
+          - name: config
+            mountPath: /config
         envFrom:
           - configMapRef:
               name: qbittorrent-movie-cm
