@@ -29,7 +29,7 @@ spec:
       - name: set-config
         image: bitnami/kubectl:latest
         imagePullPolicy: IfNotPresent
-        command: ["sh", "cp /script/qBittorrent.conf /config/qBittorrent/qBittorrent.conf"]
+        command: ["sh", "la -la /config"]
         volumeMounts:
           - name: script
             mountPath: /script
