@@ -29,7 +29,7 @@ spec:
       - name: set-config
         image: bitnami/kubectl:latest
         imagePullPolicy: IfNotPresent
-        command: ["sh", "ls -la /config"]
+        command: ["sh", "ls -la"]
         volumeMounts:
           - name: script
             mountPath: /script
