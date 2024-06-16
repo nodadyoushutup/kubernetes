@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-
+whoami
 DEFAULT_FILE="/script/qBittorrent-default.conf"
 CONF_FILE="/config/qBittorrent/qBittorrent-default.conf"
 
