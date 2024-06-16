@@ -43,6 +43,7 @@ spec:
       - name: qbittorrent
         image: linuxserver/qbittorrent:latest
         imagePullPolicy: IfNotPresent
+        command: ["sh", "ls -la /config"]
         ports:
         - containerPort: 8080
           protocol: TCP
