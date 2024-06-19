@@ -47,8 +47,6 @@ if [ ! -f "$CONF_FILE" ]; then
     # Copy the default configuration file to the destination
     cp "$DEFAULT_FILE" "$CONF_FILE"
 
-    add_config_to_section "Session\Port" "$PORT_TRAFFIC" "BitTorrent" "$CONF_FILE"
-
     echo "Default configuration copied."
 else
     echo "Configuration file already exists at $CONF_FILE. Checking contents."

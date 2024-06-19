@@ -26,6 +26,16 @@ data:
     git clone https://github.com/nodadyoushutup/kubernetes.git /tmp/git
     ./tmp/git/script/qbittorrent-config.sh
   qBittorrent-default.conf: |
+    [Application]
+    FileLogger\Age=1
+    FileLogger\AgeType=1
+    FileLogger\Backup=true
+    FileLogger\DeleteOld=true
+    FileLogger\Enabled=true
+    FileLogger\MaxSizeBytes=66560
+    FileLogger\Path=/config/qBittorrent/logs
+    MemoryWorkingSetLimit=4096
+
     [BitTorrent]
     Session\AddExtensionToIncompleteFiles=true
     Session\CheckingMemUsageSize=2048
@@ -43,6 +53,7 @@ data:
     Session\MaxUploads=10
     Session\MaxUploadsPerTorrent=-1
     Session\PeXEnabled=false
+    Session\Port=31025
     Session\QueueingSystemEnabled=true
     Session\ResumeDataStorageType=SQLite
     Session\SaveResumeDataInterval=15
@@ -71,5 +82,6 @@ data:
     WebUI\ServerDomains=*
     WebUI\HostHeaderValidation=false
     WebUI\LocalHostAuth=false
+    WebUI\UseUPnP=false
     WebUI\Username=admin
     WebUI\Password_PBKDF2="@ByteArray(2not9r6jLIKcHuU/4MkA9g==:2XUrgHJMZ9A2eQR2SvnASD/15W2JoQ/YtkaRzOgTQRFIVLCcJELC6Y19Jv2rXSDQSN/MKKV/JtWzi2dNPRFeVw==)"
