@@ -40,7 +40,7 @@ data:
     Session\MaxUploads=10
     Session\MaxUploadsPerTorrent=-1
     Session\PeXEnabled=false
-    Session\Port=31125
+    Session\Port=31025
     Session\QueueingSystemEnabled=true
     Session\ResumeDataStorageType=SQLite
     Session\SaveResumeDataInterval=15
