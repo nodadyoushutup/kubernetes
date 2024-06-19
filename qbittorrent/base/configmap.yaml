@@ -84,6 +84,6 @@ data:
     WebUI\LocalHostAuth=false
     WebUI\UseUPnP=false
     WebUI\AuthSubnetWhitelistEnabled=true
-    WebUI\AuthSubnetWhitelist=192.168.0.0/24
+    WebUI\AuthSubnetWhitelist=192.168.0.168/24
     WebUI\Username=admin
     WebUI\Password_PBKDF2="@ByteArray(2not9r6jLIKcHuU/4MkA9g==:2XUrgHJMZ9A2eQR2SvnASD/15W2JoQ/YtkaRzOgTQRFIVLCcJELC6Y19Jv2rXSDQSN/MKKV/JtWzi2dNPRFeVw==)"
