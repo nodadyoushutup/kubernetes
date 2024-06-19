@@ -1,24 +1,24 @@
-# # application/qbittorrent.yaml
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: qbittorrent-movie
-#   namespace: argocd
-#   labels:
-#     app: qbittorrent
-# spec:
-#   project: default
-#   source:
-#     repoURL: https://github.com/nodadyoushutup/kubernetes
-#     targetRevision: HEAD
-#     path: qbittorrent/overlays/movie
-#   destination: 
-#     server: https://kubernetes.default.svc
-#     namespace: qbittorrent-movie
-#   syncPolicy:
-#     syncOptions:
-#     - CreateNamespace=true
-#     automated:
-#       selfHeal: true
-#       prune: true
+# application/qbittorrent.yaml
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: qbittorrent-movie
+  namespace: argocd
+  labels:
+    app: qbittorrent
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/nodadyoushutup/kubernetes
+    targetRevision: HEAD
+    path: qbittorrent/overlays/movie
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: qbittorrent-movie
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
