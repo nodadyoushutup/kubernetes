@@ -28,7 +28,10 @@ data:
   qBittorrent-default.conf: |
     [BitTorrent]
     Session\AddExtensionToIncompleteFiles=true
+    Session\CheckingMemUsageSize=2048
     Session\DHTEnabled=false
+    Session\DefaultSavePath=/media/storage
+    Session\FinishedTorrentExportDirectory=/torrents
     Session\IgnoreSlowTorrentsForQueueing=true
     Session\MaxActiveCheckingTorrents=2
     Session\MaxActiveDownloads=15
@@ -40,7 +43,6 @@ data:
     Session\MaxUploads=10
     Session\MaxUploadsPerTorrent=-1
     Session\PeXEnabled=false
-    Session\Port=31025
     Session\QueueingSystemEnabled=true
     Session\ResumeDataStorageType=SQLite
     Session\SaveResumeDataInterval=15
@@ -64,9 +66,7 @@ data:
     [Preferences]
     Connection\UPnP=false
     Connection\PortRangeMin=6881
-    Downloads\SavePath=/downloads/
     Downloads\ScanDirsV2=@Variant(\0\0\0\x1c\0\0\0\0)
-    Downloads\TempPath=/downloads/incomplete/
     WebUI\Address=*
     WebUI\ServerDomains=*
     WebUI\HostHeaderValidation=false
