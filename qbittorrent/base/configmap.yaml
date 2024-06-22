@@ -73,6 +73,9 @@ data:
     [Meta]
     MigrationVersion=6
 
+    [Network]
+    PortForwardingEnabled=false
+
     [Preferences]
     Connection\UPnP=false
     Connection\PortRangeMin=6881
