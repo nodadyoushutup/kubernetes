@@ -4,6 +4,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment
+  labels:
+    k8s-app: qbittorrent-television
 spec:
   template:
     spec:
