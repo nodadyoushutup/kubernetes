@@ -17,7 +17,7 @@ spec:
       nodePort: 30125
       protocol: TCP
     - name: traffic
-      port: 31025
-      targetPort: 31025
-      nodePort: 31025
+      port: 31125
+      targetPort: 31125
+      nodePort: 31125
       protocol: TCP
