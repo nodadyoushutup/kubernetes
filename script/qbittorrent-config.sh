@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-PORT_TRAFFIC=${PORT_TRAFFIC:-31025}
+INIT_PORT_TRAFFIC=${INIT_PORT_TRAFFIC:-31025}
 DEFAULT_FILE="/tmp/git/conf/qbittorrent-default.conf"
 CONF_FILE="/config/qBittorrent/qBittorrent.conf"
 
@@ -39,7 +39,7 @@ if [ ! -f "$CONF_FILE" ]; then
     echo "Copying default configuration from $DEFAULT_FILE to $CONF_FILE."
     mkdir -p $(dirname "$CONF_FILE")
     cp "$DEFAULT_FILE" "$CONF_FILE"
-    add_config_to_section "Session\\Port" "$PORT_TRAFFIC" "BitTorrent" "$CONF_FILE"
+    add_config_to_section "Session\\Port" "$INIT_PORT_TRAFFIC" "BitTorrent" "$CONF_FILE"
     echo "Default configuration copied."
 else
     echo "Configuration file already exists at $CONF_FILE. Checking contents."
