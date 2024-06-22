@@ -10,7 +10,7 @@ namePrefix:
 patches:
   - path: rolebinding.yaml
   - path: deployment.yaml
-  # - path: service.yaml
+  - path: service.yaml
   # - path: cronjob.yaml
 configMapGenerator:
   - name: cm
