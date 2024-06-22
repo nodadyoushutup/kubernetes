@@ -9,7 +9,7 @@ resources:
   - deployment.yaml
   - service.yaml
   # - cronjob.yaml
-  - debug.yaml
+  # - debug.yaml
 
 namespace: qbittorrent
 commonLabels:
