@@ -13,7 +13,7 @@ spec:
       nodePort: 30125
       protocol: TCP
     - name: qbittorrent-traffic
-      port: 30125
-      targetPort: 30125
-      nodePort: 30125
+      port: 31125
+      targetPort: 31125
+      nodePort: 31125
       protocol: TCP
