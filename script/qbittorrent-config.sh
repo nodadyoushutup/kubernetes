@@ -53,4 +53,5 @@ else
 
     # Call the function with your specific key-value pair and section
     add_config_to_section "WebUI\\HostHeaderValidation" "false" "Preferences" "$CONF_FILE"
+    add_config_to_section "Session\\Port" $PORT_TRAFFIC "BitTorrent" "$CONF_FILE"
 fi
