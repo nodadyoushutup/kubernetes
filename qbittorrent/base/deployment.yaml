@@ -38,9 +38,6 @@ spec:
             mountPath: /script
           - name: config
             mountPath: /config
-        envFrom:
-          - configMapRef:
-              name: qbittorrent-movie-cm
       containers:
       - name: qbittorrent
         image: linuxserver/qbittorrent:latest
