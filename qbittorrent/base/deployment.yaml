@@ -4,6 +4,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment
+  labels:
+    app: qbittorrent
+    type: qbittorrent
 spec:
   replicas: 1
   revisionHistoryLimit: 0
@@ -12,7 +15,8 @@ spec:
   template:
     metadata:
       labels:
-        k8s-app: qbittorrent
+        app: qbittorrent
+        type: qbittorrent
     spec:
       serviceAccountName: qbittorrent-sa
       initContainers:
