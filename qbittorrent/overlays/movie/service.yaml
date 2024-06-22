@@ -10,7 +10,7 @@ spec:
     - name: qbittorrent
       port: 8080
       targetPort: 8080
-      nodePort: 30025
+      nodePort: 30125
       protocol: TCP
 ---
 apiVersion: v1
