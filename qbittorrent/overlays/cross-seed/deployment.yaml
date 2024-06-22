@@ -1,0 +1,34 @@
+# qbittorrent/overlays/cross-seed/deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  labels:
+    app: qbittorrent
+    type: cross-seed
+spec:
+  template:
+    spec:
+      serviceAccountName: qbittorrent-cross-seed-sa
+      initContainers:
+      - name: pvc-bound
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-cross-seed-cm
+      - name: set-config
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-cross-seed-cm
+      containers:
+      - name: qbittorrent
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-cross-seed-cm
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: qbittorrent-cross-seed-pvc
+      - name: script
+        configMap:
+          name: qbittorrent-cross-seed-cm

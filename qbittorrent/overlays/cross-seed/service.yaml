@@ -1,0 +1,23 @@
+# qbittorrent/overlays/cross-seed/service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent
+  labels:
+    app: qbittorrent
+spec:
+  type: NodePort
+  selector:
+    app: qbittorrent
+  ports:
+    - name: webui
+      port: 8080
+      targetPort: 8080
+      nodePort: 30525
+      protocol: TCP
+    - name: traffic
+      port: 31525
+      targetPort: 31525
+      nodePort: 31525
+      protocol: TCP
