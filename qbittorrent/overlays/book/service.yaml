@@ -1,0 +1,23 @@
+# qbittorrent/overlays/book/service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent
+  labels:
+    app: qbittorrent
+spec:
+  type: NodePort
+  selector:
+    app: qbittorrent
+  ports:
+    - name: webui
+      port: 8080
+      targetPort: 8080
+      nodePort: 30425
+      protocol: TCP
+    - name: traffic
+      port: 31425
+      targetPort: 31425
+      nodePort: 31425
+      protocol: TCP

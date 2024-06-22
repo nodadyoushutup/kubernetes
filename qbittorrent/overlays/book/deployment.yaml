@@ -1,0 +1,34 @@
+# qbittorrent/overlays/book/deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  labels:
+    app: qbittorrent
+    type: book
+spec:
+  template:
+    spec:
+      serviceAccountName: qbittorrent-book-sa
+      initContainers:
+      - name: pvc-bound
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-book-cm
+      - name: set-config
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-book-cm
+      containers:
+      - name: qbittorrent
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-book-cm
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: qbittorrent-book-pvc
+      - name: script
+        configMap:
+          name: qbittorrent-book-cm

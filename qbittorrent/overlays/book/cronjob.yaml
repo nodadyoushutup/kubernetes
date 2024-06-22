@@ -1,0 +1,29 @@
+# qbittorrent/qbittorrent-cronjob.yaml
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-tarshot
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: qbittorrent-book-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+          containers:
+          - name: tarshot
+            envFrom:
+              - configMapRef:
+                  name: qbittorrent-book-cm
+          volumes:
+          - name: script
+            configMap:
+              name: qbittorrent-book-cm
+              defaultMode: 0755
+          - name: config
+            persistentVolumeClaim:
+              claimName: qbittorrent-book-pvc
+              readOnly: false
+          - name: backup
+            nfs:
+              path: /mnt/epool/backup/qbittorrent-book
