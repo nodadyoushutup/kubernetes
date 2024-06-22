@@ -14,4 +14,4 @@ spec:
     - name: webui
       protocol: TCP
       port: 8080
-      targetPort: 30025
+      targetPort: 30125
