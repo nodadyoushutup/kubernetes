@@ -7,12 +7,12 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: qbittorrent
+    - name: qbittorrent-movie
       port: 8080
       targetPort: 8080
       nodePort: 30125
       protocol: TCP
-    - name: qbittorrent-traffic
+    - name: qbittorrent-movie-traffic
       port: 31125
       targetPort: 31125
       nodePort: 31125
