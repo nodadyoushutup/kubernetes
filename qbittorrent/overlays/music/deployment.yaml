@@ -4,6 +4,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment
+  labels:
+    app: qbittorrent
+    type: music
 spec:
   template:
     spec:
