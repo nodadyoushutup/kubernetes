@@ -38,6 +38,7 @@ data:
 
     [BitTorrent]
     Session\AddExtensionToIncompleteFiles=true
+    Session\BTProtocol=TCP
     Session\CheckingMemUsageSize=2048
     Session\DHTEnabled=false
     Session\DefaultSavePath=/media/storage
