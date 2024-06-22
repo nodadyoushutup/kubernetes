@@ -7,7 +7,7 @@ resources:
   - rolebinding.yaml
   - persistentvolumeclaim.yaml
   - deployment.yaml
-  - service.yaml
+  # - service.yaml
   # - cronjob.yaml
   # - debug.yaml
 
