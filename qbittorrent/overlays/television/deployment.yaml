@@ -5,7 +5,8 @@ kind: Deployment
 metadata:
   name: deployment
   labels:
-    k8s-app: qbittorrent-television
+    app: qbittorrent
+    type: television
 spec:
   template:
     spec:
