@@ -52,5 +52,5 @@ else
     echo "Configuration file already exists at $CONF_FILE. Checking contents."
 
     # Call the function with your specific key-value pair and section
-    add_config_to_section "WebUI\\HostHeaderValidation" "false" "Preferences" "$CONF_FILE"
+    # add_config_to_section "WebUI\\HostHeaderValidation" "false" "Preferences" "$CONF_FILE"
 fi
