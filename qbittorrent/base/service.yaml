@@ -3,12 +3,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc
+  name: qbittorrent
+  labels:
+    app: qbittorrent
 spec:
-  type: NodePort
+  type: LoadBalancer
+  selector:
+    app: qbittorrent
   ports:
-    - name: qbittorrent
-      port: 8080
-      targetPort: 8080
-      nodePort: 30025
+    - name: webui
       protocol: TCP
+      port: 8080
+      targetPort: 30025
