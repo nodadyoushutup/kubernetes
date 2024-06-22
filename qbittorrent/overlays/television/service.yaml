@@ -7,7 +7,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: qbittorrent-television
+    - name: qbittorrent
       port: 8080
       targetPort: 8080
       nodePort: 30225
