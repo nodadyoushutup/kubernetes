@@ -25,8 +25,8 @@ spec:
       targetPort: 31325
       nodePort: 31325
       protocol: TCP
-    - name: qbittorrent-music-traffic-udp
-      port: 31325
-      targetPort: 31325
-      nodePort: 31325
-      protocol: UDP
+    # - name: qbittorrent-music-traffic-udp
+    #   port: 31325
+    #   targetPort: 31325
+    #   nodePort: 31325
+    #   protocol: UDP
