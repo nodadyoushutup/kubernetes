@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-DEFAULT_FILE="/script/qBittorrent-default.conf"
+DEFAULT_FILE="/tmp/git/script/qbittorrent-default.conf"
 CONF_FILE="/config/qBittorrent/qBittorrent.conf"
 
 # Function to add a configuration key-value pair to a specified section
