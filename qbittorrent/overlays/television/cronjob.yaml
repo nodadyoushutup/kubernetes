@@ -1,0 +1,29 @@
+# qbittorrent/qbittorrent-cronjob.yaml
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-tarshot
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: qbittorrent-television-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+          containers:
+          - name: tarshot
+            envFrom:
+              - configMapRef:
+                  name: qbittorrent-television-cm
+          volumes:
+          - name: script
+            configMap:
+              name: qbittorrent-television-cm
+              defaultMode: 0755
+          - name: config
+            persistentVolumeClaim:
+              claimName: qbittorrent-television-pvc
+              readOnly: false
+          - name: backup
+            nfs:
+              path: /mnt/epool/backup/qbittorrent-television

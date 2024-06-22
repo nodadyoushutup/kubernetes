@@ -1,0 +1,32 @@
+# qbittorrent/base/service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-webui
+spec:
+  type: NodePort
+  ports:
+    - name: qbittorrent-television-webui
+      port: 8080
+      targetPort: 8080
+      nodePort: 30225
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-traffic
+spec:
+  type: NodePort
+  ports:
+    - name: qbittorrent-television-traffic-tcp
+      port: 31225
+      targetPort: 31225
+      nodePort: 31225
+      protocol: TCP
+    - name: qbittorrent-television-traffic-udp
+      port: 31225
+      targetPort: 31225
+      nodePort: 31225
+      protocol: UDP

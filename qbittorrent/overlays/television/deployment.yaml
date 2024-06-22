@@ -1,0 +1,31 @@
+# qbittorrent/overlays/television/deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  template:
+    spec:
+      serviceAccountName: qbittorrent-television-sa
+      initContainers:
+      - name: pvc-bound
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-television-cm
+      - name: set-config
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-television-cm
+      containers:
+      - name: qbittorrent
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-television-cm
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: qbittorrent-television-pvc
+      - name: script
+        configMap:
+          name: qbittorrent-television-cm
