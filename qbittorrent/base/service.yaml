@@ -12,8 +12,3 @@ spec:
       targetPort: 8080
       nodePort: 30025
       protocol: TCP
-    - name: qbittorrent-traffic
-      port: 31025
-      targetPort: 31025
-      nodePort: 31025
-      protocol: TCP
