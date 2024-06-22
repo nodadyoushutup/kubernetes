@@ -1,4 +1,4 @@
-# qbittorrent/base/service.yaml
+# qbittorrent/overlays/television/service.yaml
 ---
 apiVersion: v1
 kind: Service
