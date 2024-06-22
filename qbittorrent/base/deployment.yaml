@@ -4,8 +4,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment
-  labels:
-    k8s-app: qbittorrent
 spec:
   replicas: 1
   revisionHistoryLimit: 0
