@@ -20,8 +20,13 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - name: qbittorrent
+    - name: qbittorrent-traffic-tcp
       port: 31025
       targetPort: 31025
       nodePort: 31025
       protocol: TCP
+    - name: qbittorrent-traffic-udp
+      port: 31025
+      targetPort: 31025
+      nodePort: 31025
+      protocol: UDP
