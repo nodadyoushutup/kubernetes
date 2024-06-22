@@ -6,6 +6,9 @@ metadata:
   name: svc-webui
 spec:
   type: NodePort
+  selector:
+    app: qbittorrent
+    type: movie
   ports:
     - name: qbittorrent-movie-webui
       port: 8080
@@ -19,14 +22,12 @@ metadata:
   name: svc-traffic
 spec:
   type: NodePort
+  selector:
+    app: qbittorrent
+    type: movie
   ports:
-    - name: qbittorrent-movie-traffic-tcp
+    - name: qbittorrent-movie-traffic
       port: 31125
       targetPort: 31125
       nodePort: 31125
       protocol: TCP
-    - name: qbittorrent-movie-traffic-udp
-      port: 31125
-      targetPort: 31125
-      nodePort: 31125
-      protocol: UDP
