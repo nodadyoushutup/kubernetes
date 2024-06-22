@@ -9,9 +9,6 @@ metadata:
     type: television
 spec:
   template:
-    labels:
-      app: qbittorrent
-      type: television
     spec:
       serviceAccountName: qbittorrent-television-sa
       initContainers:
