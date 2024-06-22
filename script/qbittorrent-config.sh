@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+PORT_TRAFFIC=${PORT_TRAFFIC:-31025}
 DEFAULT_FILE="/tmp/git/conf/qbittorrent-default.conf"
 CONF_FILE="/config/qBittorrent/qBittorrent.conf"
 
