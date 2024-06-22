@@ -17,3 +17,8 @@ commonLabels:
 
 commonAnnotations:
   app: qbittorrent-annontations
+
+configMapGenerator:
+  - name: cm
+    behavior: merge
+    env: config.properties
