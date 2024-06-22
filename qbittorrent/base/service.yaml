@@ -12,7 +12,7 @@ spec:
     app: qbittorrent
   ports:
     - name: qbittorrent
-      protocol: TCP
       port: 8080
-      targetPort: 30125
+      targetPort: 8080
       nodePort: 30125
+      protocol: TCP
