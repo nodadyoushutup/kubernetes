@@ -1,0 +1,29 @@
+# qbittorrent/qbittorrent-cronjob.yaml
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-tarshot
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: qbittorrent-music-sa                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+          containers:
+          - name: tarshot
+            envFrom:
+              - configMapRef:
+                  name: qbittorrent-music-cm
+          volumes:
+          - name: script
+            configMap:
+              name: qbittorrent-music-cm
+              defaultMode: 0755
+          - name: config
+            persistentVolumeClaim:
+              claimName: qbittorrent-music-pvc
+              readOnly: false
+          - name: backup
+            nfs:
+              path: /mnt/epool/backup/qbittorrent-music

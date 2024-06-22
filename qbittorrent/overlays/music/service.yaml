@@ -1,0 +1,32 @@
+# qbittorrent/base/service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-webui
+spec:
+  type: NodePort
+  ports:
+    - name: qbittorrent-music-webui
+      port: 8080
+      targetPort: 8080
+      nodePort: 30325
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-traffic
+spec:
+  type: NodePort
+  ports:
+    - name: qbittorrent-music-traffic-tcp
+      port: 31325
+      targetPort: 31325
+      nodePort: 31325
+      protocol: TCP
+    - name: qbittorrent-music-traffic-udp
+      port: 31325
+      targetPort: 31325
+      nodePort: 31325
+      protocol: UDP

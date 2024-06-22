@@ -1,32 +1,32 @@
-# qbittorrent/base/service.yaml
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: svc-webui
-spec:
-  type: NodePort
-  ports:
-    - name: qbittorrent-webui
-      port: 8080
-      targetPort: 8080
-      nodePort: 30025
-      protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: svc-traffic
-spec:
-  type: NodePort
-  ports:
-    - name: qbittorrent-traffic-tcp
-      port: 31025
-      targetPort: 31025
-      nodePort: 31025
-      protocol: TCP
-    - name: qbittorrent-traffic-udp
-      port: 31025
-      targetPort: 31025
-      nodePort: 31025
-      protocol: UDP
+# # qbittorrent/base/service.yaml
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: svc-webui
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: qbittorrent-webui
+#       port: 8080
+#       targetPort: 8080
+#       nodePort: 30025
+#       protocol: TCP
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: svc-traffic
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: qbittorrent-traffic-tcp
+#       port: 31025
+#       targetPort: 31025
+#       nodePort: 31025
+#       protocol: TCP
+#     - name: qbittorrent-traffic-udp
+#       port: 31025
+#       targetPort: 31025
+#       nodePort: 31025
+#       protocol: UDP

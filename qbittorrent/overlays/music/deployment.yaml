@@ -1,0 +1,31 @@
+# qbittorrent/overlays/music/deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  template:
+    spec:
+      serviceAccountName: qbittorrent-music-sa
+      initContainers:
+      - name: pvc-bound
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-music-cm
+      - name: set-config
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-music-cm
+      containers:
+      - name: qbittorrent
+        envFrom:
+          - configMapRef:
+              name: qbittorrent-music-cm
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: qbittorrent-music-pvc
+      - name: script
+        configMap:
+          name: qbittorrent-music-cm
