@@ -11,12 +11,12 @@ spec:
   selector:
     app: qbittorrent
   ports:
-    - name: webui
+    - name: qbittorrent-movie-webui
       port: 8080
       targetPort: 8080
       nodePort: 30125
       protocol: TCP
-    - name: traffic
+    - name: qbittorrent-movie-traffic
       port: 31125
       targetPort: 31125
       nodePort: 31125
