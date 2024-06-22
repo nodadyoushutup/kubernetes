@@ -1,0 +1,17 @@
+---
+# readarr-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: readarr-svc
+  namespace: readarr
+spec:
+  selector:
+    k8s-app: readarr
+  type: NodePort
+  ports:
+    - name: readarr
+      port: 8787
+      targetPort: 8787
+      nodePort: 30087
+      protocol: TCP
