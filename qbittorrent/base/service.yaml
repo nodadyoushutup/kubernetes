@@ -11,8 +11,13 @@ spec:
   selector:
     app: qbittorrent
   ports:
-    - name: qbittorrent
+    - name: webui
       port: 8080
       targetPort: 8080
-      nodePort: 30125
+      nodePort: 30025
+      protocol: TCP
+    - name: traffic
+      port: 31025
+      targetPort: 31025
+      nodePort: 31025
       protocol: TCP
