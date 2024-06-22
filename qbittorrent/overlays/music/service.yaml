@@ -15,19 +15,3 @@ spec:
       targetPort: 8080
       nodePort: 30325
       protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: svc-traffic
-spec:
-  type: NodePort
-  selector:
-    app: qbittorrent
-    type: music
-  ports:
-    - name: qbittorrent-music-traffic-tcp
-      port: 31325
-      targetPort: 31325
-      nodePort: 31325
-      protocol: TCP
