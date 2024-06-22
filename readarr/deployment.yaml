@@ -61,12 +61,12 @@ spec:
           mountPath: /backup
         - name: media
           mountPath: /media
-        readinessProbe:
-          httpGet:
-            path: /ping
-            port: 7878
-          initialDelaySeconds: 10
-          periodSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /ping
+        #     port: 7878
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 10
       volumes:
       - name: config
         persistentVolumeClaim:
