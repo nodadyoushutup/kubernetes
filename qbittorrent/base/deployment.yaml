@@ -59,6 +59,8 @@ spec:
           mountPath: /config
         - name: media
           mountPath: /media
+        - name: torrents
+          mountPath: /torrents
         readinessProbe:
           httpGet:
             path: /
@@ -77,3 +79,7 @@ spec:
         nfs:
           server: 192.168.0.100
           path: /mnt/epool/media
+      - name: torrents
+        nfs:
+          server: 192.168.0.100
+          path: /mnt/epool/config/torrents
