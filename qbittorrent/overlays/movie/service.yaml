@@ -3,37 +3,29 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc
+  name: svc-webui
 spec:
   type: NodePort
   ports:
     - name: qbittorrent
       port: 8080
       targetPort: 8080
-      nodePort: 30125
+      nodePort: 30025
       protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc
+  name: svc-traffic
 spec:
   type: NodePort
   ports:
-    - name: qbittorrent
+    - name: qbittorrent-traffic-tcp
       port: 31125
       targetPort: 31125
       nodePort: 31125
       protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: svc
-spec:
-  type: NodePort
-  ports:
-    - name: qbittorrent
+    - name: qbittorrent-traffic-udp
       port: 31125
       targetPort: 31125
       nodePort: 31125
