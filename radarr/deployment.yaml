@@ -27,16 +27,12 @@ spec:
           - name: script
             mountPath: /script
       - name: init-run
-        image: bitnami/kubectl:latest
+        image: ghcr.io/nodadyoushutup/init:latest
         imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/init-run.sh"]
+        command: ["sh", "/script/radarr.sh"]
         volumeMounts:
-          - name: init
-            mountPath: /init
-          - name: config
-            mountPath: /config
-          - name: script
-            mountPath: /script
+          - name: app
+            mountPath: /app
         securityContext:
           runAsUser: 0
       containers:
@@ -68,7 +64,7 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 10
       volumes:
-      - name: config
+      - name: app
         persistentVolumeClaim:
           claimName: radarr-pvc
           readOnly: false
