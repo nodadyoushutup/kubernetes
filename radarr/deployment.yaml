@@ -31,7 +31,7 @@ spec:
         imagePullPolicy: IfNotPresent
         command: ["sh", "/script/radarr.sh"]
         volumeMounts:
-          - name: app
+          - name: config
             mountPath: /app
         securityContext:
           runAsUser: 0
@@ -64,10 +64,6 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 10
       volumes:
-      - name: app
-        persistentVolumeClaim:
-          claimName: radarr-pvc
-          readOnly: false
       - name: config
         persistentVolumeClaim:
           claimName: radarr-pvc
