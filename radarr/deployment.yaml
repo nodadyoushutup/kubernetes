@@ -68,6 +68,10 @@ spec:
         persistentVolumeClaim:
           claimName: radarr-pvc
           readOnly: false
+      - name: config
+        persistentVolumeClaim:
+          claimName: radarr-pvc
+          readOnly: false
       - name: backup
         nfs:
           server: 192.168.0.100
