@@ -1,89 +1,89 @@
-# radarr-dply.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: radarr-dpl
-  namespace: radarr
-  labels:
-    k8s-app: radarr
-spec:
-  replicas: 1
-  revisionHistoryLimit: 0
-  selector:
-    matchLabels:
-      k8s-app: radarr
-  template:
-    metadata:
-      labels:
-        k8s-app: radarr
-    spec:
-      serviceAccountName: radarr-sa
-      initContainers:
-      - name: init-pvc-bound
-        image: bitnami/kubectl:latest
-        imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/init-pvc-bound.sh"]
-        volumeMounts:
-          - name: script
-            mountPath: /script
-      - name: init-run
-        image: ghcr.io/nodadyoushutup/init:latest
-        imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/radarr.sh"]
-        volumeMounts:
-          - name: config
-            mountPath: /app
-        securityContext:
-          runAsUser: 0
-      containers:
-      - name: radarr
-        image: linuxserver/radarr:5.7.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 7878
-        env:
-        - name: UMASK_SET
-          value: "022"
-        - name: TZ
-          value: "America/New_York"
-        - name: PUID
-          value: "568"
-        - name: PGID
-          value: "568"
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        - name: backup
-          mountPath: /backup
-        - name: media
-          mountPath: /media
-        readinessProbe:
-          httpGet:
-            path: /ping
-            port: 7878
-          initialDelaySeconds: 10
-          periodSeconds: 10
-      volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: radarr-pvc
-          readOnly: false
-      - name: backup
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/backup/radarr
-          readOnly: false
-      - name: media
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/media
-          readOnly: false
-      - name: init
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/init
-          readOnly: false
-      - name: script
-        configMap:
-          name: radarr-cm
-          defaultMode: 0755
+# # radarr-dply.yaml
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: radarr-dpl
+#   namespace: radarr
+#   labels:
+#     k8s-app: radarr
+# spec:
+#   replicas: 1
+#   revisionHistoryLimit: 0
+#   selector:
+#     matchLabels:
+#       k8s-app: radarr
+#   template:
+#     metadata:
+#       labels:
+#         k8s-app: radarr
+#     spec:
+#       serviceAccountName: radarr-sa
+#       initContainers:
+#       - name: init-pvc-bound
+#         image: bitnami/kubectl:latest
+#         imagePullPolicy: IfNotPresent
+#         command: ["sh", "/script/init-pvc-bound.sh"]
+#         volumeMounts:
+#           - name: script
+#             mountPath: /script
+#       - name: init-run
+#         image: ghcr.io/nodadyoushutup/init:latest
+#         imagePullPolicy: IfNotPresent
+#         command: ["sh", "/script/radarr.sh"]
+#         volumeMounts:
+#           - name: config
+#             mountPath: /app
+#         securityContext:
+#           runAsUser: 0
+#       containers:
+#       - name: radarr
+#         image: linuxserver/radarr:5.7.0
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 7878
+#         env:
+#         - name: UMASK_SET
+#           value: "022"
+#         - name: TZ
+#           value: "America/New_York"
+#         - name: PUID
+#           value: "568"
+#         - name: PGID
+#           value: "568"
+#         volumeMounts:
+#         - name: config
+#           mountPath: /config
+#         - name: backup
+#           mountPath: /backup
+#         - name: media
+#           mountPath: /media
+#         readinessProbe:
+#           httpGet:
+#             path: /ping
+#             port: 7878
+#           initialDelaySeconds: 10
+#           periodSeconds: 10
+#       volumes:
+#       - name: config
+#         persistentVolumeClaim:
+#           claimName: radarr-pvc
+#           readOnly: false
+#       - name: backup
+#         nfs:
+#           server: 192.168.0.100
+#           path: /mnt/epool/backup/radarr
+#           readOnly: false
+#       - name: media
+#         nfs:
+#           server: 192.168.0.100
+#           path: /mnt/epool/media
+#           readOnly: false
+#       - name: init
+#         nfs:
+#           server: 192.168.0.100
+#           path: /mnt/epool/init
+#           readOnly: false
+#       - name: script
+#         configMap:
+#           name: radarr-cm
+#           defaultMode: 0755
