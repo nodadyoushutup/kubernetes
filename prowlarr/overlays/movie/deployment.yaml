@@ -13,6 +13,10 @@ spec:
         envFrom:
           - configMapRef:
               name: prowlarr-movie-cm
+      - name: init-run
+        envFrom:
+          - configMapRef:
+              name: prowlarr-movie-cm
       containers:
       - name: prowlarr
         envFrom:
