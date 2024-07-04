@@ -13,6 +13,10 @@ spec:
         envFrom:
           - configMapRef:
               name: prowlarr-music-cm
+      - name: init-run
+        envFrom:
+          - configMapRef:
+              name: prowlarr-music-cm
       containers:
       - name: prowlarr
         envFrom:
