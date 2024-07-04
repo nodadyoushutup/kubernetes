@@ -14,7 +14,7 @@ spec:
           - configMapRef:
               name: prowlarr-movie-cm
       - name: init-run
-        image: ghcr.io/nodadyoushutup/init:latest
+        image: ghcr.io/nodadyoushutup/init:0.0.6
         imagePullPolicy: IfNotPresent
         command: ["sh", "/script/prowlarr-movie.sh"]
         volumeMounts:
