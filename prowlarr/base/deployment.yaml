@@ -26,6 +26,15 @@ spec:
         envFrom:
           - configMapRef:
               name: prowlarr-cm
+      - name: init-run
+        image: ghcr.io/nodadyoushutup/init:0.0.7
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "/script/prowlarr.sh"]
+        volumeMounts:
+          - name: config
+            mountPath: /app
+        securityContext:
+          runAsUser: 0
       containers:
       - name: prowlarr
         image: linuxserver/prowlarr:latest
