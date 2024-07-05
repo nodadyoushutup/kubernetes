@@ -8,5 +8,8 @@
   "commitMessagePrefix": "[DEP] ",
   "assignees": ["nodadyoushutup"],
   "reviewers": ["nodadyoushutup"],
-  "addLabels": ["renovate"]
+  "addLabels": ["renovate"],
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$"]
+  }
 }
