@@ -20,7 +20,7 @@ spec:
       serviceAccountName: radarr-sa
       initContainers:
       - name: init
-        image: ghcr.io/nodadyoushutup/init:0.0.19
+        image: ghcr.io/nodadyoushutup/init:0.0.20
         imagePullPolicy: IfNotPresent
         command: ["/bin/bash", "-c", "/script/arr.sh"]
         volumeMounts:
