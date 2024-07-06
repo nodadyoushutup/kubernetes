@@ -8,10 +8,9 @@ metadata:
 spec:
   selector:
     k8s-app: radarr
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: radarr
       port: 7878
       targetPort: 7878
-      nodePort: 30078
       protocol: TCP
