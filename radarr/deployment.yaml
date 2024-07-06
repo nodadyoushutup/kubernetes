@@ -22,7 +22,7 @@ spec:
       - name: init
         image: ghcr.io/nodadyoushutup/init:0.0.17
         imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/radarr.sh"]
+        command: ["/bin/bash", "-c", "/script/radarr.sh"]
         volumeMounts:
           - name: config
             mountPath: /app
