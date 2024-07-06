@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jellyseerr-rb
+  namespace: jellyseerr
+subjects:
+- kind: ServiceAccount
+  name: jellyseerr-sa
+  namespace: jellyseerr
+roleRef:
+  kind: Role
+  name: jellyseerr-role
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,55 @@
+# jellyseerr-dply.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyseerr-dpl
+  namespace: jellyseerr
+  labels:
+    k8s-app: jellyseerr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      k8s-app: jellyseerr
+  template:
+    metadata:
+      labels:
+        k8s-app: jellyseerr
+    spec:
+      serviceAccountName: jellyseerr-sa
+      initContainers:
+      - name: pvc-bound
+        image: bitnami/kubectl:latest
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "/script/pvc-bound.sh"]
+        volumeMounts:
+          - name: script
+            mountPath: /script
+      containers:
+      - name: jellyseerr
+        image: fallenbagel/jellyseerr:preview-postgres
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5055
+        env:
+        - name: UMASK_SET
+          value: "022"
+        - name: TZ
+          value: "America/New_York"
+        - name: PUID
+          value: "568"
+        - name: PGID
+          value: "568"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: jellyseerr-pvc
+          readOnly: false
+      - name: script
+        configMap:
+          name: jellyseerr-cm
+          defaultMode: 0755
