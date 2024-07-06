@@ -7,7 +7,7 @@ metadata:
   labels:
     k8s-app: radarr
 spec:
-  replicas: 3
+  replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -20,7 +20,7 @@ spec:
       serviceAccountName: radarr-sa
       initContainers:
       - name: init
-        image: ghcr.io/nodadyoushutup/init:0.0.14
+        image: ghcr.io/nodadyoushutup/init:0.0.15
         imagePullPolicy: IfNotPresent
         command: ["sh", "/script/radarr.sh"]
         volumeMounts:
