@@ -1,0 +1,98 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: radarr-cm
+#   namespace: radarr
+# data:
+#   init-run.sh: |
+#     #!/bin/sh
+#     set -e
+#     export NAMESPACE='radarr'
+#     git clone https://github.com/nodadyoushutup/kubernetes.git
+#     ./kubernetes/script/init.sh
+#   init-pvc-bound.sh: |
+#     #!/bin/sh
+#     echo "Waiting for PVC to be bound..."
+#     until [ "$(kubectl get pvc radarr-pvc -n radarr -o jsonpath='{.status.phase}')" = "Bound" ]; do
+#       echo "PVC not bound yet. Waiting..."
+#       sleep 2
+#     done
+#     echo "PVC is bound."
+#   radarr-volumesnapshot-tarshot.yaml: |
+#     apiVersion: snapshot.storage.k8s.io/v1
+#     kind: VolumeSnapshot
+#     metadata:
+#       name: radarr-volumesnapshot-tarshot
+#       namespace: radarr
+#     spec:
+#       volumeSnapshotClassName: rook-cephfs-snapshot-class
+#       source:
+#         persistentVolumeClaimName: radarr-pvc
+#   radarr-pvc-tarshot.yaml: |
+#     apiVersion: v1
+#     kind: PersistentVolumeClaim
+#     metadata:
+#       name: radarr-pvc-tarshot
+#       namespace: radarr
+#     spec:
+#       accessModes:
+#       - ReadWriteMany
+#       resources:
+#         requests:
+#           storage: 100Gi
+#       storageClassName: rook-cephfs
+#       dataSource:
+#         name: radarr-volumesnapshot-tarshot
+#         kind: VolumeSnapshot
+#         apiGroup: snapshot.storage.k8s.io
+#   radarr-job-tarshot.yaml: |
+#     apiVersion: batch/v1
+#     kind: Job
+#     metadata:
+#       name: radarr-job-tarshot
+#       namespace: radarr
+#     spec:
+#       template:
+#         spec:
+#           containers:
+#           - name: tarcopy
+#             image: busybox
+#             command: ["sh", "/script/tarshot-copy.sh"]
+#             securityContext:
+#               privileged: true
+#               runAsUser: 568
+#               runAsGroup: 568
+#             volumeMounts:
+#             - name: pvc
+#               mountPath: /pvc
+#             - name: nfs
+#               mountPath: /nfs
+#             - name: script
+#               mountPath: /script
+#           restartPolicy: OnFailure
+#           volumes:
+#           - name: pvc
+#             persistentVolumeClaim:
+#               claimName: radarr-pvc-tarshot
+#           - name: nfs
+#             nfs:
+#               server: 192.168.0.100
+#               path: /mnt/epool/tarshot/radarr
+#               readOnly: false
+#           - name: script
+#             configMap:
+#               name: radarr-cm
+#               defaultMode: 0755
+#   tarshot-run.sh: |
+#     #!/bin/sh
+#     set -e
+#     export NAMESPACE='radarr'
+#     git clone https://github.com/nodadyoushutup/kubernetes.git
+#     ./kubernetes/script/tarshot.sh
+#   tarshot-copy.sh: |
+#     #!/bin/sh
+#     echo "Starting job at $(date)"
+#     BACKUP_FILE="/nfs/radarr_backup_$(date +%Y_%m_%d_%H_%M_%S).tar.gz"
+#     tar -czf ${BACKUP_FILE} /pvc
+#     chown 568:568 ${BACKUP_FILE}
+#     echo "Job completed at $(date)"
