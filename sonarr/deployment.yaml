@@ -20,9 +20,9 @@ spec:
       serviceAccountName: sonarr-sa
       initContainers:
       - name: init
-        image: ghcr.io/nodadyoushutup/init:0.0.18
+        image: ghcr.io/nodadyoushutup/init:0.0.19
         imagePullPolicy: IfNotPresent
-        command: ["/bin/bash", "-c", "/script/sonarr.sh"]
+        command: ["/bin/bash", "-c", "/script/arr.sh"]
         volumeMounts:
           - name: config
             mountPath: /app
