@@ -28,9 +28,9 @@ spec:
             mountPath: /app
         securityContext:
           runAsUser: 0
-        env:
-        - name: NAMESPACE
-          value: radarr
+        envFrom:
+          - configMapRef:
+              name: radarr-cm
       containers:
       - name: radarr
         image: linuxserver/radarr:5.7.0
