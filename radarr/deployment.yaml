@@ -19,14 +19,7 @@ spec:
     spec:
       serviceAccountName: radarr-sa
       initContainers:
-      - name: pvc-bound
-        image: bitnami/kubectl:latest
-        imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/pvc-bound.sh"]
-        volumeMounts:
-          - name: script
-            mountPath: /script
-      - name: init-run
+      - name: init
         image: ghcr.io/nodadyoushutup/init:latest
         imagePullPolicy: IfNotPresent
         command: ["sh", "/script/radarr.sh"]
@@ -35,6 +28,9 @@ spec:
             mountPath: /app
         securityContext:
           runAsUser: 0
+        env:
+        - name: NAMESPACE
+          value: radarr
       containers:
       - name: radarr
         image: linuxserver/radarr:5.7.0
