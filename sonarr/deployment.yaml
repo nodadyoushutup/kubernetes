@@ -2,12 +2,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sonarr-dpl
+  name: sonarr-deploy
   namespace: sonarr
   labels:
     k8s-app: sonarr
 spec:
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -19,37 +19,27 @@ spec:
     spec:
       serviceAccountName: sonarr-sa
       initContainers:
-      - name: pvc-bound
-        image: bitnami/kubectl:latest
+      - name: init
+        image: ghcr.io/nodadyoushutup/init:0.0.18
         imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/pvc-bound.sh"]
-        volumeMounts:
-          - name: script
-            mountPath: /script
-      - name: init-run
-        image: ghcr.io/nodadyoushutup/init:latest
-        imagePullPolicy: IfNotPresent
-        command: ["sh", "/script/sonarr.sh"]
+        command: ["/bin/bash", "-c", "/script/sonarr.sh"]
         volumeMounts:
           - name: config
             mountPath: /app
         securityContext:
           runAsUser: 0
+        envFrom:
+          - configMapRef:
+              name: sonarr-cm
       containers:
       - name: sonarr
-        image: linuxserver/sonarr:latest
+        image: linuxserver/sonarr:4.0.6
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8989
-        env:
-        - name: UMASK_SET
-          value: "022"
-        - name: TZ
-          value: "America/New_York"
-        - name: PUID
-          value: "568"
-        - name: PGID
-          value: "568"
+        envFrom:
+        - configMapRef:
+            name: sonarr-cm
         volumeMounts:
         - name: config
           mountPath: /config
