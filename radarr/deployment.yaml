@@ -2,12 +2,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: radarr-dpl
+  name: radarr-deploy
   namespace: radarr
   labels:
     k8s-app: radarr
 spec:
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -20,7 +20,7 @@ spec:
       serviceAccountName: radarr-sa
       initContainers:
       - name: init
-        image: ghcr.io/nodadyoushutup/init:0.0.14
+        image: ghcr.io/nodadyoushutup/init:latest
         imagePullPolicy: IfNotPresent
         command: ["sh", "/script/radarr.sh"]
         volumeMounts:
@@ -67,9 +67,4 @@ spec:
         nfs:
           server: 192.168.0.100
           path: /mnt/epool/media
-          readOnly: false
-      - name: init
-        nfs:
-          server: 192.168.0.100
-          path: /mnt/epool/init
           readOnly: false
