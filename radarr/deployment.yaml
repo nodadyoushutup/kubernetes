@@ -39,7 +39,7 @@ spec:
         - containerPort: 7878
         envFrom:
         - configMapRef:
-            name: radarr-config
+            name: radarr-cm
         volumeMounts:
         - name: config
           mountPath: /config
