@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  project: default
+  sources:
+    - chart: cert-manager
+      repoURL: https://charts.jetstack.io
+      targetRevision: 1.15.1
+      # helm:
+      #   valueFiles:
+      #   - $values/cert-manager/values.yaml
+    - repoURL: https://github.com/nodadyoushutup/kubernetes
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
