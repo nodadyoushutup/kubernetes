@@ -1,17 +1,17 @@
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: letsencrypt
-spec:
-  acme:
-    email: admin@nodadyoushutup.com
-    server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-      name: example-issuer-account-key
-    solvers:
-    - dns01:
-        cloudflare:
-          email: jacobfholland@gmail.com
-          apiKeySecretRef:
-            name: cloudflare-api-key-secret
-            key: api-key
+# apiVersion: cert-manager.io/v1
+# kind: Issuer
+# metadata:
+#   name: letsencrypt
+# spec:
+#   acme:
+#     email: admin@nodadyoushutup.com
+#     server: https://acme-v02.api.letsencrypt.org/directory
+#     privateKeySecretRef:
+#       name: example-issuer-account-key
+#     solvers:
+#     - dns01:
+#         cloudflare:
+#           email: jacobfholland@gmail.com
+#           apiKeySecretRef:
+#             name: cloudflare-api-key-secret
+#             key: api-key
