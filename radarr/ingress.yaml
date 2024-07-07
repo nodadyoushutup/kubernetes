@@ -8,10 +8,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - nodadyoushutup.com
-    secretName: radarr-tls
+  # tls:
+  # - hosts:
+  #   - radarr.nodadyoushutup.com
+  #   secretName: radarr-tls
   rules:
   - http:
       paths:
