@@ -4,16 +4,17 @@ metadata:
   name: radarr-ingress
   namespace: radarr
   annotations:
-    # cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
-  # tls:
-  # - hosts:
-  #   - radarr.nodadyoushutup.com
-  #   secretName: radarr-tls
+  tls:
+  - hosts:
+    - radarr.nodadyoushutup.com
+    secretName: radarr-tls
   rules:
-  - http:
+  - host: radarr.nodadyoushutup.com
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -22,4 +23,3 @@ spec:
             name: radarr-svc
             port:
               number: 7878
-    host: radarr.nodadyoushutup.com
