@@ -10,7 +10,7 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - '*'
+    - '*.nodadyoushutup.com'
     secretName: radarr-tls
   rules:
   - http:
