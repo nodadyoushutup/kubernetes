@@ -13,7 +13,8 @@ spec:
   #   - nodadyoushutup.com
   #   secretName: radarr-tls
   rules:
-  - http:
+  - host: radarr.nodadyoushutup.com
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -22,4 +23,4 @@ spec:
             name: radarr-svc
             port:
               number: 7878
-    host: radarr.nodadyoushutup.com
+    
