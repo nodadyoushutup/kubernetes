@@ -16,6 +16,7 @@ spec:
       #   valueFiles:
       #   - $values/cert-manager/values.yaml
     - repoURL: https://github.com/nodadyoushutup/kubernetes
+      path: cert-manager
       targetRevision: HEAD
       ref: values
   syncPolicy:
