@@ -11,7 +11,7 @@ spec:
     solvers:
     - dns01:
         cloudflare:
-          email: jacobfholland@gmail.com
+          email: admin@nodadyoushutup.com
           apiKeySecretRef:
             name: cloudflare-api-key-secret
             key: api-key
