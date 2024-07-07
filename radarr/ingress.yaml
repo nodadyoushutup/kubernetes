@@ -6,11 +6,11 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - host: radarr.example.com
-    http:
+  - http:
       paths:
-      - path: /
+      - path: /radarr
         pathType: Prefix
         backend:
           service:
