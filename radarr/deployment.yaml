@@ -33,7 +33,7 @@ spec:
               name: radarr-cm
       containers:
       - name: radarr
-        image: linuxserver/radarr:5.7.0
+        image: linuxserver/radarr:5.12.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7878
